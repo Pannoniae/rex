@@ -1,6 +1,6 @@
 # local and target
 
-Two new script keywords. `local` and `target` work in any faction, settlement, or character argument, across every command and condition, in both RTW and M2TW. So you can stop typing faction names you already know from the event.
+Inside an event you already know which faction, settlement, or character it concerns: the attacker, the besieged town, whoever just moved. `local` and `target` are two new keywords that let you point at them directly, instead of hardcoding a name you already know. They work in every command and condition that takes a faction, settlement, or character argument, in both RTW and M2TW.
 
 ```
 monitor_event GeneralAssaultsResidence TrueCondition
@@ -8,12 +8,14 @@ monitor_event GeneralAssaultsResidence TrueCondition
 end_monitor
 ```
 
-`local` is the event's actor (the attacker here). `target` is the event's target (the defender). Same with settlements. Characters only get `local`, because no event has a "target character" yet, so writing `target` in a character slot logs an error and skips the line.
+In an event, `local` is the actor and `target` is the other side. For `GeneralAssaultsResidence` that makes `local` the attacking faction and `target` the defending one. Settlement arguments split the same way: `local` is the event's settlement and `target` the other settlement involved.
 
-Outside an event, like in the dev console or in scripts that run at game start, `local` falls back to the UI: your faction, the last settlement you clicked, the last character you clicked. `target` has no fallback. It just fails.
+Characters only get `local`. No event tracks a target character yet, so writing `target` in a character argument logs an error and skips the line.
+
+Outside an event, in the dev console or in scripts that run at game start, `local` falls back to whatever the UI has selected: your faction, the last settlement you clicked, the last character you clicked. `target` has no such fallback, so using it outside an event logs an error and skips the line.
 
 Three things this doesn't help with:
 
-- Regions. `freeze_recruit_pool` is the only command that takes a region, and no event tracks a "current region". Spell out the region name.
-- Faction lists, like the `factions { ... }` block in `historic_event`. You can only use one faction name, not a set. Use `all` or list factions explicitly.
-- `sub_faction` inside `spawn_army`. The value bakes at parse time, so writing `local` there does nothing.
+- Regions have no shorthand. `freeze_recruit_pool` is the only command that takes a region, and no event tracks a current region, so there is nothing for `local` to resolve to. Name the region directly.
+- Faction lists, like the `factions { ... }` block in `historic_event`, take a set of factions rather than one. `local` only ever resolves to a single faction, so it cannot fill a list. Use `all`, or list the factions explicitly.
+- `sub_faction` inside `spawn_army` is read once, when the script file is first parsed, long before any event fires. `local` has nothing to resolve to that early, so it does nothing there.
