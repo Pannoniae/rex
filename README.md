@@ -1,6 +1,6 @@
 # About
 
-REX/M2EX are a fan made (unofficial) patches Rome: Total War and Medieval II> Total War.
+REX/M2EX are a fan made (unofficial) patches Rome: Total War and Medieval II: Total War.
 This project aims to modernise both games into the modern era so they no longer feel dated and clunky.
 
 Main features:
