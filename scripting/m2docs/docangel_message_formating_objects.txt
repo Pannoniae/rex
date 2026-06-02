@@ -1,0 +1,174 @@
+Message Object Type:	damage_report
+Function:			Shows lists of settlements, buildings, characters etc affected by a disaster
+Parameters:			A list of stored message details for which the damage reports will be extracted
+Initialise with:		const DYNAMIC_ARRAY<COLLATED_MESSAGE_DETAILS, card32> &
+*****************************************************************
+
+Message Object Type:	movie
+Function:			Shows an mpg in the message scroll
+Parameters:			{width, height} - width and height of window mpg is to be played in.  Probably best if this is the same as the dimenstions of the movie to be played
+Initialise with:		const UNI_STRING &, int32, int32
+*****************************************************************
+
+Message Object Type:	collated_queue_display
+Function:			Shows the details of each settlements recruitment or construction queue
+Parameters:			<font type> <item spacing>
+Initialise with:		const DYNAMIC_ARRAY<COLLATED_MSG_DETAILS> &
+*****************************************************************
+
+Message Object Type:	collated_approval_display
+Function:			Shows the details of each settlements building contributing to pope approval / dissaproval
+Parameters:			<font type> <item spacing>
+Initialise with:		const DYNAMIC_ARRAY<COLLATED_MSG_DETAILS> &
+*****************************************************************
+
+Message Object Type:	collated_msg_display
+Function:			Shows an image, title, sub title and string with the image on the left, and the three strings on the right of the image
+Parameters:			<font type> <item spacing> <image type> <image path> <title string id> <sub title string id> - image_path can be the name of an event (so it will use the title image from that event), or a path to an image, image type is either <event> or <dynamic>, event images conform to a strict sizing rule, whereas dynamic images can be any size, title string (from event_titles.txt), and subtitle string (from event_strings.txt) are optional (but to get a subtitle, there must be a title
+Initialise with:		const DYNAMIC_ARRAY<UNI_STRING> &
+*****************************************************************
+
+Message Object Type:	mini_image
+Function:			A small format image
+Parameters:			justification, image path (optional - If no image path is supplied then the object must be initialised with one)
+Initialise with:		const RESOURCE_ID &
+*****************************************************************
+
+Message Object Type:	faction_pair_list
+Function:			Shows a list of pairs of mini faction logo plus their names
+Parameters:			font type, colour
+Initialise with:		const DYNAMIC_ARRAY<PAIR<FACTION_TYPE, FACTION_TYPE>, card32> &
+*****************************************************************
+
+Message Object Type:	faction_standing_list
+Function:			Shows a list of mini faction logo, their names plus their relationship
+Parameters:			font type, colour
+Initialise with:		const DYNAMIC_ARRAY<PAIR<FACTION_TYPE, float32>, card32> &
+*****************************************************************
+
+Message Object Type:	faction_second_list
+Function:			Shows a faction logo plus its name, uses same data as faction_pair_list
+Parameters:			font type, colour
+Initialise with:		const DYNAMIC_ARRAY<PAIR<FACTION_TYPE, FACTION_TYPE>, card32> &
+*****************************************************************
+
+Message Object Type:	character_trait_list
+Function:			Shows list of all characters vices and virtues
+Parameters:			none
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	divider
+Function:			<col> - 'khaki', 'black' or specify r,g,b(,a - optional)
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	partition
+Function:			Shows textured divider
+Parameters:			width (optional - if no width is supplied then table width will be used)
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	element_list
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	string
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	spacer
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	title
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	multistring
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	bodystring
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	integer
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	title_image
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	image
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	accept
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	decline
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	ui_element
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	group
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	table
+Function:			Takes a UI_TABLE & and reformats it into the message
+Parameters:			UI_TABLE &
+Initialise with:		UI_TABLE &
+*****************************************************************
+
+Message Object Type:	condition
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	switch
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+
+Message Object Type:	list
+Function:			
+Parameters:			
+Initialise with:		
+*****************************************************************
+

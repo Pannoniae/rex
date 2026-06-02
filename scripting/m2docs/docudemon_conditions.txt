@@ -1,0 +1,4021 @@
+Triggers, conditions and events
+===============================
+
+Triggers are data objects consisting of an event on which to test, a number of
+conditions, and a list of effects.  These effects can be upon character traits
+or upon advice, although this could easily be extended to other domains of
+activity such as the world, the empire, diplomacy &c.
+
+The triggers themselves are not encoded in the project - they are read in from
+an external file and instantiations of triggers are stored in an array indexed
+by their event.
+
+If you wish to add new triggers, consult the list of extant triggers and see if
+you are merely redefining a trigger that already exists.  You can do this by
+examining the advice and VnV spreadsheets.  If you are satisfied that this is
+indeed a new trigger, ask yourself when the trigger should be tested, and under
+what conditions the trigger should fire.  If either the condition or the event
+is unavailable, request from Guy that they be added to the set.
+
+Conditions which take no logic_token in their parameter list can be negated by
+prepending them with not, e.g. not WonBattle
+
+The events are in events.txt.  This document contains the current set of
+conditions.  They are:
+
+---------------------------------------------------
+Identifier:              I_InBattle
+Trigger requirements:    
+Parameters:              None
+Sample use:              InBattle
+Description:             Are we in battle?
+Battle or Strat:         Either
+Class:                   IN_BATTLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              WonBattle
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              WonBattle
+Description:             Did the general win the battle just fought?
+Battle or Strat:         Either
+Class:                   WON_BATTLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_WonBattle
+Trigger requirements:    
+Parameters:              None
+Sample use:              I_WonBattle romans_julii
+Description:             Did the faction win the battle just fought?
+Battle or Strat:         Either
+Class:                   I_WON_BATTLE
+Implemented:             No
+---------------------------------------------------
+Identifier:              Routs
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              Routs
+Description:             Did the general's unit rout in the battle just fought?
+Battle or Strat:         Either
+Class:                   ROUTS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              Ally_Routs
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              Ally_Routs
+Description:             Did any ally's general's units rout in the battle just fought?
+Battle or Strat:         Either
+Class:                   ALLY_ROUTS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GeneralHPLostRatioinBattle
+Trigger requirements:    character_record
+Parameters:              logic token, test value
+Sample use:              GeneralHPLostRatioinBattle > 35.8
+Description:             Test to see what the HP lost ratio of the prior battle was
+Battle or Strat:         Either
+Class:                   GENERALS_LOST_HP_RATIO_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GeneralNumKillsInBattle
+Trigger requirements:    character_record
+Parameters:              logic token, test value
+Sample use:              GeneralNumKillsInBattle > 4
+Description:             Test to see how many kills the character scored in the prior battle was
+Battle or Strat:         Either
+Class:                   GENERAL_ENEMIES_KILLED_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GeneralFoughtInCombat
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              GeneralFoughtInCombat
+Description:             Test to see if the character entered combat in the prior battle
+Battle or Strat:         Either
+Class:                   GENERAL_FOUGHT_IN_COMBAT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PercentageOfArmyKilled
+Trigger requirements:    character_record
+Parameters:              logic token, test value
+Sample use:              PercentageOfArmyKilled > 35.8
+Description:             Test to see what percentage of their men they lost in the prior battle
+Battle or Strat:         Either
+Class:                   PERCENTAGE_OF_ARMY_KILLED_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_PercentageOfArmyKilled
+Trigger requirements:    
+Parameters:              alliance_index army_index logic_token percentage
+Sample use:              I_PercentageOfArmyKilled 1 0 < 50
+Description:             Tests the percentage of casualties taken by the specified army during this battle
+Battle or Strat:         Battle
+Class:                   BATTLE_PERCENTAGE_OF_ARMY_KILLED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PercentageEnemyKilled
+Trigger requirements:    character_record
+Parameters:              logic token, test value
+Sample use:              PercentageEnemyKilled > 35.8
+Description:             Test to see what percentage of the enemy was killed in the prior battle
+Battle or Strat:         Either
+Class:                   PERCENTAGE_OF_ENEMY_KILLED_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PercentageBodyguardKilled
+Trigger requirements:    character_record
+Parameters:              logic token, test value
+Sample use:              PercentageBodyguardKilled > 35.8
+Description:             Test to see what percentage of their bodyguard was killed in the prior battle
+Battle or Strat:         Either
+Class:                   PERCENTAGE_OF_GENERALS_UNIT_KILLED_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PercentageRoutedOffField
+Trigger requirements:    character_record
+Parameters:              logic token, test value
+Sample use:              PercentageRoutedOffField > 35.8
+Description:             Test to see the percentage of the character's soldiers who routed
+Battle or Strat:         Either
+Class:                   PERCENTAGE_ROUTED_OFF_FIELD_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              NumKilledGenerals
+Trigger requirements:    character_record
+Parameters:              logic token, test value
+Sample use:              NumKilledGenerals > 3
+Description:             Test to see how many generals were killed
+Battle or Strat:         Either
+Class:                   GENERALS_ARMY_KILLED_GENERALS_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PercentageUnitCategory
+Trigger requirements:    character_record
+Parameters:              unit category (infantry, cavalry, siege, non_combatant, ship, handler), logic token, test value
+Sample use:              PercentageUnitCategory handler > 35.8
+Description:             Test to see what percentage of the army were of a particular category
+Battle or Strat:         Either
+Class:                   GENERALS_ARMY_PERCENTAGE_OF_UNIT_CATEGORY_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              NumFriendsInBattle
+Trigger requirements:    character_record
+Parameters:              logic token, test value
+Sample use:              NumFriendsInBattle < 50
+Description:             Test the number of soldiers and officers in allied armies
+Battle or Strat:         Either
+Class:                   NUM_FRIENDS_IN_BATTLE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              NumEnemiesInBattle
+Trigger requirements:    character_record
+Parameters:              logic token, test value
+Sample use:              NumEnemiesInBattle > 300
+Description:             Test the number of soldiers and officers in enemy armies
+Battle or Strat:         Either
+Class:                   NUM_ENEMIES_IN_BATTLE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GeneralFoughtFaction
+Trigger requirements:    character_record
+Parameters:              faction type
+Sample use:              GeneralFoughtFaction romans_julii
+Description:             Test to see whether the opponent was of a particular faction in the prior battle
+Battle or Strat:         Either
+Class:                   FOUGHT_FACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GeneralFoughtCulture
+Trigger requirements:    character_record
+Parameters:              culture type (roman, barbarian, carthaginian, greek, egyptian, eastern)
+Sample use:              GeneralFoughtCulture greek
+Description:             Test to see whether the opponent was of a particular culture in the prior battle
+Battle or Strat:         Either
+Class:                   FOUGHT_CULTURE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_ConflictType
+Trigger requirements:    
+Parameters:              conflict type (SuccessfulAmbush, FailedAmbush, Normal, Siege, SallyBesieger, Naval, Withdraw)
+Sample use:              I_ConflictType SuccessfulAmbush
+Description:             Test the type of conflict (ambush, siege &c.)
+Battle or Strat:         Either
+Class:                   BATTLE_CONFLICT_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsNightBattle
+Trigger requirements:    
+Parameters:              None
+Sample use:              IsNightBattle
+Description:             Test if this is a night battle
+Battle or Strat:         Either
+Class:                   IS_NIGHT_BATTLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleSuccess
+Trigger requirements:    character_record
+Parameters:              success type (close, average, clear, crushing)
+Sample use:              BattleSuccess = clear, BattleSuccess > close
+Description:             Test the type of success
+Battle or Strat:         Either
+Class:                   BATTLE_SUCCESS_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleOdds
+Trigger requirements:    character_record
+Parameters:              logic token, test value
+Sample use:              BattleOdds > 5
+Description:             Test the odds to win i.e. 5 (5:1)
+Battle or Strat:         Either
+Class:                   BATTLE_ODDS_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              WasAttacker
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              WasAttacker
+Description:             Was the character the aggressor?
+Battle or Strat:         Either
+Class:                   CHARACTER_WAS_ATTACKER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleAiAttacking
+Trigger requirements:    
+Parameters:              logic token
+Sample use:              I_BattleAiAttacking
+Description:             Is the enemy ai planning to attack the player?
+Battle or Strat:         Battle
+Class:                   BATTLE_AI_ATTACKING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleAiAssaultingCrossing
+Trigger requirements:    
+Parameters:              logic token
+Sample use:              I_BattleAiAssaultingCrossing
+Description:             Is the enemy ai planning to assault the river crossing?
+Battle or Strat:         Battle
+Class:                   BATTLE_AI_ASSAULTING_CROSSING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleAiAttackingSettlement
+Trigger requirements:    
+Parameters:              logic token
+Sample use:              I_BattleAiAttackingSettlement
+Description:             Is the enemy ai planning to attack the player's settlement?
+Battle or Strat:         Battle
+Class:                   BATTLE_AI_ATTACKING_SETTLEMENT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleAiDefendingSettlement
+Trigger requirements:    
+Parameters:              logic token
+Sample use:              I_BattleAiDefendingSettlement
+Description:             Is the enemy ai planning to defend it's settlement?
+Battle or Strat:         Battle
+Class:                   BATTLE_AI_DEFENDING_SETTLEMENT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleAiDefendingHill
+Trigger requirements:    
+Parameters:              logic token
+Sample use:              I_BattleAiDefendingHill
+Description:             Is the enemy ai planning to defend a hill?
+Battle or Strat:         Battle
+Class:                   BATTLE_AI_DEFENDING_HILL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleAiDefendingCrossing
+Trigger requirements:    
+Parameters:              logic token
+Sample use:              I_BattleAiDefendingCrossing
+Description:             Is the enemy ai planning to defend a crossing?
+Battle or Strat:         Battle
+Class:                   BATTLE_AI_DEFENDING_CROSSING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleAiScouting
+Trigger requirements:    
+Parameters:              logic token
+Sample use:              I_BattleAiScouting
+Description:             Is the enemy ai planning to scout?
+Battle or Strat:         Battle
+Class:                   BATTLE_AI_SCOUTING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleIsRiverBattle
+Trigger requirements:    
+Parameters:              integer
+Sample use:              I_BattleIsRiverBattle
+Description:             Is this a river battle?
+Battle or Strat:         Battle
+Class:                   BATTLE_IS_RIVER_BATTLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleIsSiegeBattle
+Trigger requirements:    
+Parameters:              integer
+Sample use:              I_BattleIsSiegeBattle
+Description:             Is this a siege battle?
+Battle or Strat:         Battle
+Class:                   BATTLE_IS_SIEGE_BATTLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleIsSallyOutBattle
+Trigger requirements:    
+Parameters:              integer
+Sample use:              I_BattleIsSallyOutBattle
+Description:             Is this a sally out battle?
+Battle or Strat:         Battle
+Class:                   BATTLE_IS_SALLY_OUT_BATTLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleIsFortBattle
+Trigger requirements:    
+Parameters:              integer
+Sample use:              I_BattleIsFortBattle
+Description:             Is this a fort battle?
+Battle or Strat:         Battle
+Class:                   BATTLE_IS_FORT_BATTLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleAttackerNumSiegeEngines
+Trigger requirements:    
+Parameters:              siege_engine_class (tower, ram, ladder, sap_point)
+Sample use:              I_BattleAttackerNumSiegeEngines ladder
+Description:             How many of this engine type are present?
+Battle or Strat:         Battle
+Class:                   BATTLE_ATTACKER_NUM_SIEGE_ENGINES
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleAttackerNumArtilleryCanPenetrateWalls
+Trigger requirements:    
+Parameters:              logic token, number
+Sample use:              I_BattleAttackerNumArtilleryCanPenetrateWalls > 5
+Description:             How many of the attackers artillery can penetrate the siege walls
+Battle or Strat:         Battle
+Class:                   BATTLE_ATTACKER_NUM_ARTILLERY_CAN_PENETRATE_WALLS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleDefenderNumNonMissileUnitsOnWalls
+Trigger requirements:    
+Parameters:              logic token, number
+Sample use:              I_BattleDefenderNumNonMissileUnitsOnWalls > 5
+Description:             How many of the defenders non-missile units are on the walls
+Battle or Strat:         Battle
+Class:                   BATTLE_DEFENDER_NUM_NON_MISSILE_UNITS_ON_WALLS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleDefenderNumMissileUnitsOnWalls
+Trigger requirements:    
+Parameters:              logic token, number
+Sample use:              I_BattleDefenderNumMissileUnitsOnWalls > 5
+Description:             How many of the defenders missile units are on the walls
+Battle or Strat:         Battle
+Class:                   BATTLE_DEFENDER_NUM_MISSILE_UNITS_ON_WALLS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleSettlementWallsBreached
+Trigger requirements:    
+Parameters:              none
+Sample use:              I_BattleSettlementWallsBreached
+Description:             Have the walls of the settlement been breached?
+Battle or Strat:         Battle
+Class:                   BATTLE_SETTLEMENT_WALLS_BREACHED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleSettlementGateDestroyed
+Trigger requirements:    
+Parameters:              none
+Sample use:              I_BattleSettlementGateDestroyed
+Description:             Has a gate in the settlement been destroyed?
+Battle or Strat:         Battle
+Class:                   BATTLE_SETTLEMENT_GATE_DESTROYED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleSettlementTowerDefence
+Trigger requirements:    
+Parameters:              tower defence type (arrow_tower, ballista_tower, none)
+Sample use:              not I_BattleSettlementTowerDefence arrow_tower
+Description:             What type of tower defence is this settlement equipped with?
+Battle or Strat:         Battle
+Class:                   BATTLE_SETTLEMENT_TOWER_DEFENCE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleSettlementFortificationLevel
+Trigger requirements:    
+Parameters:              wall level (none, 0, 1, 2, 3, 4)
+Sample use:              I_BattleSettlementFortificationLevel > 0
+Description:             What is the fortification level of this settlement?
+Battle or Strat:         Battle
+Class:                   BATTLE_SETTLEMENT_FORTIFICATION_LEVEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleBuildingType
+Trigger requirements:    
+Parameters:              building type (ambient, major, wall, tower, gate)
+Sample use:              BattleBuildingType = wall
+Description:             What type of building is this?
+Battle or Strat:         Battle
+Class:                   BATTLE_BUILDING_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleSettlementGateStrength
+Trigger requirements:    
+Parameters:              gate strength (0..2)
+Sample use:              I_BattleSettlementGateStrength > 2
+Description:             What is the strength of the settlement gates?
+Battle or Strat:         Battle
+Class:                   BATTLE_SETTLEMENT_GATE_STRENGTH
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleNumberOfRiverCrossings
+Trigger requirements:    
+Parameters:              integer
+Sample use:              I_BattleNumberOfRiverCrossings > 1
+Description:             How many river crossings are there on this map?
+Battle or Strat:         Battle
+Class:                   BATTLE_NUMBER_OF_RIVER_CROSSINGS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitClass
+Trigger requirements:    player_unit
+Parameters:              unit_class (heavy, light, skirmish, spearmen, missile)
+Sample use:              BattlePlayerUnitClass = unit_class
+Description:             What is the class of the player unit?
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitClass
+Trigger requirements:    enemy_unit
+Parameters:              unit_class (heavy, light, skirmish, spearmen, missile)
+Sample use:              BattleEnemyUnitClass = unit_class
+Description:             What is the class of the enemy unit?
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitCategory
+Trigger requirements:    player_unit
+Parameters:              unit category (infantry, cavalry, siege, non_combatant, ship, handler)
+Sample use:              BattlePlayerUnitCategory = unit_category
+Description:             What is the category of the player unit?
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_CATEGORY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitCategory
+Trigger requirements:    enemy_unit
+Parameters:              unit category (infantry, cavalry, siege, non_combatant, ship, handler)
+Sample use:              BattleEnemyUnitCategory = unit_category
+Description:             What is the category of the enemy unit?
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_CATEGORY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitSiegeEngineClass
+Trigger requirements:    player_unit
+Parameters:              siege engine category (catapult, trebuchet, ballista, scorpion, tower, ram, ladder, sap_point)
+Sample use:              BattlePlayerUnitSiegeEngineClass = scorpion
+Description:             What type of siege engine is the player unit?
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_SIEGE_ENGINE_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitSiegeEngineClass
+Trigger requirements:    enemy_unit
+Parameters:              siege engine category (catapult, trebuchet, ballista, scorpion, tower, ram, ladder, sap_point)
+Sample use:              BattleEnemyUnitSiegeEngineClass = scorpion
+Description:             What type of siege engine is the enemy unit?
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_SIEGE_ENGINE_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitOnWalls
+Trigger requirements:    player_unit
+Parameters:              none
+Sample use:              BattlePlayerUnitOnWalls
+Description:             Is the player unit on the walls?
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_ON_WALLS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitOnWalls
+Trigger requirements:    enemy_unit
+Parameters:              none
+Sample use:              BattleEnemyUnitOnWalls
+Description:             Is the enemy unit on the walls?
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_ON_WALLS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerCurrentFormation
+Trigger requirements:    player_unit
+Parameters:              formation (horde, column, square, wedge, square_hollow, testudo, phalanx)
+Sample use:              BattlePlayerCurrentFormation = phalanx
+Description:             What is the current formation of the player unit?
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_CURRENT_FORMATION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyCurrentFormation
+Trigger requirements:    enemy_unit
+Parameters:              formation (horde, column, square, wedge, square_hollow, testudo, phalanx)
+Sample use:              BattleEnemyCurrentFormation = unit_formation
+Description:             What is the current formation of the enemy unit?
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_CURRENT_FORMATION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitCloseFormation
+Trigger requirements:    player_unit
+Parameters:              none
+Sample use:              BattlePlayerUnitCloseFormation
+Description:             Is the player unit in close formation, otherwise loose?
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_CLOSE_FORMATION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitCloseFormation
+Trigger requirements:    enemy_unit
+Parameters:              none
+Sample use:              BattleEnemyUnitCloseFormation
+Description:             Is the enemy unit in close formation, otherwise loose?
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_CLOSE_FORMATION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitSpecialAbilitySupported
+Trigger requirements:    player_unit
+Parameters:              special_ability ( testudo, phalanx, wedge, drop_engines, flaming_ammo, warcry, chant, curse, beserk, rally, kill_elephants, move_and_shoot, cantabrian_circle, shield_wall, stealth, feigned_rout, schiltrom )
+Sample use:              BattlePlayerUnitSpecialAbilitySupported = flaming_ammo
+Description:             What special ability can the player unit support?
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_SPECIAL_ABILITY_SUPPORTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitSpecialAbilitySupported
+Trigger requirements:    enemy_unit
+Parameters:              special_ability ( testudo, phalanx, wedge, drop_engines, flaming_ammo, warcry, chant, curse, beserk, rally, kill_elephants, move_and_shoot, cantabrian_circle, shield_wall, stealth, feigned_rout, schiltrom )
+Sample use:              BattleEnemyUnitSpecialAbilitySupported = flaming_ammo
+Description:             What special ability can the enemy unit support?
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_SPECIAL_ABILITY_SUPPORTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitSpecialAbilityActive
+Trigger requirements:    player_unit
+Parameters:              none
+Sample use:              BattlePlayerUnitSpecialAbilityActive
+Description:             Is the player unit currently doing its special ability
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_SPECIAL_ABILITY_ACTIVE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitSpecialAbilityActive
+Trigger requirements:    enemy_unit
+Parameters:              none
+Sample use:              BattleEnemyUnitSpecialAbilityActive
+Description:             Is the enemy unit currently doing its special ability
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_SPECIAL_ABILITY_ACTIVE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerMountClass
+Trigger requirements:    player_unit
+Parameters:              mount_class (horse, camel, elephant, chariot)
+Sample use:              BattlePlayerMountClass = mount_class
+Description:             What is the mount class of the player unit?
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_MOUNT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyMountClass
+Trigger requirements:    enemy_unit
+Parameters:              mount_class (horse, camel, elephant, chariot)
+Sample use:              BattleEnemyMountClass = mount_class
+Description:             What is the mount class of the enemy unit?
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_MOUNT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitMeleeStrength
+Trigger requirements:    player_unit
+Parameters:              logic token, test value
+Sample use:              BattlePlayerUnitMeleeStrength > 56.45
+Description:             Compare the melee strength of a unit with a known value
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_MELEE_STRENGTH
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitMeleeStrength
+Trigger requirements:    enemy_unit
+Parameters:              logic token, test value
+Sample use:              BattleEnemyUnitMeleeStrength > 56.45
+Description:             Compare the melee strength of a unit with a known value
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_MELEE_STRENGTH
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitMissileStrength
+Trigger requirements:    player_unit
+Parameters:              logic token, test value
+Sample use:              BattlePlayerUnitMissileStrength > 56.45
+Description:             Compare the missile strength of a unit with a known value
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_MISSILE_STRENGTH
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitMissileStrength
+Trigger requirements:    enemy_unit
+Parameters:              logic token, test value
+Sample use:              BattleEnemyUnitMissileStrength > 56.45
+Description:             Compare the missile strength of a unit with a known value
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_MISSILE_STRENGTH
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitSpecialFormation
+Trigger requirements:    player_unit
+Parameters:              formation (horde, column, square, wedge, square_hollow, testudo, phalanx), test value
+Sample use:              BattlePlayerUnitSpecialFormation = testudo
+Description:             What is the special formation of the player unit
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_SPECIAL_FORMATION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitSpecialFormation
+Trigger requirements:    enemy_unit
+Parameters:              formation (horde, column, square, wedge, square_hollow, testudo, phalanx), test value
+Sample use:              BattleEnemyUnitSpecialFormation = testudo
+Description:             What is the special formation of the enemy unit
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_SPECIAL_FORMATION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitEngaged
+Trigger requirements:    player_unit
+Parameters:              None
+Sample use:              BattlePlayerUnitEngaged
+Description:             Is the player unit engaged in battle
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_ENGAGED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitEngaged
+Trigger requirements:    enemy_unit
+Parameters:              None
+Sample use:              BattleEnemyUnitEngaged
+Description:             Is the enemy unit engaged in battle
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_ENGAGED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerActionStatus
+Trigger requirements:    player_unit
+Parameters:              Action status ( idling, hiding, ready, reforming, moving, withdrawing, missiles_firing, missiles_reloading, charging, fighting, pursuing, routing, fighting_backs_to_the_walls, running_amok, infighting, rallying, dead, leaving_battle, entering_battle, left_battle )
+Sample use:              BattlePlayerActionStatus = moving
+Description:             What is the current action status of the player unit
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ACTION_STATUS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyActionStatus
+Trigger requirements:    enemy_unit
+Parameters:              Action status ( idling, hiding, ready, reforming, moving, withdrawing, missiles_firing, missiles_reloading, charging, fighting, pursuing, routing, fighting_backs_to_the_walls, running_amok, infighting, rallying, dead, leaving_battle, entering_battle, left_battle )
+Sample use:              BattleEnemyActionStatus = moving
+Description:             What is the current action status of the player unit
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ACTION_STATUS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlePlayerUnitMovingFast
+Trigger requirements:    player_unit
+Parameters:              None
+Sample use:              BattlePlayerUnitMovingFast
+Description:             Is the player unit moving fast
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_UNIT_MOVING_FAST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleEnemyUnitMovingFast
+Trigger requirements:    enemy_unit
+Parameters:              None
+Sample use:              BattleEnemyUnitMovingFast
+Description:             Is the enemy unit moving fast
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_UNIT_MOVING_FAST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleRangeOfAttack
+Trigger requirements:    player_unit, enemy_unit
+Parameters:              logic token, test value
+Sample use:              BattleRangeOfAttack > 56.45
+Description:             Test the range of the attack (in m)
+Battle or Strat:         Battle
+Class:                   BATTLE_RANGE_OF_ATTACK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleDirectionOfAttack
+Trigger requirements:    infer_attacking_unit, infer_defending_unit
+Parameters:              logic token, attack_dir (front, flank, rear)
+Sample use:              BattleDirectionOfAttack = front
+Description:             Test direction of the attack
+Battle or Strat:         Battle
+Class:                   BATTLE_DIRECTION_OF_ATTACK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleIsMeleeAttack
+Trigger requirements:    infer_attacking_unit
+Parameters:              None
+Sample use:              BattleIsMeleeAttack
+Description:             Is the attacker initiating a melee attack (otherwise missile attack)
+Battle or Strat:         Battle
+Class:                   BATTLE_IS_MELEE_ATTACK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyPercentageOfUnitClass
+Trigger requirements:    
+Parameters:              logic token, unit_class (heavy, light, skirmish, spearmen, missile), percentage
+Sample use:              I_BattlePlayerArmyPercentageOfUnitClass missile > 50.0
+Description:             Test makeup of army by unit class
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_PERCENTAGE_OF_UNIT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyPercentageOfUnitClass
+Trigger requirements:    
+Parameters:              logic token, unit_class (heavy, light, skirmish, spearmen, missile), percentage
+Sample use:              I_BattleEnemyArmyPercentageOfUnitClass missile > 50.0
+Description:             Test makeup of army by unit class
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_PERCENTAGE_OF_UNIT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyPercentageOfUnitCategory
+Trigger requirements:    
+Parameters:              logic token, unit category (infantry, cavalry, siege, non_combatant, ship, handler), percentage
+Sample use:              I_BattlePlayerArmyPercentageOfUnitCategory missile > 50.0
+Description:             Test makeup of army by unit category
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_PERCENTAGE_OF_UNIT_CATEGORY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyPercentageOfUnitCategory
+Trigger requirements:    
+Parameters:              logic token, unit category (infantry, cavalry, siege, non_combatant, ship, handler), percentage
+Sample use:              I_BattleEnemyArmyPercentageOfUnitCategory missile > 50.0
+Description:             Test makeup of army by unit category
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_PERCENTAGE_OF_UNIT_CATEGORY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyPercentageOfMountClass
+Trigger requirements:    
+Parameters:              logic token, mount_class (horse, camel, elephant, chariot), percentage
+Sample use:              I_BattlePlayerArmyPercentageOfMountClass camel > 50.0
+Description:             Test makeup of army by mount class
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_PERCENTAGE_OF_MOUNT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyPercentageOfMountClass
+Trigger requirements:    
+Parameters:              logic token, mount_class (horse, camel, elephant, chariot), percentage
+Sample use:              I_BattleEnemyArmyPercentageOfMountClass camel > 50.0
+Description:             Test makeup of army by mount class
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_PERCENTAGE_OF_MOUNT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyPercentageOfClassAndCategory
+Trigger requirements:    
+Parameters:              logic token, unit_class (heavy, light, skirmish, spearmen, missile), unit_category (infantry, cavalry, siege, non_combatant, ship, handler), percentage
+Sample use:              I_BattlePlayerArmyPercentageOfClassAndCategory missile cavalry > 50.0
+Description:             Test makeup of army by mount class
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_PERCENTAGE_OF_CLASS_AND_CATEGORY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyPercentageOfClassAndCategory
+Trigger requirements:    
+Parameters:              logic token, unit_class (heavy, light, skirmish, spearmen, missile), unit_category (infantry, cavalry, siege, non_combatant, ship, handler), percentage
+Sample use:              I_BattleEnemyArmyPercentageOfClassAndCategory missile cavalry > 50.0
+Description:             Test makeup of army by mount class
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_PERCENTAGE_OF_CLASS_AND_CATEGORY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyPercentageOfSpecialAbility
+Trigger requirements:    
+Parameters:              special_ability ( testudo, phalanx, wedge, drop_engines, flaming_ammo, warcry, chant, curse, beserk, rally, kill_elephants, move_and_shoot, cantabrian_circle, shield_wall, stealth, feigned_rout, schiltrom ), percentage
+Sample use:              I_BattlePlayerArmyPercentageOfSpecialAbility testudo > 50.0
+Description:             Test makeup of army by special ability
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_PERCENTAGE_OF_SPECIAL_ABILITY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyPercentageOfSpecialAbility
+Trigger requirements:    
+Parameters:              special_ability ( testudo, phalanx, wedge, drop_engines, flaming_ammo, warcry, chant, curse, beserk, rally, kill_elephants, move_and_shoot, cantabrian_circle, shield_wall, stealth, feigned_rout, schiltrom ), percentage
+Sample use:              I_BattleEnemyArmyPercentageOfSpecialAbility testudo > 50.0
+Description:             Test makeup of army by special ability
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_PERCENTAGE_OF_SPECIAL_ABILITY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyPercentageCanHide
+Trigger requirements:    
+Parameters:              logic token, hide_type (hide_forest, hide_improved_forest, hide_long_grass, hide_anywhere), percentage
+Sample use:              I_BattlePlayerArmyPercentageCanHide hide_forest > 50.0
+Description:             Test makeup of army by hide capability
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_PERCENTAGE_CAN_HIDE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyPercentageCanHide
+Trigger requirements:    
+Parameters:              logic token, hide_type (hide_forest, hide_improved_forest, hide_long_grass, hide_anywhere), percentage
+Sample use:              I_BattleEnemyArmyPercentageCanHide hide_forest > 50.0
+Description:             Test makeup of army by hide capability
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_PERCENTAGE_CAN_HIDE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyPercentageCanSwim
+Trigger requirements:    
+Parameters:              logic token, percentage
+Sample use:              I_BattlePlayerArmyPercentageCanSwim > 50.0
+Description:             Test makeup of army by swim capability
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_PERCENTAGE_CAN_SWIM
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyPercentageCanSwim
+Trigger requirements:    
+Parameters:              logic token, percentage
+Sample use:              I_BattleEnemyArmyPercentageCanSwim > 50.0
+Description:             Test makeup of army by swim capability
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_PERCENTAGE_CAN_SWIM
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyIsAttacker
+Trigger requirements:    
+Parameters:              logic token
+Sample use:              I_BattlePlayerArmyIsAttacker
+Description:             Is the player attacking
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_IS_ATTACKER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerAllianceOddsInFavour
+Trigger requirements:    
+Parameters:              logic token
+Sample use:              I_BattlePlayerAllianceOddsInFavour > 5
+Description:             Odds in favour of the player i.e. 5 (5:1)
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ALLIANCE_ODDS_IN_FAVOUR
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerAllianceOddsAgainst
+Trigger requirements:    
+Parameters:              logic token
+Sample use:              I_BattlePlayerAllianceOddsAgainst > 5
+Description:             Odds against the player i.e. 5 (5:1)
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ALLIANCE_ODDS_AGAINST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TotalSiegeWeapons
+Trigger requirements:    character_record
+Parameters:              logic token, number
+Sample use:              TotalSiegeWeapons = 0
+Description:             Test to see how many siege weapons this characters army has got for an assault.
+Battle or Strat:         Strat
+Class:                   TOTAL_NUMBER_OF_SIEGE_WEAPONS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleStarted
+Trigger requirements:    
+Parameters:              None
+Sample use:              I_BattleStarted
+Description:             Has the battle deployment phase ended
+Battle or Strat:         Battle
+Class:                   HAS_BATTLE_STARTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitMoveFastSet
+Trigger requirements:    
+Parameters:              unit_label
+Sample use:              I_IsUnitMoveFastSet roman_archers
+Description:             Is the specified unit flagged to move fast
+Battle or Strat:         Battle
+Class:                   IS_UNIT_MOVE_FAST_SET
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitMoving
+Trigger requirements:    
+Parameters:              unit_label
+Sample use:              I_IsUnitMoving roman_archers
+Description:             Is the specified unit moving
+Battle or Strat:         Battle
+Class:                   IS_UNIT_MOVING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitIdle
+Trigger requirements:    
+Parameters:              unit_label
+Sample use:              I_IsUnitIdle roman_archers
+Description:             Is the specified unit idle?
+Battle or Strat:         Battle
+Class:                   IS_UNIT_IDLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitStatus
+Trigger requirements:    
+Parameters:              unit_label, action_status
+Sample use:              I_UnitStatus roman_archers, idling
+Description:             Does the specified unit have certain status?
+Battle or Strat:         Battle
+Class:                   IS_UNIT_STATUS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitRouting
+Trigger requirements:    
+Parameters:              unit_label
+Sample use:              I_IsUnitRouting roman_archers
+Description:             Is the specified unit routing?
+Battle or Strat:         Battle
+Class:                   IS_UNIT_ROUTING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitUnderFire
+Trigger requirements:    
+Parameters:              unit_label
+Sample use:              I_IsUnitUnderFire roman_general_unit
+Description:             Is the specified unit recieving missile fire?
+Battle or Strat:         Battle
+Class:                   IS_UNIT_UNDER_FIRE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitEngaged
+Trigger requirements:    
+Parameters:              unit_label
+Sample use:              I_IsUnitEngaged roman_archers
+Description:             Is the specified unit engaged in combat?
+Battle or Strat:         Battle
+Class:                   IS_UNIT_ENGAGED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitEngagedWithUnit
+Trigger requirements:    
+Parameters:              unit_label other_unit_label
+Sample use:              I_IsUnitEngagedWithUnit roman_archers barb_cavalry
+Description:             Tests if one specified unit is engaged in combat with the other specified unit?
+Battle or Strat:         Battle
+Class:                   IS_UNIT_ENGAGED_WITH_UNIT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitFormation
+Trigger requirements:    
+Parameters:              unit_label logic_token formation_type
+Sample use:              I_UnitFormation hoplites4 = phalanx
+Description:             Is the specified unit in the specified formation
+Battle or Strat:         Battle
+Class:                   UNIT_FORMATION
+Implemented:             No
+---------------------------------------------------
+Identifier:              I_PercentageUnitKilled
+Trigger requirements:    
+Parameters:              unit_label logic_token percentage
+Sample use:              I_PercentageUnitKilled roman_archers > 50
+Description:             Tests the percentage of men lost from the specified unit
+Battle or Strat:         Battle
+Class:                   PERCENTAGE_UNIT_KILLED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitPercentageAmmoLeft
+Trigger requirements:    
+Parameters:              unit_label logic_token percentage
+Sample use:              I_UnitPercentageAmmoLeft roman_archers > 75
+Description:             Tests the percentage of ammo the unit has remaining
+Battle or Strat:         Battle
+Class:                   UNIT_PERCENTAGE_AMMO_LEFT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitDistanceFromPosition
+Trigger requirements:    
+Parameters:              unit_label pos_x pos_y logic_token distance
+Sample use:              I_UnitDistanceFromPosition roman_archers 100 -60 < 20
+Description:             Tests the specified unit's range from the given position
+Battle or Strat:         Battle
+Class:                   UNIT_DISTANCE_FROM_POSITION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitOrderedToPosition
+Trigger requirements:    
+Parameters:              unit_label pos_x pos_y logic_token distance
+Sample use:              I_UnitOrderedToPosition roman_archers 100 -60 < 20
+Description:             Tests if the unit is moving to a location within a set radius
+Battle or Strat:         Battle
+Class:                   UNIT_ORDERED_TO_POSITION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitDistanceFromLine
+Trigger requirements:    
+Parameters:              unit_label location_1 location_2 logic_token distance
+Sample use:              I_UnitDistanceFromLine roman_archers river_line_A river_line_B < 20
+Description:             Tests the specified unit's distance from the line (looking from A to B, a unit to the left of the line will give a negative distance, one on the right will be positive)
+Battle or Strat:         Battle
+Class:                   UNIT_DISTANCE_FROM_LINE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitDistanceFromUnit
+Trigger requirements:    
+Parameters:              unit_label1 unit_label2 logic_token distance
+Sample use:              I_UnitDistanceFromUnit roman_archers gaul_warband < 100
+Description:             Tests the 2 specified units' distance from each other
+Battle or Strat:         Battle
+Class:                   UNIT_DISTANCE_FROM_UNIT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitInRangeOfUnit
+Trigger requirements:    
+Parameters:              attacker_unit_label target_unit_label
+Sample use:              I_UnitInRangeOfUnit roman_archers gaul_warband
+Description:             Tests if the attacker can hit the target with missile weapons
+Battle or Strat:         Battle
+Class:                   UNIT_IN_RANGE_OF_UNIT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitDestroyed
+Trigger requirements:    
+Parameters:              unit_label
+Sample use:              I_UnitDestroyed roman_archers
+Description:             Has the specified unit been wiped out?
+Battle or Strat:         Battle
+Class:                   UNIT_DESTROYED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitEnemyUnitInRadius
+Trigger requirements:    
+Parameters:              unit_label radius
+Sample use:              I_UnitEnemyUnitInRadius roman_archers 100
+Description:             Tests if there is any enemy within the specified radius of the unit
+Battle or Strat:         Battle
+Class:                   UNIT_ENEMY_UNIT_IN_RADIUS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitGroupMoving
+Trigger requirements:    
+Parameters:              group_label
+Sample use:              I_IsUnitGroupMoving group1
+Description:             Is any unit in the group moving?
+Battle or Strat:         Battle
+Class:                   IS_UNIT_GROUP_MOVING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitGroupEngaged
+Trigger requirements:    
+Parameters:              group_label
+Sample use:              I_IsUnitGroupEngaged group1
+Description:             Is any unit in the group engaged in combat?
+Battle or Strat:         Battle
+Class:                   IS_UNIT_GROUP_ENGAGED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitGroupIdle
+Trigger requirements:    
+Parameters:              group_label
+Sample use:              I_IsUnitGroupIdle group1
+Description:             Are all units in the group idle?
+Battle or Strat:         Battle
+Class:                   IS_UNIT_GROUP_IDLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsUnitGroupDestroyed
+Trigger requirements:    
+Parameters:              group_label
+Sample use:              I_IsUnitGroupDestroyed group1
+Description:             Is the unit group destroyed (killed or routed)
+Battle or Strat:         Battle
+Class:                   IS_UNIT_GROUP_DESTROYED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_PercentageUnitGroupKilled
+Trigger requirements:    
+Parameters:              group_label logic_token percentage
+Sample use:              I_PercentageUnitGroupKilled roman_archers < 50
+Description:             Tests the percentage of men lost from the unit group
+Battle or Strat:         Battle
+Class:                   PERCENTAGE_UNIT_GROUP_KILLED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitGroupFormation
+Trigger requirements:    
+Parameters:              group_label logic_token formation_name
+Sample use:              I_UnitGroupFormation roman_archers = ordered_triple_line_1
+Description:             Tests the unit group's group formation
+Battle or Strat:         Battle
+Class:                   UNIT_GROUP_FORMATION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitGroupDistanceFromPosition
+Trigger requirements:    
+Parameters:              group_label position logic_token distance
+Sample use:              I_UnitGroupDistanceFromPosition roman_archers -20 -415 < 100
+Description:             Tests the unit_group's centre_front against the given position
+Battle or Strat:         Battle
+Class:                   UNIT_GROUP_DISTANCE_FROM_POSITION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitGroupDistanceFromGroup
+Trigger requirements:    
+Parameters:              group_label target_group_label logic_token distance
+Sample use:              I_UnitGroupDistanceFromGroup roman_archers gaul_swordsmen < 50
+Description:             Tests the distance between two unit groups
+Battle or Strat:         Battle
+Class:                   UNIT_GROUP_DISTANCE_FROM_GROUP
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitGroupInRangeOfUnit
+Trigger requirements:    
+Parameters:              group_label target_unit_label
+Sample use:              I_UnitGroupInRangeOfUnit archer_group enemy_unit1
+Description:             Tests if any unit in the group is within range of the target unit
+Battle or Strat:         Battle
+Class:                   UNIT_GROUP_IN_RANGE_OF_UNIT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitInRangeOfUnitGroup
+Trigger requirements:    
+Parameters:              unit_label target_group_label
+Sample use:              I_UnitInRangeOfUnitGroup roman_archers enemy_group3
+Description:             Tests if the unit is within range of any of the units in the target group
+Battle or Strat:         Battle
+Class:                   UNIT_IN_RANGE_OF_UNIT_GROUP
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitGroupInRangeOfUnitGroup
+Trigger requirements:    
+Parameters:              group_label target_group_label
+Sample use:              I_UnitGroupInRangeOfUnitGroup archer_group2 enemy_group6
+Description:             Tests if any unit in the group can hit any unit in the target group
+Battle or Strat:         Battle
+Class:                   UNIT_GROUP_IN_RANGE_OF_UNIT_GROUP
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_PlayerInRangeOfUnitGroup
+Trigger requirements:    
+Parameters:              group_label
+Sample use:              I_PlayerInRangeOfUnitGroup enemy_group2
+Description:             tests if any player unit is in range of any unit in the group
+Battle or Strat:         Battle
+Class:                   PLAYER_IN_RANGE_OF_UNIT_GROUP
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_PlayerInRangeOfUnit
+Trigger requirements:    
+Parameters:              unit_label
+Sample use:              I_PlayerInRangeOfUnit roman_archers
+Description:             Is any unit in the player's army in range of the specified unit
+Battle or Strat:         Battle
+Class:                   PLAYER_IN_RANGE_OF_UNIT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitTypeSelected
+Trigger requirements:    
+Parameters:              unit type ('type' from export_descr_units.txt)
+Sample use:              I_UnitTypeSelected roman archer auxillia
+Description:             Tests if the player has a particular unit type selected
+Battle or Strat:         Battle
+Class:                   UNIT_TYPE_SELECTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              UnitType
+Trigger requirements:    resource_description
+Parameters:              unit type ('type' from export_descr_units.txt)
+Sample use:              UnitType roman archer auxillia
+Description:             Tests if a unit is of a particular type
+Battle or Strat:         Either
+Class:                   UNIT_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitSelected
+Trigger requirements:    
+Parameters:              unit_label
+Sample use:              I_UnitSelected roman_archers
+Description:             Is the specified unit selected?
+Battle or Strat:         Battle
+Class:                   UNIT_SELECTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_MultipleUnitsSelected
+Trigger requirements:    
+Parameters:              None
+Sample use:              I_MultipleUnitsSelected
+Description:             Are multiple units selected?
+Battle or Strat:         Battle
+Class:                   MULTIPLE_UNITS_SELECTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_SpecificUnitsSelected
+Trigger requirements:    
+Parameters:              unit_label1, unit_label2, unit_label3, ...
+Sample use:              I_SpecificUnitsSelected roman_archers roman_hastati roman_gladiators1
+Description:             Tests if all the specified units are selected
+Battle or Strat:         Battle
+Class:                   SPECIFIC_UNITS_SELECTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsCameraZoomingToUnit
+Trigger requirements:    
+Parameters:              unit_label
+Sample use:              I_IsCameraZoomingToUnit roman_archers
+Description:             Tests if the camera is zooming to the specified unit
+Battle or Strat:         Battle
+Class:                   IS_CAMERA_ZOOMING_TO_UNIT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyPercentageOfMatchingUnits
+Trigger requirements:    
+Parameters:              unit match type, logic token, test value
+Sample use:              I_BattleEnemyArmyPercentageOfMatchingUnits has_dogs > 35.8
+Description:             Test to see what percentage of the enemy army matches a particular match category
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_PERCENTAGE_OF_UNIT_MATCHING_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyNumberOfMatchingUnits
+Trigger requirements:    
+Parameters:              unit match type, logic token, test value
+Sample use:              I_BattleEnemyArmyNumberOfMatchingUnits has_dogs > 2
+Description:             Test to see how many units of the enemy army match a particular match category
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_NUMBER_OF_UNIT_MATCHING_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyPercentageOfMatchingUnits
+Trigger requirements:    
+Parameters:              unit match type, logic token, test value
+Sample use:              I_BattlePlayerArmyPercentageOfMatchingUnits has_dogs > 35.8
+Description:             Test to see what percentage of the player's army matches a particular match category
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_PERCENTAGE_OF_UNIT_MATCHING_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyNumberOfMatchingUnits
+Trigger requirements:    
+Parameters:              unit match type, logic token, test value
+Sample use:              I_BattlePlayerArmyNumberOfMatchingUnits has_dogs > 2
+Description:             Test to see how many units of the player's army match a particular match category
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_NUMBER_OF_UNIT_MATCHING_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyNumberOfUnitClass
+Trigger requirements:    
+Parameters:              logic token, unit_class (heavy, light, skirmish, spearmen, missile), Integer
+Sample use:              I_BattlePlayerArmyNumberOfUnitClass missile > 2
+Description:             Test makeup of army by unit class
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_NUMBER_OF_UNIT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyNumberOfUnitClass
+Trigger requirements:    
+Parameters:              logic token, unit_class (heavy, light, skirmish, spearmen, missile), Integer
+Sample use:              I_BattleEnemyArmyNumberOfUnitClass missile > 5
+Description:             Test makeup of army by unit class
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_NUMBER_OF_UNIT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyNumberOfUnitCategory
+Trigger requirements:    
+Parameters:              logic token, unit category (infantry, cavalry, siege, non_combatant, ship, handler), Integer
+Sample use:              I_BattlePlayerArmyNumberOfUnitCategory missile > 5
+Description:             Test makeup of army by unit category
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_NUMBER_OF_UNIT_CATEGORY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyNumberOfUnitCategory
+Trigger requirements:    
+Parameters:              logic token, unit category (infantry, cavalry, siege, non_combatant, ship, handler), Integer
+Sample use:              I_BattleEnemyArmyNumberOfUnitCategory missile > 5
+Description:             Test makeup of army by unit category
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_NUMBER_OF_UNIT_CATEGORY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyNumberOfMountClass
+Trigger requirements:    
+Parameters:              logic token, mount_class (horse, camel, elephant, chariot), Integer
+Sample use:              I_BattlePlayerArmyNumberOfMountClass camel > 5
+Description:             Test makeup of army by mount class
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_NUMBER_OF_MOUNT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyNumberOfMountClass
+Trigger requirements:    
+Parameters:              logic token, mount_class (horse, camel, elephant, chariot), Integer
+Sample use:              I_BattleEnemyArmyNumberOfMountClass camel > 5
+Description:             Test makeup of army by mount class
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_NUMBER_OF_MOUNT_CLASS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyNumberOfClassAndCategory
+Trigger requirements:    
+Parameters:              logic token, unit_class (heavy, light, skirmish, spearmen, missile), unit_category (infantry, cavalry, siege, non_combatant, ship, handler), Integer
+Sample use:              I_BattlePlayerArmyNumberOfClassAndCategory missile cavalry > 5
+Description:             Test makeup of army by mount class
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_NUMBER_OF_CLASS_AND_CATEGORY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyNumberOfClassAndCategory
+Trigger requirements:    
+Parameters:              logic token, unit_class (heavy, light, skirmish, spearmen, missile), unit_category (infantry, cavalry, siege, non_combatant, ship, handler), Integer
+Sample use:              I_BattleEnemyArmyNumberOfClassAndCategory missile cavalry > 5
+Description:             Test makeup of army by mount class
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_NUMBER_OF_CLASS_AND_CATEGORY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyNumberOfSpecialAbility
+Trigger requirements:    
+Parameters:              special_ability ( testudo, phalanx, wedge, drop_engines, flaming_ammo, warcry, chant, curse, beserk, rally, kill_elephants, move_and_shoot, cantabrian_circle, shield_wall, stealth, feigned_rout, schiltrom ), Integer
+Sample use:              I_BattlePlayerArmyNumberOfSpecialAbility testudo > 5
+Description:             Test makeup of army by special ability
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_NUMBER_OF_SPECIAL_ABILITY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyNumberOfSpecialAbility
+Trigger requirements:    
+Parameters:              special_ability ( testudo, phalanx, wedge, drop_engines, flaming_ammo, warcry, chant, curse, beserk, rally, kill_elephants, move_and_shoot, cantabrian_circle, shield_wall, stealth, feigned_rout, schiltrom ), Integer
+Sample use:              I_BattleEnemyArmyNumberOfSpecialAbility testudo > 5
+Description:             Test makeup of army by special ability
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_NUMBER_OF_SPECIAL_ABILITY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyNumberCanHide
+Trigger requirements:    
+Parameters:              logic token, hide_type (hide_forest, hide_improved_forest, hide_long_grass, hide_anywhere), Integer
+Sample use:              I_BattlePlayerArmyNumberCanHide hide_forest > 5
+Description:             Test makeup of army by hide capability
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_NUMBER_CAN_HIDE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyNumberCanHide
+Trigger requirements:    
+Parameters:              logic token, hide_type (hide_forest, hide_improved_forest, hide_long_grass, hide_anywhere), Integer
+Sample use:              I_BattleEnemyArmyNumberCanHide hide_forest > 5
+Description:             Test makeup of army by hide capability
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_NUMBER_CAN_HIDE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyNumberCanSwim
+Trigger requirements:    
+Parameters:              logic token, Integer
+Sample use:              I_BattlePlayerArmyNumberCanSwim > 5
+Description:             Test makeup of army by swim capability
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_NUMBER_CAN_SWIM
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyNumberCanSwim
+Trigger requirements:    
+Parameters:              logic token, Integer
+Sample use:              I_BattleEnemyArmyNumberCanSwim > 5
+Description:             Test makeup of army by swim capability
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_NUMBER_CAN_SWIM
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyNumberOfUnits
+Trigger requirements:    
+Parameters:              logic token, Integer
+Sample use:              I_BattlePlayerArmyNumberOfUnits > 5
+Description:             Test size of army
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_NUMBER_UNITS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyNumberOfUnits
+Trigger requirements:    
+Parameters:              logic token, Integer
+Sample use:              I_BattleEnemyArmyNumberOfUnits > 5
+Description:             Test size of army
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_NUMBER_UNITS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyNumberOfAttribute
+Trigger requirements:    
+Parameters:              attribute, logic token, Integer
+Sample use:              I_BattlePlayerArmyNumberOfAttribute hide_forest > 5
+Description:             Test number of units in army with particular attribute
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_NUMBER_OF_ATTRIBUTE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyNumberOfAttribute
+Trigger requirements:    
+Parameters:              attribute, logic token, Integer
+Sample use:              I_BattleEnemyArmyNumberOfAttribute hide_forest > 5
+Description:             Test number of units in enemy army with particular attribute
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_NUMBER_OF_ATTRIBUTE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattlePlayerArmyPercentageOfAttribute
+Trigger requirements:    
+Parameters:              attribute, logic token, percentage
+Sample use:              I_BattlePlayerArmyPercentageOfAttribute hide_forest > 50.0
+Description:             Test makeup of army by specific attribute
+Battle or Strat:         Battle
+Class:                   BATTLE_PLAYER_ARMY_PERCENTAGE_OF_ATTRIBUTE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnemyArmyPercentageOfAttribute
+Trigger requirements:    
+Parameters:              attribute, logic token, percentage
+Sample use:              I_BattleEnemyArmyPercentageOfAttribute hide_forest > 50.0
+Description:             Test makeup of army by attribute
+Battle or Strat:         Battle
+Class:                   BATTLE_ENEMY_ARMY_PERCENTAGE_OF_ATTRIBUTE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsBattleSettlementCastle
+Trigger requirements:    
+Parameters:              
+Sample use:              I_IsBattleSettlementCastle
+Description:             See if the battle contains a castle settlement
+Battle or Strat:         Battle
+Class:                   IS_BATTLE_SETTLEMENT_CASTLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleSpeed
+Trigger requirements:    
+Parameters:              logic token, value (float)
+Sample use:              I_BattleSpeed > 1.0
+Description:             Check battle speed rate
+Battle or Strat:         Battle
+Class:                   I_BATTLE_SPEED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PercentageUnitAttribute
+Trigger requirements:    character_record
+Parameters:              unit attribute
+Sample use:              PercentageUnitAttribute gunpowder_unit > 25.5
+Description:             Test to see what percentage of the army have a particular attribute
+Battle or Strat:         Either
+Class:                   GENERALS_ARMY_PERCENTAGE_OF_UNIT_ATTRIBUTE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleFinished
+Trigger requirements:    
+Parameters:              
+Sample use:              I_BattleFinished
+Description:             Has the battle finished completely?
+Battle or Strat:         Battle
+Class:                   I_BATTLE_FINISHED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEnd
+Trigger requirements:    
+Parameters:              
+Sample use:              I_BattleEnd
+Description:             Is the battle in its end phase?
+Battle or Strat:         Battle
+Class:                   I_BATTLE_END
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_BattleEndPending
+Trigger requirements:    
+Parameters:              
+Sample use:              I_BattleEndPending
+Description:             Is the battle about to end?
+Battle or Strat:         Battle
+Class:                   I_BATTLE_END_PENDING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              Trait
+Trigger requirements:    character_record
+Parameters:              trait description, logic token, level
+Sample use:              Trait Girls <= 2
+Description:             Test a character trait
+Battle or Strat:         Either
+Class:                   CHARACTER_TRAIT_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              CharacterAge
+Trigger requirements:    character_record
+Parameters:              logic token, level
+Sample use:              CharacterAge >= 25
+Description:             Test the trigger character's age in years
+Battle or Strat:         Either
+Class:                   CHARACTER_AGE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FatherTrait
+Trigger requirements:    character_record
+Parameters:              trait description, logic token, level
+Sample use:              FatherTrait VictorRomanVirtue >= 2
+Description:             Test a character's father's traits for hereditary traits
+Battle or Strat:         Either
+Class:                   FATHER_TRAIT_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FatherAttribute
+Trigger requirements:    character_record
+Parameters:              attribute description, logic token, level
+Sample use:              FatherAttribute Management >= 2
+Description:             Test a character fathers attributes or hidden attributes
+Battle or Strat:         Strat
+Class:                   FATHER_ATTRIBUTE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionLeaderTrait
+Trigger requirements:    character_record
+Parameters:              trait description, logic token, level
+Sample use:              FactionLeaderTrait VictorRomanVirtue >= 2
+Description:             Test a character's faction leader traits
+Battle or Strat:         Either
+Class:                   FACTION_LEADER_TRAIT_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionLeaderAttribute
+Trigger requirements:    character_record
+Parameters:              attribute description, logic token, level
+Sample use:              FactionLeaderAttribute Chivalry >= 2
+Description:             Test a character's faction leader attribute
+Battle or Strat:         Either
+Class:                   FACTION_LEADER_ATTRIBUTE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              ReligionShift
+Trigger requirements:    character_record
+Parameters:              logic token, level
+Sample use:              ReligionShift >= 10.0
+Description:             Does the shift in religion towards the character's religion in this region exceed the given threshold?
+Battle or Strat:         Strat
+Class:                   CHARACTER_RELIGION_SHIFT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PopulationConverted
+Trigger requirements:    character_record
+Parameters:              logic token, level
+Sample use:              PopulationConverted >= 125
+Description:             Does the number of people in the region a priest has converted this turn exceed the given threshold?
+Battle or Strat:         Strat
+Class:                   CHARACTER_POPULATION_CONVERTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              DistanceCapital
+Trigger requirements:    character_record
+Parameters:              logic token, level
+Sample use:              DistanceCapital >= 40
+Description:             Does the characters distance to the faction capital exceed the given threshold?
+Battle or Strat:         Strat
+Class:                   CHARACTER_DISTANCE_CAPITAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              Attribute
+Trigger requirements:    character_record
+Parameters:              attribute description, logic token, level
+Sample use:              Attribute Management >= 2
+Description:             Test a character's attributes or hidden attributes
+Battle or Strat:         Either
+Class:                   CHARACTER_ATTRIBUTE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              HighestAttSharedChar
+Trigger requirements:    character_record
+Parameters:              attribute type, character type, logic token, level
+Sample use:              HighestAttSharedChar Piety priest >= 5
+Description:             Highest attribute among same-faction characters of the given type sharing the trigger character's tile, compared with level. Trigger character itself excluded. Empty candidate set evaluates false.
+Battle or Strat:         Strat
+Class:                   HIGHEST_ATTRIBUTE_SHARED_CHARACTER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              HighestTraitSharedChar
+Trigger requirements:    character_record
+Parameters:              character type, trait name, logic token, level
+Sample use:              HighestTraitSharedChar priest LexMilitaris >= 2
+Description:             Highest level of the named trait among same-faction characters of the given type sharing the trigger character's tile, compared with level. Trigger character itself excluded. Empty candidate set evaluates false.
+Battle or Strat:         Strat
+Class:                   HIGHEST_TRAIT_SHARED_CHARACTER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              RemainingMPPercentage
+Trigger requirements:    character_record
+Parameters:              logic token, level
+Sample use:              RemainingMPPercentage >= 35.8
+Description:             If this character has not moved this turn, he should have maximum movement points left.  Test for percentage remaining.  Will almost never be exactly zero, so check for < 10
+Battle or Strat:         Strat
+Class:                   CHARACTER_MP_REMAINING_PERCENTAGE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_RemainingMPPercentage
+Trigger requirements:    
+Parameters:              logic token, level
+Sample use:              I_RemainingMPPercentage Gaius Julius >= 35.8
+Description:             If this character has not moved this turn, he should have maximum movement points left.  Test for percentage remaining.  Will almost never be exactly zero, so check for < 10
+Battle or Strat:         Strat
+Class:                   I_CHARACTER_MP_REMAINING_PERCENTAGE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_RemainingArmyMPPercentage
+Trigger requirements:    
+Parameters:              logic token, level
+Sample use:              I_RemainingArmyMPPercentage Gaius Julius >= 35.8
+Description:             If this character has not moved this turn, he should have maximum movement points left.  Test for percentage remaining of army.  Will almost never be exactly zero, so check for < 10
+Battle or Strat:         Strat
+Class:                   I_CHARACTER_ARMY_MP_REMAINING_PERCENTAGE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CharacterCanMove
+Trigger requirements:    
+Parameters:              logic token, level
+Sample use:              I_CharacterCanMove Gaius Julius
+Description:             Can the named character move to any square?  He may only be able to move in one direction, particularly the one he came from, so don't assume ability to move means he can move usefully.
+Battle or Strat:         Strat
+Class:                   I_CHARACTER_CAN_MOVE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              NoActionThisTurn
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              NoActionThisTurn
+Description:             Test to see if the character was idle throughout this turn
+Battle or Strat:         Strat
+Class:                   CHARACTER_NOT_PERFORMED_ACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              CharacterNumTurnsIdle
+Trigger requirements:    character_record
+Parameters:              logic token, level
+Sample use:              CharacterNumTurnsIdle >= 3
+Description:             Test to see how many turns a character has been idle (not including current)
+Battle or Strat:         Strat
+Class:                   CHARACTER_NUM_TURNS_IDLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              AgentType
+Trigger requirements:    character_record
+Parameters:              character type (spy, assassin, diplomat, admiral, general, named character, family)
+Sample use:              AgentType = diplomat
+Description:             Test to see if a character is of a particular type (spy, admiral, named character &c.)
+Battle or Strat:         Strat
+Class:                   CHARACTER_TYPE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TrainedAgentType
+Trigger requirements:    character_record
+Parameters:              character type (spy, assassin, diplomat, admiral, general, named character, family)
+Sample use:              TrainedAgentType = diplomat
+Description:             Test to see if a character is of a particular type (spy, admiral, named character &c.)
+Battle or Strat:         Strat
+Class:                   GOVERNOR_TRAINED_AGENT_TYPE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              DisasterType
+Trigger requirements:    event_type
+Parameters:              event type (earthquake, flood, horde, fire, riot, storm, volcano)
+Sample use:              DisasterType earthquake
+Description:             Test to see if a particular disaster just happened
+Battle or Strat:         Strat
+Class:                   CHARACTER_AFFECTED_BY_DISASTER_EVENT_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              CultureType
+Trigger requirements:    character_record
+Parameters:              culture type (roman, barbarian, carthaginian, greek, egyptian, eastern)
+Sample use:              CultureType greek
+Description:             Test the character's culture type
+Battle or Strat:         Either
+Class:                   CHARACTER_CULTURE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              CharFactionType
+Trigger requirements:    character_record
+Parameters:              character faction type (england, france, etc)
+Sample use:              CharFactionType england
+Description:             Test the character's faction type
+Battle or Strat:         Either
+Class:                   CHARACTER_FACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              OriginalFactionType
+Trigger requirements:    character_record
+Parameters:              OriginalFactionType
+Sample use:              OriginalFactionType empire_west
+Description:             Test the character's original faction type
+Battle or Strat:         Either
+Class:                   CHARACTER_ORIGINAL_FACTION_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              OriginalCultureType
+Trigger requirements:    character_record
+Parameters:              OriginalCultureType 
+Sample use:              OriginalCultureType roman
+Description:             Test the character's original culture type
+Battle or Strat:         Either
+Class:                   CHARACTER_ORIGINAL_CULTURE_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsGeneral
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              IsGeneral
+Description:             Test to see if the character can command a land army
+Battle or Strat:         Either
+Class:                   CHARACTER_IS_GENERAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsAdmiral
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              IsAdmiral
+Description:             Test to see if the character has an army
+Battle or Strat:         Either
+Class:                   CHARACTER_IS_ADMIRAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              EndedInSettlement
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              EndedInSettlement
+Description:             Test to see if the character is in a settlement
+Battle or Strat:         Either
+Class:                   CHARACTER_IN_SETTLEMENT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsFactionLeader
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              IsFactionLeader
+Description:             Test to see if the character is a faction leader
+Battle or Strat:         Either
+Class:                   CHARACTER_IS_LEADER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsFactionHeir
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              IsFactionHeir
+Description:             Test to see if the character is a faction heir
+Battle or Strat:         Either
+Class:                   CHARACTER_IS_HEIR
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsMarried
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              IsMarried
+Description:             Test to see if the character is married
+Battle or Strat:         Either
+Class:                   CHARACTER_IS_MARRIED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              AtSea
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              AtSea
+Description:             Is the character at sea?
+Battle or Strat:         Either
+Class:                   CHARACTER_AT_SEA
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_AtSea
+Trigger requirements:    
+Parameters:              character
+Sample use:              I_AtSea Rufus
+Description:             Is the named character at sea?
+Battle or Strat:         Strat
+Class:                   I_CHARACTER_AT_SEA
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              InEnemyLands
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              InEnemyLands
+Description:             Is the character in enemy lands?
+Battle or Strat:         Either
+Class:                   CHARACTER_IN_ENEMY_LANDS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              InBarbarianLands
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              InBarbarianLands
+Description:             Is the character in lands of a barbarian culture?
+Battle or Strat:         Either
+Class:                   CHARACTER_IN_BARBARIAN_LANDS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              InUncivilisedLands
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              InUncivilisedLands
+Description:             Is the character in lands of an uncivilised culture?
+Battle or Strat:         Either
+Class:                   CHARACTER_IN_UNCIVILISED_LANDS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsBesieging
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              IsBesieging
+Description:             Is the character besieging a settlement?
+Battle or Strat:         Either
+Class:                   CHARACTER_IS_BESIEGING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsUnderSiege
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              IsUnderSiege
+Description:             Is the character in a garrison residence under siege?
+Battle or Strat:         Either
+Class:                   CHARACTER_IS_UNDER_SIEGE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_WithdrawsBeforeBattle
+Trigger requirements:    
+Parameters:              None
+Sample use:              I_WithdrawsBeforeBattle
+Description:             Was the last battle aborted?
+Battle or Strat:         Either
+Class:                   CHARACTER_WITHDRAWS_BEFORE_BATTLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              EndedInEnemyZOC
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              EndedInEnemyZOC
+Description:             Is the character in an enemy zone of control?
+Battle or Strat:         Either
+Class:                   ENDED_IN_ENEMY_ZOC
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              AdviseAction
+Trigger requirements:    character_action_advice
+Parameters:              logic token, action (attack_enemy, attack_settlement, merge_armies, patrol_region, move_to_region, do_nothing)
+Sample use:              AdviseAction = attack_settlement
+Description:             Is this the best thing this character can do now?
+Battle or Strat:         Strat
+Class:                   ADVISE_ACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CharacterTypeNearCharacterType
+Trigger requirements:    
+Parameters:              faction, character type, distance in squares, faction, character type
+Sample use:              I_CharacterTypeNearCharacterType romans_julii spy 10 gaul named character
+Description:             Is a particular character type of a faction near another particular character type of another faction?
+Battle or Strat:         Strat
+Class:                   I_CHARACTER_NEAR_CHARACTER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CharacterTypeNearTile
+Trigger requirements:    
+Parameters:              faction, character type, distance in squares, x, z
+Sample use:              I_CharacterTypeNearTile romans_julii named_character, 10 48,30
+Description:             Is a particular character type of a faction near a particular tile?
+Battle or Strat:         Strat
+Class:                   I_CHARACTER_NEAR_TILE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TradingResource
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              TradingResource
+Description:             Is the character trading a resource?
+Battle or Strat:         Strat
+Class:                   TRADING_RESOURCE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              OnResource
+Trigger requirements:    character_record
+Parameters:              optional resource_name (e.g. wine, gold). Omit to match any resource.
+Sample use:              OnResource wine
+Description:             Is the character standing on a resource (optionally restricted to one resource type)?
+Battle or Strat:         Strat
+Class:                   ON_RESOURCE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TradingMonopoly
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              TradingMonopoly
+Description:             Does the character have a trading monopoly in region?
+Battle or Strat:         Strat
+Class:                   TRADING_MONOPOLY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TradingExotic
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              TradingExotic
+Description:             Is the character trading an exotic resource?
+Battle or Strat:         Strat
+Class:                   TRADING_EXOTIC
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TradesResource
+Trigger requirements:    character_record
+Parameters:              resource type
+Sample use:              TradesResource gold
+Description:             Is the merchant currently trading the specified resource? False if non-merchant or not standing on any resource.
+Battle or Strat:         Strat
+Class:                   TRADES_RESOURCE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              HighestAttAdjacentChar
+Trigger requirements:    character_record
+Parameters:              attribute type, character type, logic token, level
+Sample use:              HighestAttAdjacentChar piety heretic >= 5
+Description:             Is the highest attribute rating of any adjacent character higher than specified?
+Battle or Strat:         Strat
+Class:                   HIGHEST_ATTRIBUTE_ADJACENT_CHARACTER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SpouseAttribute
+Trigger requirements:    character_record
+Parameters:              attribute description, logic token, level
+Sample use:              SpouseAttribute Management >= 2
+Description:             Test a character spouses's attributes or hidden attributes
+Battle or Strat:         Strat
+Class:                   CHARACTER_SPOUSE_ATTRIBUTE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SpouseTrait
+Trigger requirements:    character_record
+Parameters:              trait description, logic token, level
+Sample use:              SpouseTrait VictorRomanVirtue >= 2
+Description:             Test a character's spouse's traits for hereditary traits
+Battle or Strat:         Either
+Class:                   SPOUSE_TRAIT_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PopulationOwnReligion
+Trigger requirements:    character_record
+Parameters:              logic token, percent
+Sample use:              PopulationOwnReligion >= 80
+Description:             Test the factions religion in characters current region
+Battle or Strat:         Strat
+Class:                   POPULATION_OWN_RELIGION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PopulationReligion
+Trigger requirements:    character_record
+Parameters:              religion name, logic token, percent
+Sample use:              PopulationReligion catholic >= 60
+Description:             Tests the percentage of the named religion in the character's current region.
+Battle or Strat:         Strat
+Class:                   POPULATION_RELIGION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_NumCharacterFaction
+Trigger requirements:    Faction
+Parameters:              faction, character type (spy/assassin/diplomat/admiral/merchant/priest/general/named character), logic token, test level
+Sample use:              I_NumCharacterFaction venice merchant >= 2
+Description:             Counts characters of the given type owned by the given faction.
+Battle or Strat:         Strat
+Class:                   NUM_CHARACTER_FACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionMerchantTradeResource
+Trigger requirements:    faction
+Parameters:              resource type, logic token, count
+Sample use:              FactionMerchantTradeResource wine >= 2
+Description:             Counts distinct resource entities of the named type currently traded by the trigger faction's merchants. Multiple merchants on the same resource count as one.
+Battle or Strat:         Strat
+Class:                   FACTION_MERCHANT_TRADE_RESOURCE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PopulationHeretic
+Trigger requirements:    character_record
+Parameters:              logic token, percent
+Sample use:              PopulationHeretic >= 10
+Description:             Test the heresy level in characters current region
+Battle or Strat:         Strat
+Class:                   POPULATION_HERETIC
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              ProbabilitySuccess
+Trigger requirements:    character_record
+Parameters:              logic token, level
+Sample use:              ProbabilitySuccess >= 50
+Description:             Test the resulting chance of success of a mission
+Battle or Strat:         Strat
+Class:                   PROBABILITY_SUCCESS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsOnCrusade
+Trigger requirements:    character_record
+Parameters:              
+Sample use:              IsOnCrusade
+Description:             Test is character on crusade
+Battle or Strat:         Strat
+Class:                   IS_ON_CRUSADE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsOnJihad
+Trigger requirements:    character_record
+Parameters:              
+Sample use:              IsOnJihad
+Description:             Test is character on jihad
+Battle or Strat:         Strat
+Class:                   IS_ON_JIHAD
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsTargetOnCrusade
+Trigger requirements:    target_character_record
+Parameters:              
+Sample use:              IsTargetOnCrusade
+Description:             Test is target character on crusade
+Battle or Strat:         Strat
+Class:                   IS_TARGET_ON_CRUSADE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsTargetOnJihad
+Trigger requirements:    target_character_record
+Parameters:              
+Sample use:              IsTargetOnJihad
+Description:             Test is target character on jihad
+Battle or Strat:         Strat
+Class:                   IS_TARGET_ON_JIHAD
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CrusadingGeneralSelected
+Trigger requirements:    
+Parameters:              
+Sample use:              I_CrusadingGeneralSelected
+Description:             Is a crusading general currently selected
+Battle or Strat:         Strat
+Class:                   I_CRUSADING_GENERAL_SELECTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_JihadGeneralSelected
+Trigger requirements:    
+Parameters:              
+Sample use:              I_JihadGeneralSelected
+Description:             Is a jihad general currently selected
+Battle or Strat:         Strat
+Class:                   I_JIHAD_GENERAL_SELECTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              CharacterReligion
+Trigger requirements:    character_record
+Parameters:              religion
+Sample use:              CharacterReligion catholic
+Description:             Test the charcter religion
+Battle or Strat:         Either
+Class:                   CHARACTER_RELIGION_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TimeInRegion
+Trigger requirements:    character_record
+Parameters:              logic token, turns
+Sample use:              TimeInRegion > 5
+Description:             Test to see the number of turns the character has been in the region it is currently in
+Battle or Strat:         Strat
+Class:                   TIME_IN_REGION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TimeSinceReligion
+Trigger requirements:    character_record
+Parameters:              logic token, religion percentage(0-100), logic token, number of turns
+Sample use:              TimeSinceReligion < 95 > 5
+Description:             Test to see the number of turns since the region the character is in had the specified % of the character's religion
+Battle or Strat:         Strat
+Class:                   TIME_SINCE_RELIGION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TimeSinceHeresy
+Trigger requirements:    character_record
+Parameters:              logic token, heresy percentage(0-100), logic token, number of turns
+Sample use:              TimeSinceHeresy > 5 < 5
+Description:             Test to see the number of turns since the region the character is in had the specified % of heresy
+Battle or Strat:         Strat
+Class:                   TIME_SINCE_HERESY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TimeWithArmy
+Trigger requirements:    character_record
+Parameters:              logic token, turns
+Sample use:              TimeWithArmy > 5
+Description:             Test to see the number of turns since the agent has been with an army
+Battle or Strat:         Strat
+Class:                   TIME_WITH_ARMY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FatherAnc
+Trigger requirements:    character_record
+Parameters:              ancillary name
+Sample use:              FatherAnc holy_grail
+Description:             Test to see if character's father posses this ancillary
+Battle or Strat:         Strat
+Class:                   FATHER_ANC
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GeneralWithAncKilled
+Trigger requirements:    character_record
+Parameters:              ancillary name
+Sample use:              GeneralWithAncKilled holy_grail
+Description:             Test to see if a general with specified ancillary was killed in the battle
+Battle or Strat:         Both
+Class:                   GENERAL_ANC_KILLED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              HasAncType
+Trigger requirements:    character_record
+Parameters:              ancillary type
+Sample use:              HasAncType relic
+Description:             Test to see if character currently has ancillary with specified type
+Battle or Strat:         Strat
+Class:                   HAS_ANC_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              HasAncillary
+Trigger requirements:    character_record
+Parameters:              ancillary name
+Sample use:              HasAncillary gladiator
+Description:             Test to see if character currently has the specified ancillary
+Battle or Strat:         Strat
+Class:                   HAS_ANCILLARY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              AncillaryObtained
+Trigger requirements:    acquired_ancillary (from AcquiredAncillary event)
+Parameters:              ancillary name
+Sample use:              AncillaryObtained gladiator
+Description:             Test if the ancillary just acquired matches the specified ancillary. Use with AcquiredAncillary event.
+Battle or Strat:         Strat
+Class:                   ANCILLARY_OBTAINED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CharacterExists
+Trigger requirements:    
+Parameters:              character name
+Sample use:              I_CharacterExists Gaius Julius
+Description:             Is this character alive and in the campaign?
+Battle or Strat:         Strat
+Class:                   I_CHARACTER_EXISTS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              RansomType
+Trigger requirements:    ransom_type
+Parameters:              ransom type (ransom, release, execute, cannot_pay_ransom)
+Sample use:              RansomType execute
+Description:             Test what ransom decision was just made
+Battle or Strat:         Strat
+Class:                   RANSOM_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              NumCapturedSoldiers
+Trigger requirements:    captured_faction_info
+Parameters:              logic token, level
+Sample use:              NumCapturedSoldiers >= 50
+Description:             Test how many soldiers were captured
+Battle or Strat:         Strat
+Class:                   NUM_CAPTURED_SOLDIERS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              NumCapturedCharacters
+Trigger requirements:    captured_faction_info
+Parameters:              logic token, level
+Sample use:              NumCapturedCharacters >= 50
+Description:             Test how many characters were captured
+Battle or Strat:         Strat
+Class:                   NUM_CAPTURED_CHARACTERS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              RansomAmount
+Trigger requirements:    captured_faction_info
+Parameters:              logic token, level
+Sample use:              RansomAmount >= 5000
+Description:             Test the amount of the ransom demanded/payed
+Battle or Strat:         Strat
+Class:                   RANSOM_AMOUNT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_FactionLeaderTrait
+Trigger requirements:    
+Parameters:              faction type, trait description, logic token, level
+Sample use:              I_FactionLeaderTrait england BadCommander >= 2
+Description:             Test a factions leader traits
+Battle or Strat:         Either
+Class:                   I_FACTION_LEADER_TRAIT_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_FactionLeaderAttribute
+Trigger requirements:    
+Parameters:              faction type, attribute description, logic token, level
+Sample use:              I_FactionLeaderAttribute england Chivalry >= 2
+Description:             Test a factions leader attribute
+Battle or Strat:         Either
+Class:                   I_FACTION_LEADER_ATTRIBUTE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              CharacterAge
+Trigger requirements:    character_record
+Parameters:              logic token, age
+Sample use:              CharacterAge >= 75
+Description:             Test the age of a character
+Battle or Strat:         Strat
+Class:                   CHARACTER_AGE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CharacterNameNearTile
+Trigger requirements:    
+Parameters:              name, distance, x, z
+Sample use:              I_CharacterNameNearTile Henry 10 48 30
+Description:             Is a named character near a particular tile?
+Battle or Strat:         Strat
+Class:                   I_CHARACTER_NAME_NEAR_TILE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsFromFaction
+Trigger requirements:    character_record
+Parameters:              faction_type
+Sample use:              IsFromFaction romans_julii
+Description:             Test that the character belongs to the named faction
+Battle or Strat:         Strat
+Class:                   IS_FROM_FACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionType
+Trigger requirements:    faction
+Parameters:              faction type
+Sample use:              FactionType romans_julii
+Description:             Test the faction type
+Battle or Strat:         Either
+Class:                   FACTION_TYPE_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetFactionType
+Trigger requirements:    target_faction
+Parameters:              faction type
+Sample use:              TargetFactionType romans_julii
+Description:             Test the target faction type
+Battle or Strat:         Either
+Class:                   TARGET_FACTION_TYPE_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionReligion
+Trigger requirements:    faction
+Parameters:              faction religion
+Sample use:              FactionReligion catholic
+Description:             Test the faction religion
+Battle or Strat:         Either
+Class:                   FACTION_RELIGION_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetFactionReligion
+Trigger requirements:    target_faction
+Parameters:              faction religion
+Sample use:              TargetFactionReligion orthodox
+Description:             Test the target faction religion
+Battle or Strat:         Either
+Class:                   TARGET_FACTION_RELIGION_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionCultureType
+Trigger requirements:    faction
+Parameters:              culture type (roman, barbarian, carthaginian, greek, egyptian, eastern)
+Sample use:              FactionCultureType greek
+Description:             Test the faction's culture type
+Battle or Strat:         Either
+Class:                   FACTION_CULTURE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetFactionCultureType
+Trigger requirements:    target_faction
+Parameters:              culture type (roman, barbarian, carthaginian, greek, egyptian, eastern)
+Sample use:              TargetFactionCultureType greek
+Description:             Test the target faction's culture type
+Battle or Strat:         Either
+Class:                   TARGET_FACTION_CULTURE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TrainedUnitCategory
+Trigger requirements:    unit
+Parameters:              category description (infantry, cavalry, siege, non_combatant, ship, handler)
+Sample use:              TrainedUnitCategory cavalry
+Description:             Test to see if the unit is of a particular category
+Battle or Strat:         Strat
+Class:                   GOVERNOR_TRAINED_UNIT_TYPE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TrainedUnitClass
+Trigger requirements:    unit
+Parameters:              unit class (light, heavy, spearmen, skirmish, missile)
+Sample use:              TrainedUnitClass heavy
+Description:             Test to see if the unit is of a particular class
+Battle or Strat:         Strat
+Class:                   TRAINED_UNIT_CLASS_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              UnitCategory
+Trigger requirements:    unit
+Parameters:              logic token, category description
+Sample use:              
+Description:             Test to see if the unit is of a particular category
+Battle or Strat:         Strat
+Class:                   UNIT_CATEGORY_TYPE_TEST
+Implemented:             No
+---------------------------------------------------
+Identifier:              MedianTaxLevel
+Trigger requirements:    faction
+Parameters:              logic token, tax level (tax_low, tax_normal, tax_high, tax_extortionate)
+Sample use:              MedianTaxLevel > tax_high
+Description:             Compare the median tax level
+Battle or Strat:         Either
+Class:                   MEDIAN_TAX_LEVEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              ModeTaxLevel
+Trigger requirements:    faction
+Parameters:              logic token, tax level (tax_low, tax_normal, tax_high, tax_extortionate)
+Sample use:              ModeTaxLevel > tax_high
+Description:             Compare the mode tax level
+Battle or Strat:         Either
+Class:                   MODE_TAX_LEVEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_ModeTaxLevel
+Trigger requirements:    
+Parameters:              faction, logic token, tax level (tax_low, tax_normal, tax_high, tax_extortionate)
+Sample use:              I_ModeTaxLevel romans_julii > tax_high
+Description:             Compare the mode tax level
+Battle or Strat:         Either
+Class:                   I_MODE_TAX_LEVEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              MissionSuccessLevel
+Trigger requirements:    mission_success_level
+Parameters:              logic token, success level (not_successful, slightly_successful, partly_successful, highly_successful)
+Sample use:              MissionSuccessLevel > slightly_successful
+Description:             Was the mission sufficiently successful?
+Battle or Strat:         Strat
+Class:                   MISSION_SUCCESS_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              MissionSucceeded
+Trigger requirements:    
+Parameters:              None (no not modifier either)
+Sample use:              MissionSucceeded
+Description:             Was the mission sufficiently successful?
+Battle or Strat:         Strat
+Class:                   MISSION_SUCCEEDED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              MissionFactionTargetType
+Trigger requirements:    faction
+Parameters:              faction type
+Sample use:              MissionFactionTargetType romans_julii
+Description:             Is the faction of a particular type?
+Battle or Strat:         Either
+Class:                   MISSION_FACTION_TARGET_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              MissionCultureTargetType
+Trigger requirements:    faction, character_record
+Parameters:              culture type (roman, barbarian, carthaginian, greek, egyptian, eastern)
+Sample use:              MissionCultureTargetType own, MissionCultureTargetType greek
+Description:             Is the faction of a particular type?
+Battle or Strat:         Either
+Class:                   MISSION_CULTURE_TARGET_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              DiplomaticStanceFromCharacter
+Trigger requirements:    character_record
+Parameters:              faction type, logic token, stance (Allied, Suspicious, Neutral, Hostile, AtWar)
+Sample use:              DiplomaticStanceFromCharacter romans_julii > Suspicious
+Description:             Test the character's faction's diplomatic stance with another specified faction
+Battle or Strat:         Either
+Class:                   DIPLOMATIC_STANCE_FROM_CHARACTER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              DiplomaticStanceFromFaction
+Trigger requirements:    faction
+Parameters:              faction type, logic token, stance (Allied, Suspicious, Neutral, Hostile, AtWar)
+Sample use:              DiplomaticStanceFromFaction romans_julii > Suspicious
+Description:             Test the character's faction's diplomatic stance with another specified faction
+Battle or Strat:         Either
+Class:                   DIPLOMATIC_STANCE_FROM_FACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              HasTradeAgreementWith
+Trigger requirements:    faction
+Parameters:              faction type
+Sample use:              HasTradeAgreementWith venice
+Description:             Is the trigger faction currently in an active trade agreement with the named faction?
+Battle or Strat:         Strat
+Class:                   HAS_TRADE_AGREEMENT_WITH
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              DiplomaticStanceFactions
+Trigger requirements:    faction, target_faction
+Parameters:              logic token, stance (Allied, Suspicious, Neutral, Hostile, AtWar)
+Sample use:              DiplomaticStanceFactions > Suspicious
+Description:             Test the diplomatic stance between two factions
+Battle or Strat:         Either
+Class:                   DIPLOMATIC_STANCE_FACTIONS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              DiplomaticStanceWithNewPope
+Trigger requirements:    faction, target faction
+Parameters:              logic token, stance (Allied, Suspicious, Neutral, Hostile, AtWar)
+Sample use:              DiplomaticStanceWithNewPope > Suspicious
+Description:             Test a faction's diplomatic stance with the faction the new pope was from
+Battle or Strat:         Strat
+Class:                   DIPLOMATIC_STANCE_WITH_NEW_POPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionEqualsTarget
+Trigger requirements:    faction, target faction
+Parameters:              None
+Sample use:              FactionEqualsTarget
+Description:             Does the faction equal the target faction?
+Battle or Strat:         Strat
+Class:                   FACTION_EQUALS_TARGET
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionHasAllies
+Trigger requirements:    faction
+Parameters:              
+Sample use:              FactionHasAllies
+Description:             Test whether the faction is allied with any other faction
+Battle or Strat:         Either
+Class:                   FACTION_HAS_ALLIES
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionBuildingExists
+Trigger requirements:    faction
+Parameters:              logic token, test level
+Sample use:              FactionBuildingExists >= governors_house
+Description:             Test to see if the faction has a building at a particular level, logic token currently only works with =, >= and >
+Battle or Strat:         Strat
+Class:                   FACTION_BUILDING_LEVEL_EXISTS_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionScore
+Trigger requirements:    faction
+Parameters:              score type, logic token, faction type
+Sample use:              FactionScore military < england
+Description:             Test the factions score against that of another faction. Scores include: overall, military, production, regions, treasury, population
+Battle or Strat:         Strat
+Class:                   FACTION_SCORE_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionHasRank
+Trigger requirements:    faction
+Parameters:              none
+Sample use:              FactionHasRank
+Description:             Test if the faction has a vaild rank
+Battle or Strat:         Strat
+Class:                   FACTION_HAS_RANK_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionScorePercent
+Trigger requirements:    faction
+Parameters:              score type, logic token, level
+Sample use:              FactionScorePercent military < 50
+Description:             Test the factions score against the leading faction as a percentage
+Battle or Strat:         Strat
+Class:                   FACTION_SCORE_PERCENT_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionScoreRank
+Trigger requirements:    faction
+Parameters:              score type, logic token, level
+Sample use:              FactionScoreRank military < 3
+Description:             Test the factions score ranking with respect to other discovered, alive factions
+Battle or Strat:         Strat
+Class:                   FACTION_SCORE_RANK_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionIncome
+Trigger requirements:    faction
+Parameters:              logic token, level
+Sample use:              FactionIncome >= 2000
+Description:             Test a factions income
+Battle or Strat:         Strat
+Class:                   FACTION_INCOME
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              LosingMoney
+Trigger requirements:    
+Parameters:              None
+Sample use:              LosingMoney
+Description:             Is the faction losing money on the end of year balance sheet?
+Battle or Strat:         Strat
+Class:                   LOSING_MONEY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_LosingMoney
+Trigger requirements:    
+Parameters:              None
+Sample use:              I_LosingMoney romans_julii
+Description:             Is the faction losing money on the end of year balance sheet?
+Battle or Strat:         Strat
+Class:                   I_LOSING_MONEY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SupportCostsPercentage
+Trigger requirements:    faction
+Parameters:              logic token, percentage
+Sample use:              SupportCostsPercentage > 35.8
+Description:             Does the percentage of expenditure devoted to support costs exceed the threshold?
+Battle or Strat:         Strat
+Class:                   SUPPORT_COSTS_PERCENTAGE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              Treasury
+Trigger requirements:    faction
+Parameters:              logic token, quantity
+Sample use:              Treasury > 2000
+Description:             Does the cash-in-hand exceed the threshold?
+Battle or Strat:         Strat
+Class:                   TREASURY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              OnAWarFooting
+Trigger requirements:    faction
+Parameters:              None
+Sample use:              OnAWarFooting
+Description:             Is the faction on a war footing?
+Battle or Strat:         Strat
+Class:                   ON_A_WAR_FOOTING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_FactionBesieging
+Trigger requirements:    
+Parameters:              faction type
+Sample use:              not I_FactionBesieging romans_julii
+Description:             Is the faction besieging a settlement somewhere?
+Battle or Strat:         Strat
+Class:                   FACTION_BESIEGING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_FactionBesieged
+Trigger requirements:    
+Parameters:              faction type
+Sample use:              not I_FactionBesieged romans_julii
+Description:             Is the faction besieged at any settlement?
+Battle or Strat:         Strat
+Class:                   FACTION_BESIEGED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_NumberOfSettlements
+Trigger requirements:    
+Parameters:              number of settlements
+Sample use:              I_NumberOfSettlements thrace > 3
+Description:             How many settlements does the faction hold?
+Battle or Strat:         Strat
+Class:                   I_NUMBER_OF_SETTLEMENTS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_NumberOfHeirs
+Trigger requirements:    
+Parameters:              number of heirs
+Sample use:              I_NumberOfHeirs thrace > 3
+Description:             How many heirs does the faction leader have?
+Battle or Strat:         Strat
+Class:                   I_NUMBER_OF_HEIRS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_FactionNearTile
+Trigger requirements:    
+Parameters:              faction, distance in squares, x, z
+Sample use:              I_FactionNearTile romans_julii 10 48,30
+Description:             Is a member of a faction near a particular tile?
+Battle or Strat:         Strat
+Class:                   I_FACTION_NEAR_TILE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementsTaken
+Trigger requirements:    faction
+Parameters:              logic token, quantity
+Sample use:              SettlementsTaken = 6
+Description:             How many settlements has the player captured so far during this campaign?
+Battle or Strat:         Either
+Class:                   SETTLEMENTS_TAKEN
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlesFought
+Trigger requirements:    faction
+Parameters:              logic token, quantity
+Sample use:              BattlesFought = 6
+Description:             How many battles has the player fought so far during this campaign?
+Battle or Strat:         Either
+Class:                   BATTLES_FOUGHT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlesWon
+Trigger requirements:    faction
+Parameters:              logic token, quantity
+Sample use:              BattlesWon = 6
+Description:             How many battles has the player won so far during this campaign?
+Battle or Strat:         Either
+Class:                   BATTLES_WON
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattlesLost
+Trigger requirements:    faction
+Parameters:              logic token, quantity
+Sample use:              BattlesLost = 6
+Description:             How many battles has the player won so far during this campaign?
+Battle or Strat:         Either
+Class:                   BATTLES_LOST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              DefensiveSiegesFought
+Trigger requirements:    faction
+Parameters:              logic token, quantity
+Sample use:              DefensiveSiegesFought = 6
+Description:             How many defensive sieges has the player fought so far during this campaign?
+Battle or Strat:         Either
+Class:                   DEFENSIVE_SIEGES_FOUGHT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              DefensiveSiegesWon
+Trigger requirements:    faction
+Parameters:              logic token, quantity
+Sample use:              DefensiveSiegesWon = 6
+Description:             How many defensive sieges has the player won so far during this campaign?
+Battle or Strat:         Either
+Class:                   DEFENSIVE_SIEGES_WON
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              OffensiveSiegesFought
+Trigger requirements:    faction
+Parameters:              logic token, quantity
+Sample use:              OffensiveSiegesFought = 6
+Description:             How many offensive sieges has the player fought so far during this campaign?
+Battle or Strat:         Either
+Class:                   OFFENSIVE_SIEGES_FOUGHT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              OffensiveSiegesWon
+Trigger requirements:    faction
+Parameters:              logic token, quantity
+Sample use:              OffensiveSiegesWon = 6
+Description:             How many offensive sieges has the player won so far during this campaign?
+Battle or Strat:         Either
+Class:                   OFFENSIVE_SIEGES_WON
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsFactionAIFrozen
+Trigger requirements:    faction
+Parameters:              
+Sample use:              IsFactionAIFrozen
+Description:             Check is faction AI frozen
+Battle or Strat:         Strat
+Class:                   IS_FACTION_AI_FROZEN
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsFactionAIFrozen
+Trigger requirements:    
+Parameters:              faction
+Sample use:              I_IsFactionAIFrozen aztecs
+Description:             Check is faction AI frozen
+Battle or Strat:         Strat
+Class:                   I_IS_FACTION_AI_FROZEN
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              MissionID
+Trigger requirements:    mission_details
+Parameters:              mission id
+Sample use:              MissionID assassinate_cardinal
+Description:             What is the name of the mission just finished
+Battle or Strat:         Strat
+Class:                   MISSION_ID
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PaybackID
+Trigger requirements:    mission_details
+Parameters:              payback id
+Sample use:              PaybackID payback_list_1
+Description:             What is the name of the payback for the mission just finished
+Battle or Strat:         Strat
+Class:                   PAYBACK_ID
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsCrusadeTargetFaction
+Trigger requirements:    target_faction
+Parameters:              
+Sample use:              IsCrusadeTargetFaction
+Description:             Test if target faction is current crusade target
+Battle or Strat:         Strat
+Class:                   IS_CRUSADE_TARGET_FACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsJihadTargetFaction
+Trigger requirements:    target_faction
+Parameters:              
+Sample use:              IsJihadTargetFaction
+Description:             Test if target faction is current jihad target
+Battle or Strat:         Strat
+Class:                   IS_JIHAD_TARGET_FACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              MissionTimeRemaining
+Trigger requirements:    faction
+Parameters:              logic token, turns remaining
+Sample use:              MissionTimeRemaining
+Description:             Test the number of turn before the next mission expires
+Battle or Strat:         Strat
+Class:                   MISSION_TIME_REMAINING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_PlayerHasMission
+Trigger requirements:    
+Parameters:              missionID
+Sample use:              I_PlayerHasMission join_crusade
+Description:             Test if the player has given mission
+Battle or Strat:         Strat
+Class:                   I_PLAYER_HAS_MISSION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_PlayerHasMissionType
+Trigger requirements:    
+Parameters:              sourceID
+Sample use:              I_PlayerHasMissionType POPE_MISSION
+Description:             Test if the player has mission from given source
+Battle or Strat:         Strat
+Class:                   I_PLAYER_HAS_MISSION_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_PlayerHasPreferati
+Trigger requirements:    
+Parameters:              
+Sample use:              I_PlayerHasPreferati
+Description:             Does the player currently have a preferati in the college?
+Battle or Strat:         Strat
+Class:                   I_PLAYER_HAS_PREFERATI
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_PlayerCanBuyVotes
+Trigger requirements:    
+Parameters:              
+Sample use:              I_PlayerCanBuyVotes
+Description:             Tests is player can buy papal votes
+Battle or Strat:         Strat
+Class:                   I_PLAYER_CAN_BUY_VOTES
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionwideAncillaryExists
+Trigger requirements:    character_record
+Parameters:              logic token
+Sample use:              FactionwideAncillaryExists actor true
+Description:             Does this ancillary already exist in this faction?
+Battle or Strat:         Strat
+Class:                   FACTIONWIDE_ANCILLARY_EXISTS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TransgressionName
+Trigger requirements:    resource_description
+Parameters:              transgression name
+Sample use:              TransgressionName TC_ATTACKING_CRUSADING_GENERAL
+Description:             Detect whether a transgression has occurred
+Battle or Strat:         Strat
+Class:                   TRANSGRESSION_NAME
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              ForgivenessName
+Trigger requirements:    resource_description
+Parameters:              forgiveness name
+Sample use:              ForgivenessName FC_TRADE_TREATY
+Description:             Detect whether a forgiveness has occurred
+Battle or Strat:         Strat
+Class:                   FORGIVENESS_NAME
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionStanding
+Trigger requirements:    faction, target_faction
+Parameters:              logic token, quantity
+Sample use:              FactionStanding > 0.0
+Description:             what is the standing (relationship) of a faction towards the target faction
+Battle or Strat:         Either
+Class:                   FACTION_STANDING_CONDITION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GlobalStanding
+Trigger requirements:    faction
+Parameters:              logic token, quantity
+Sample use:              GlobalStanding > 0.0
+Description:             what is the global standing (reputation) of a faction
+Battle or Strat:         Either
+Class:                   GLOBAL_STANDING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionExcommunicated
+Trigger requirements:    faction
+Parameters:              
+Sample use:              FactionExcommunicated
+Description:             Test if this faction is excommunicated
+Battle or Strat:         Strat
+Class:                   IS_FACTION_EXCOMMUNICATED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetFactionExcommunicated
+Trigger requirements:    target_faction
+Parameters:              
+Sample use:              TargetFactionExcommunicated
+Description:             Test if the target faction is excommunicated
+Battle or Strat:         Strat
+Class:                   IS_TARGET_FACTION_EXCOMMUNICATED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionUndiscovered
+Trigger requirements:    faction
+Parameters:              
+Sample use:              FactionUndiscovered
+Description:             Test if this faction is undiscovered
+Battle or Strat:         Strat
+Class:                   IS_FACTION_UNDISCOVERED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsFactionUndiscovered
+Trigger requirements:    
+Parameters:              faction
+Sample use:              I_IsFactionUndiscovered aztecs
+Description:             Check is faction undiscovered
+Battle or Strat:         Strat
+Class:                   I_IS_FACTION_UNDISCOVERED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionAILabel
+Trigger requirements:    faction
+Parameters:              faction type, ai_label
+Sample use:              FactionAILabel catholic
+Description:             test faction ai label
+Battle or Strat:         Strat
+Class:                   FACTION_AI_LABEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_FactionAILabel
+Trigger requirements:    
+Parameters:              faction type, ai_label
+Sample use:              I_FactionAILabel england catholic
+Description:             test faction ai label
+Battle or Strat:         Strat
+Class:                   I_FACTION_AI_LABEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              NumFactionMarriages
+Trigger requirements:    faction, target_faction
+Parameters:              logic token, number of marriages
+Sample use:              NumFactionMarriages > 0
+Description:             Test the number of inter faction marriages between two factions
+Battle or Strat:         Either
+Class:                   NUM_FACTION_MARRIAGES
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitExists
+Trigger requirements:    
+Parameters:              Faction, Unit type
+Sample use:              I_UnitExists England Spear Militia
+Description:             Does the faction own any of these units?
+Battle or Strat:         Strat
+Class:                   I_UNIT_EXISTS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsFactionAIControlled
+Trigger requirements:    
+Parameters:              faction
+Sample use:              I_IsFactionAIControlled aztecs
+Description:             Check if a faction is controlled by the AI
+Battle or Strat:         Strat
+Class:                   I_IS_FACTION_AI_CONTROLLED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsFactionAIControlled
+Trigger requirements:    
+Parameters:              
+Sample use:              IsFactionAIControlled aztecs
+Description:             Check if a faction is controlled by the AI
+Battle or Strat:         Strat
+Class:                   IS_FACTION_AI_CONTROLLED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsAlly
+Trigger requirements:    faction
+Parameters:              faction_name
+Sample use:              IsAlly england
+Description:             Is the trigger faction allied with the named faction?
+Battle or Strat:         Strat
+Class:                   IS_ALLY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsAtWar
+Trigger requirements:    faction
+Parameters:              faction_name
+Sample use:              at_war france
+Description:             Is the trigger faction at war with the named faction?
+Battle or Strat:         Strat
+Class:                   IS_AT_WAR
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsProtectorate
+Trigger requirements:    faction
+Parameters:              faction_name
+Sample use:              IsProtectorate england
+Description:             Is the trigger faction a protectorate of the named faction?
+Battle or Strat:         Strat
+Class:                   IS_PROTECTORATE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsProtector
+Trigger requirements:    faction
+Parameters:              faction_name
+Sample use:              IsProtector scotland
+Description:             Is the named faction a protectorate of the trigger faction?
+Battle or Strat:         Strat
+Class:                   IS_PROTECTOR
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionIsAlive
+Trigger requirements:    
+Parameters:              faction_name
+Sample use:              FactionIsAlive romans_julii
+Description:             Is the named faction still alive (FACTION_STATUS == ALIVE)?
+Battle or Strat:         Strat
+Class:                   FACTION_IS_ALIVE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              MajorEventActive
+Trigger requirements:    
+Parameters:              event_name, faction
+Sample use:              MajorEventActive "conquest_syria", romans_julii
+Description:             STUB: always false (no major-event tracking in this engine)
+Battle or Strat:         Strat
+Class:                   MAJOR_EVENT_ACTIVE
+Implemented:             Stub
+---------------------------------------------------
+Identifier:              RandomPercent
+Trigger requirements:    
+Parameters:              logic token, percentage (integer)
+Sample use:              RandomPercent > 50
+Description:             Pick a number from 0 to 100 at random
+Battle or Strat:         Either
+Class:                   RANDOM_PERCENT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TrueCondition
+Trigger requirements:    
+Parameters:              
+Sample use:              not TrueCondition
+Description:             When you need to supply a true/false, for debugging and monitor_event
+Battle or Strat:         Either
+Class:                   TRUE_CONDITION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              EventCounterType
+Trigger requirements:    event_counter
+Parameters:              event name
+Sample use:              EventCounterType world_is_round
+Description:             Identifies named strat map event by it's name
+Battle or Strat:         Strat
+Class:                   EVENT_COUNTER_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              EventCounter
+Trigger requirements:    event_counter
+Parameters:              logic token, value (integer)
+Sample use:              EventCounter > 0
+Description:             Check named strat map event counter
+Battle or Strat:         Strat
+Class:                   EVENT_COUNTER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_EventCounter
+Trigger requirements:    
+Parameters:              event_name, logic token, value (integer)
+Sample use:              I_EventCounter world_is_round > 0
+Description:             Check named strat map event counter
+Battle or Strat:         Strat
+Class:                   I_EVENT_COUNTER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsPositionInRect
+Trigger requirements:    sm_position
+Parameters:              left top [width height]
+Sample use:              IsPositionInRect 5 10 40 140
+Description:             Test is a tile in specified rectangular area?
+Battle or Strat:         Strat
+Class:                   IS_POSITION_IN_RECT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsRegionOneOf
+Trigger requirements:    region_id
+Parameters:              list of regions given by label or number
+Sample use:              IsRegionOneOf Caribbean_Isles Siluriya_Province
+Description:             Test is a region in given region list?
+Battle or Strat:         Strat
+Class:                   IS_REGION_ONE_OF
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsTargetRegionOneOf
+Trigger requirements:    target_region_id
+Parameters:              list of regions given by label or number
+Sample use:              IsTargetRegionOneOf 0 Caribbean_Isles 
+Description:             Test is a target region in given region list?
+Battle or Strat:         Strat
+Class:                   IS_TARGET_REGION_ONE_OF
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsCrusade
+Trigger requirements:    crusade
+Parameters:              
+Sample use:              IsCrusade
+Description:             It's true for crusade and false for jihad
+Battle or Strat:         Strat
+Class:                   IS_CRUSADE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsJihad
+Trigger requirements:    crusade
+Parameters:              
+Sample use:              IsJihad
+Description:             It's true for jihad and false for crusade
+Battle or Strat:         Strat
+Class:                   IS_JIHAD
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              CrusadeOutcome
+Trigger requirements:    crusade
+Parameters:              crusade outcome (none, success, fail, cancel)
+Sample use:              CrusadeOutcome success
+Description:             Test the crusade/jihad outcome (none, success, fail, cancel)
+Battle or Strat:         Strat
+Class:                   CRUSADE_OUTCOME
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CrusadeInProgress
+Trigger requirements:    
+Parameters:              
+Sample use:              I_CrusadeInProgress
+Description:             Tests is crusade in progress
+Battle or Strat:         Strat
+Class:                   I_CRUSADE_IN_PROGRESS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_JihadInProgress
+Trigger requirements:    
+Parameters:              
+Sample use:              I_JihadInProgress
+Description:             Tests is jihad in progress
+Battle or Strat:         Strat
+Class:                   I_JIHAD_IN_PROGRESS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CrusadeTimeLeft
+Trigger requirements:    
+Parameters:              logic token, value (integer)
+Sample use:              I_CrusadeTimeLeft > 4
+Description:             Tests the number of turns left before the time to join the crusade expires (==0 - not started, >0 - turns left including current, <0 - turns passed including current)
+Battle or Strat:         Strat
+Class:                   I_CRUSADE_TIME_LEFT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_JihadTimeLeft
+Trigger requirements:    
+Parameters:              logic token, value (integer)
+Sample use:              I_JihadTimeLeft > 4
+Description:             Tests the number of turns left before the time to join the jihad expires (==0 - not started, >0 - turns left including current, <0 - turns passed including current)
+Battle or Strat:         Strat
+Class:                   I_JIHAD_TIME_LEFT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_TurnsSinceLastCrusade
+Trigger requirements:    
+Parameters:              logic token, value (integer)
+Sample use:              I_TurnsSinceLastCrusade < 3
+Description:             Tests the number of turns since the last crusade ended (<0 - not ended, >=0 - turns since the last crusade ended)
+Battle or Strat:         Strat
+Class:                   I_TURNS_SINCE_LAST_CRUSADE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_TurnsSinceLastJihad
+Trigger requirements:    
+Parameters:              logic token, value (integer)
+Sample use:              I_TurnsSinceLastJihad < 3
+Description:             Tests the number of turns since the last jihad ended (<0 - not ended, >=0 - turns since the last jihad ended)
+Battle or Strat:         Strat
+Class:                   I_TURNS_SINCE_LAST_JIHAD
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              Religion
+Trigger requirements:    religion or character_record or nc_character_records or settlement or fort or faction
+Parameters:              religion
+Sample use:              Religion catholic
+Description:             Test the religion
+Battle or Strat:         Either
+Class:                   RELIGION_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetReligion
+Trigger requirements:    target_religion
+Parameters:              religion
+Sample use:              TargetReligion catholic
+Description:             Test the target religion
+Battle or Strat:         Either
+Class:                   TARGET_RELIGION_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_WorldwideAncillaryExists
+Trigger requirements:    character_record
+Parameters:              logic token
+Sample use:              I_WorldwideAncillaryExists actor true
+Description:             Does this ancillary already exist in the world?
+Battle or Strat:         Strat
+Class:                   WORLDWIDE_ANCILLARY_EXISTS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              CampaignDifficulty
+Trigger requirements:    faction
+Parameters:              logic token, difficulty
+Sample use:              CampaignDifficulty = easy
+Description:             Test the factions campaign difficulty level (easy, medium, hard, very_hard)
+Battle or Strat:         Strat
+Class:                   CAMPAIGN_DIFFICULTY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BattleDifficulty
+Trigger requirements:    faction
+Parameters:              logic token, difficulty
+Sample use:              BattleDifficulty = easy
+Description:             Test the factions battle difficulty level (easy, medium, hard, very_hard)
+Battle or Strat:         Battle
+Class:                   BATTLE_DIFFICULTY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CampaignNumTimePlay
+Trigger requirements:    
+Parameters:              logic token, turn number
+Sample use:              I_CampaignNumTimePlay <= 1
+Description:             The number of times the campaign has been run (starts at 0)
+Battle or Strat:         Either
+Class:                   I_CAMPAIGN_NUM_TIME_PLAY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_FirstTimePlay
+Trigger requirements:    
+Parameters:              faction type
+Sample use:              I_FirstTimePlay england
+Description:             Has a campaign been played with this faction previously
+Battle or Strat:         Either
+Class:                   I_FIRST_TIME_PLAYED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_AdvisorVerbosityLevel
+Trigger requirements:    
+Parameters:              logic token, turn number
+Sample use:              I_AdvisorVerbosityLevel <= 3
+Description:             The verbosity level of the advisor
+Battle or Strat:         Either
+Class:                   I_ADVISOR_VERBOSITY_LEVEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_HotseatEnabled
+Trigger requirements:    
+Parameters:              
+Sample use:              I_HotseatEnabled
+Description:             Is this currently a hotseat campaign game
+Battle or Strat:         Either
+Class:                   I_HOTSEAT_ENABLED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              LangIs
+Trigger requirements:    
+Parameters:              language_name
+Sample use:              LangIs english
+Description:             Check the current runtime language
+Battle or Strat:         Either
+Class:                   LANG_IS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CompareCounter
+Trigger requirements:    
+Parameters:              script counter, value
+Sample use:              I_CompareCounter blib < 17
+Description:             Compare a script counter to a value
+Battle or Strat:         Either
+Class:                   COMPARE_COUNTER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_TimerElapsed
+Trigger requirements:    
+Parameters:              logic token, timer_id, duration (milliseconds)
+Sample use:              I_TimerElapsed rout_timer > 1000
+Description:             How long has it been since the script timer restarted
+Battle or Strat:         Either
+Class:                   SCRIPT_TIMER_ELAPSED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_SoundPlaying
+Trigger requirements:    
+Parameters:              <sound event tag>
+Sample use:              I_SoundPlaying snd_IntroSpeech
+Description:             Detect whether the tagged sound is playing or not
+Battle or Strat:         Both
+Class:                   SOUND_EVENT_PLAYING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementName
+Trigger requirements:    settlement
+Parameters:              settlement name
+Sample use:              SettlementName Tarquinii
+Description:             For scripting - does the settlement have this name
+Battle or Strat:         Either
+Class:                   SETTLEMENT_NAME
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetSettlementName
+Trigger requirements:    target_settlement
+Parameters:              settlement name
+Sample use:              TargetSettlementName Cordoba
+Description:             For scripting - does the target settlement have this name
+Battle or Strat:         Either
+Class:                   TARGET_SETTLEMENT_NAME
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GovernorBuildingExists
+Trigger requirements:    character_record
+Parameters:              building description, logic token, test level
+Sample use:              GovernorBuildingExists = governors_house
+Description:             Test to see if the character is a governor and his settlement has a building at a particular level
+Battle or Strat:         Strat
+Class:                   GOVERNORS_BUILDING_LEVEL_EXISTS_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementBuildingExists
+Trigger requirements:    settlement
+Parameters:              building description, logic token, test level
+Sample use:              SettlementBuildingExists = governors_house
+Description:             Test to see if the settlement has a building at a particular level
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_BUILDING_LEVEL_EXISTS_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BuildingFinishedByGovernor
+Trigger requirements:    character_record, prior_build
+Parameters:              building description, logic token, test level
+Sample use:              BuildingFinishedByGovernor = governors_house
+Description:             Test to see if the character is a governor and what the last finished building was
+Battle or Strat:         Strat
+Class:                   GOVERNORS_BUILDING_LEVEL_FINISHED_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementBuildingFinished
+Trigger requirements:    prior_build
+Parameters:              building description, logic token, test level
+Sample use:              SettlementBuildingFinished = governors_house
+Description:             Test to see what the last finished building was
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_BUILDING_LEVEL_FINISHED_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              NumBuildingsCompleted
+Trigger requirements:    prior_build
+Parameters:              building description, logic token, test level
+Sample use:              NumBuildingsCompleted church = 1
+Description:             Use after a BuildingCompleted event to test how many of a type of building have been constructed in the entire world
+Battle or Strat:         Strat
+Class:                   NUM_BUILDINGS_COMPLETED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              NumBuildingsCompletedFaction
+Trigger requirements:    Faction, prior_build
+Parameters:              building description, logic token, test level
+Sample use:              NumBuildingsCompletedFaction church = 1
+Description:             Use after a BuildingCompleted event to test how many of a type of building have been constructed for that faction
+Battle or Strat:         Strat
+Class:                   NUM_BUILDINGS_COMPLETED_FACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_NumBuildingsFaction
+Trigger requirements:    Faction
+Parameters:              faction, building description, logic token, test level
+Sample use:              I_NumBuildingsFaction venice church >= 2
+Description:             Counts the actual number of the specified building owned by the specified faction at the moment of the check.
+Battle or Strat:         Strat
+Class:                   NUM_BUILDINGS_FACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GovernorPlugInExists
+Trigger requirements:    character_record
+Parameters:              logic token, plug-in
+Sample use:              GovernorPlugInExists > storage_pits
+Description:             Test to see if the character is a governor and his settlement has a plug-in at a particular level
+Battle or Strat:         Strat
+Class:                   GOVERNORS_PLUG_IN_LEVEL_EXISTS_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GovernorPlugInFinished
+Trigger requirements:    character_record, prior_build
+Parameters:              logic token, plug-in
+Sample use:              GovernorPlugInFinished > storage_pits
+Description:             Test to see if the character is a governor and what the last finished plug-in was
+Battle or Strat:         Strat
+Class:                   GOVERNORS_PLUG_IN_LEVEL_FINISHED_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GovernorTaxLevel
+Trigger requirements:    character_record
+Parameters:              logic token, tax level (tax_low, tax_normal, tax_high, tax_extortionate)
+Sample use:              GovernorTaxLevel > tax_high
+Description:             Is the character a governor who is taxing the populace at a particular level?
+Battle or Strat:         Either
+Class:                   GOVERNOR_TAX_LEVEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementTaxLevel
+Trigger requirements:    settlement
+Parameters:              logic token, tax level (tax_low, tax_normal, tax_high, tax_extortionate)
+Sample use:              SettlementTaxLevel > tax_high
+Description:             Is the settlement taxing the populace at a particular level?
+Battle or Strat:         Either
+Class:                   SETTLEMENT_TAX_LEVEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GovernorInResidence
+Trigger requirements:    settlement
+Parameters:              None
+Sample use:              GovernorInResidence
+Description:             Does the settlement lack a governor?
+Battle or Strat:         Strat
+Class:                   GOVERNOR_IN_RESIDENCE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GovernorLoyaltyLevel
+Trigger requirements:    character_record
+Parameters:              logic token, value (loyalty_revolting, loyalty_rioting, loyalty_disillusioned, loyalty_content, loyalty_happy)
+Sample use:              GovernorLoyaltyLevel > loyalty_rioting
+Description:             Is the character a governor and, if so how loyal is the settlement to him?
+Battle or Strat:         Either
+Class:                   GOVERNOR_LOYALTY_LEVEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GovernorAttribute
+Trigger requirements:    settlement
+Parameters:              attribute description, logic token, level
+Sample use:              GovernorAttribute Chivalry >= 2
+Description:             Test a settlement governors attribute
+Battle or Strat:         Either
+Class:                   GOVERNOR_ATTRIBUTE_TEST
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementLoyaltyLevel
+Trigger requirements:    settlement
+Parameters:              logic token, value (loyalty_revolting, loyalty_rioting, loyalty_disillusioned, loyalty_content, loyalty_happy)
+Sample use:              SettlementLoyaltyLevel > loyalty_rioting
+Description:             How loyal is the settlement?
+Battle or Strat:         Either
+Class:                   SETTLEMENT_LOYALTY_LEVEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              RiotRisk
+Trigger requirements:    settlement
+Parameters:              logic token, percentage (integral, < 40 since there is never more than a 40% chance of rioting)
+Sample use:              RiotRisk > 30
+Description:             What is the chance of this settlement rioting?
+Battle or Strat:         Either
+Class:                   RIOT_RISK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BuildingQueueIdleDespiteCash
+Trigger requirements:    settlement
+Parameters:              None
+Sample use:              BuildingQueueIdleDespiteCash
+Description:             Is the faction exploiting its build capability to the full?
+Battle or Strat:         Either
+Class:                   BUILDING_QUEUE_IDLE_DESPITE_CASH
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TrainingQueueIdleDespiteCash
+Trigger requirements:    settlement
+Parameters:              None
+Sample use:              TrainingQueueIdleDespiteCash
+Description:             Is the faction exploiting its recruitment capability to the full?
+Battle or Strat:         Either
+Class:                   TRAINING_QUEUE_IDLE_DESPITE_CASH
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_SettlementExists
+Trigger requirements:    
+Parameters:              settlement name
+Sample use:              I_SettlementExists Segesta
+Description:             Does a settlement by this name exist?
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_EXISTS
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_SettlementOwner
+Trigger requirements:    
+Parameters:              settlement name, logic token, faction type
+Sample use:              I_SettlementOwner Segesta = romans_julii
+Description:             Is this settlement owned by this faction?
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_OWNER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              AdviseFinancialBuild
+Trigger requirements:    best_finance_option
+Parameters:              build type (farms, mines, tax, trade)
+Sample use:              AdviseFinancialBuild = mines
+Description:             Is this the best thing to build to increase financial production?
+Battle or Strat:         Strat
+Class:                   ADVISE_FINANCIAL_BUILD
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              AdviseBuild
+Trigger requirements:    advised_build
+Parameters:              build type (from tech tree) - use No_building for none available
+Sample use:              AdviseBuild = mines, AdviseBuild = No_building
+Description:             Is this the best thing to build?
+Battle or Strat:         Strat
+Class:                   ADVISE_BUILD
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              AdviseRecruit
+Trigger requirements:    
+Parameters:              unit type (from unit database) - use No_unit for none available
+Sample use:              AdviseRecruit = triarii, AdviseRecruit = No_unit
+Description:             Is this the best thing to recruit?
+Battle or Strat:         Strat
+Class:                   ADVISE_RECRUIT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              BuildingName
+Trigger requirements:    resource_description
+Parameters:              building level name
+Sample use:              BuildingName = small_church
+Description:             What is the buildings name?
+Battle or Strat:         Strat
+Class:                   BUILDING_LEVEL_NAME
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementPopulationMaxedOut
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              SettlementPopulationMaxedOut
+Description:             Is the settlement full for its level? (Actually, >95%)
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_POPULATION_MAXED_OUT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementPopulationTooLow
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              SettlementPopulationTooLow
+Description:             Is the settlement too empty to recruit from?
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_POPULATION_TOO_LOW
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              CityPopulation
+Trigger requirements:    settlement
+Parameters:              logic token, population (integral)
+Sample use:              CityPopulation > 2000
+Description:             Tests the current population of the settlement against a threshold
+Battle or Strat:         Strat
+Class:                   CITY_POPULATION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementAutoManaged
+Trigger requirements:    settlement
+Parameters:              Automanagement type (Troops, Buildings, Mechanics)
+Sample use:              not SettlementAutoManaged Troops
+Description:             Is the settlement auto managed in a particular way?
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_AUTO_MANAGED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              PercentageOfPopulationInGarrison
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              PercentageOfPopulationInGarrison > 35
+Description:             Check the percentage of population that is currently in the garrison
+Battle or Strat:         Strat
+Class:                   PERCENTAGE_OF_POPULATION_IN_GARRISON
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              GarrisonToPopulationRatio
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              GarrisonSettlementRatio > 0.35
+Description:             Calculate the ratio of soldiers to civilians
+Battle or Strat:         Strat
+Class:                   GARRISON_TO_POPULATION_RATIO
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              HealthPercentage
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              HealthPercentage > 35
+Description:             Check the health of the settlement
+Battle or Strat:         Strat
+Class:                   HEALTH_PERCENTAGE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementHasPlague
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              SettlementHasPlague
+Description:             Is the settlement plague-ridden?
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_HAS_PLAGUE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsFortGarrisoned
+Trigger requirements:    fort
+Parameters:              
+Sample use:              IsFortGarrisoned
+Description:             Are there any troops in the fort?
+Battle or Strat:         Strat
+Class:                   IS_FORT_GARRISONED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsSettlementGarrisoned
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              IsSettlementGarrisoned
+Description:             Are there any troops in the settlement?
+Battle or Strat:         Strat
+Class:                   IS_SETTLEMENT_GARRISONED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementUnderSiege
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              SettlementUnderSiege
+Description:             Is the settlement under siege?
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_UNDER_SIEGE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsSettlementRioting
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              IsSettlementRioting
+Description:             Is the settlement rioting at the moment?
+Battle or Strat:         Strat
+Class:                   IS_SETTLEMENT_RIOTING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_NumberUnitsInSettlement
+Trigger requirements:    
+Parameters:              settlement, unit type (UNIT_DESCRIPTION.id), logic token, quantity
+Sample use:              I_NumberUnitsInSettlement Tarquinii roman_city_militia < 5
+Description:             How many units are in the settlement?
+Battle or Strat:         Strat
+Class:                   NUMBER_UNITS_IN_SETTLEMENT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              NeighbourReligion
+Trigger requirements:    settlement
+Parameters:              settlement religion, logic token, level
+Sample use:              NeighbourReligion pagan > 50.0
+Description:             Test the sum of settlements neighbours religion
+Battle or Strat:         Strat
+Class:                   NEIGHBOUR_RELIGION_CHECK
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsCrusadeTarget
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              IsCrusadeTarget
+Description:             Test if the settlement is the current crusade target
+Battle or Strat:         Strat
+Class:                   IS_CRUSADE_TARGET
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsJihadTarget
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              IsJihadTarget
+Description:             Test if the settlement is the current jihad target
+Battle or Strat:         Strat
+Class:                   IS_JIHAD_TARGET
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsRegionCrusadeTarget
+Trigger requirements:    region_id
+Parameters:              
+Sample use:              IsRegionCrusadeTarget
+Description:             Test if the region is the current crusade target
+Battle or Strat:         Strat
+Class:                   IS_REGION_CRUSADE_TARGET
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsRegionJihadTarget
+Trigger requirements:    region_id
+Parameters:              
+Sample use:              IsRegionJihadTarget
+Description:             Test if the region is the current jihad target
+Battle or Strat:         Strat
+Class:                   IS_REGION_JIHAD_TARGET
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementType
+Trigger requirements:    settlement
+Parameters:              castle | city
+Sample use:              SettlementType castle
+Description:             Test if the settlement is the specified type
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetSettlementType
+Trigger requirements:    settlement
+Parameters:              castle | city
+Sample use:              TargetSettlementType castle
+Description:             Test if the target settlement is the specified type
+Battle or Strat:         Strat
+Class:                   TARGET_SETTLEMENT_TYPE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_SettlementUnderSiege
+Trigger requirements:    
+Parameters:              Settlement name
+Sample use:              I_SettlementUnderSiege London
+Description:             Is the named settlement under siege?
+Battle or Strat:         Strat
+Class:                   I_SETTLEMENT_UNDER_SIEGE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_UnitsToRetrain
+Trigger requirements:    
+Parameters:              settlement_name, logic token, number
+Sample use:              I_UnitsToRetrain Rome > 0
+Description:             Test the number of units available to retrain in sepecified settlement
+Battle or Strat:         Strat
+Class:                   I_UNITS_TO_RETRAIN
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsSettlementExported
+Trigger requirements:    settlement
+Parameters:              
+Sample use:              IsSettlementExported
+Description:             Does this event export a settlement?
+Battle or Strat:         Strat
+Class:                   IS_SETTLEMENT_EXPORTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsFortExported
+Trigger requirements:    fort
+Parameters:              
+Sample use:              IsFortExported
+Description:             Does this event export a fort?
+Battle or Strat:         Strat
+Class:                   IS_FORT_EXPORTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_SettlementLevel
+Trigger requirements:    settlement
+Parameters:              logic_token, settlement_level
+Sample use:              I_SettlementLevel >= large_town
+Description:             Compare settlement level
+Battle or Strat:         Strat
+Class:                   I_SETTLEMENT_LEVEL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_SettlementOwnerCulture
+Trigger requirements:    settlement
+Parameters:              culture_name
+Sample use:              I_SettlementOwnerCulture northern_european
+Description:             Check culture of settlement owner
+Battle or Strat:         Strat
+Class:                   I_SETTLEMENT_OWNER_CULTURE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              HasResource
+Trigger requirements:    settlement
+Parameters:              resource_name
+Sample use:              HasResource iron
+Description:             Check if settlement region has a trade resource
+Battle or Strat:         Strat
+Class:                   HAS_RESOURCE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              HasHiddenResource
+Trigger requirements:    settlement
+Parameters:              resource_name
+Sample use:              HasHiddenResource italia
+Description:             Check if settlement region has a hidden resource
+Battle or Strat:         Strat
+Class:                   HAS_HIDDEN_RESOURCE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IsCapital
+Trigger requirements:    settlement
+Parameters:              None
+Sample use:              IsCapital
+Description:             Is this settlement the faction capital?
+Battle or Strat:         Strat
+Class:                   IS_CAPITAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementOrderLevel
+Trigger requirements:    settlement
+Parameters:              category, op, value
+Sample use:              SettlementOrderLevel garrison >= 15
+Description:             STUB: always false (no order/turmoil model in this engine)
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_ORDER_LEVEL
+Implemented:             Stub
+---------------------------------------------------
+Identifier:              I_AdvisorSpeechPlaying
+Trigger requirements:    
+Parameters:              
+Sample use:              I_AdvisorSpeechPlaying
+Description:             Detect whether advisor speech is playing or not
+Battle or Strat:         Both
+Class:                   ADVISOR_SPEECH_PLAYING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_AdvisorVisible
+Trigger requirements:    
+Parameters:              
+Sample use:              not I_AdvisorVisible
+Description:             Is the advisor currently visible?
+Battle or Strat:         Either
+Class:                   ADVISOR_VISIBLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              CharacterIsLocal
+Trigger requirements:    character_record
+Parameters:              None
+Sample use:              CharacterIsLocal
+Description:             Is the character a member of the local faction?
+Battle or Strat:         Either
+Class:                   CHARACTER_IS_LOCAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetCharacterIsLocal
+Trigger requirements:    target_character_record
+Parameters:              None
+Sample use:              TargetCharacterIsLocal
+Description:             Is the target character a member of the local faction?
+Battle or Strat:         Either
+Class:                   TARGET_CHARACTER_IS_LOCAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              SettlementIsLocal
+Trigger requirements:    settlement
+Parameters:              None
+Sample use:              SettlementIsLocal
+Description:             Does the settlement belong to the local faction?
+Battle or Strat:         Either
+Class:                   SETTLEMENT_IS_LOCAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetSettlementIsLocal
+Trigger requirements:    settlement
+Parameters:              None
+Sample use:              TargetSettlementIsLocal
+Description:             Does the target settlement belong to the local faction?
+Battle or Strat:         Either
+Class:                   TARGET_SETTLEMENT_IS_LOCAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              RegionIsLocal
+Trigger requirements:    region_id
+Parameters:              None
+Sample use:              RegionIsLocal
+Description:             Does the region belong to the local faction?
+Battle or Strat:         Either
+Class:                   REGION_IS_LOCAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetRegionIsLocal
+Trigger requirements:    region_id
+Parameters:              None
+Sample use:              TargetRegionIsLocal
+Description:             Does the target region belong to the local faction?
+Battle or Strat:         Either
+Class:                   TARGET_REGION_IS_LOCAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              ArmyIsLocal
+Trigger requirements:    army
+Parameters:              None
+Sample use:              ArmyIsLocal
+Description:             Does the army belong to the local faction?
+Battle or Strat:         Either
+Class:                   ARMY_IS_LOCAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetArmyIsLocal
+Trigger requirements:    army
+Parameters:              None
+Sample use:              TargetArmyIsLocal
+Description:             Does the target army belong to the local faction?
+Battle or Strat:         Either
+Class:                   TARGET_ARMY_IS_LOCAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              FactionIsLocal
+Trigger requirements:    faction
+Parameters:              None
+Sample use:              FactionIsLocal
+Description:             Is the faction the local faction?
+Battle or Strat:         Either
+Class:                   FACTION_IS_LOCAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_LocalFaction
+Trigger requirements:    
+Parameters:              faction
+Sample use:              I_LocalFaction romans_julii
+Description:             Is the faction the local faction?
+Battle or Strat:         Either
+Class:                   I_LOCAL_FACTION
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              TargetFactionIsLocal
+Trigger requirements:    target_faction
+Parameters:              None
+Sample use:              TargetFactionIsLocal
+Description:             Is the target faction the local faction?
+Battle or Strat:         Either
+Class:                   TARGET_FACTION_IS_LOCAL
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_TurnNumber
+Trigger requirements:    
+Parameters:              logic token, turn number
+Sample use:              I_TurnNumber > 50
+Description:             The current turn number (starts at 0)
+Battle or Strat:         Either
+Class:                   TURN_NUMBER
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_MapName
+Trigger requirements:    
+Parameters:              map file name
+Sample use:              not I_MapName world\maps\campaign\norman_prologue\descr_strat.txt
+Description:             The qualified file name of the current map relative to the data directory
+Battle or Strat:         Either
+Class:                   MAP_NAME
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_ThreadCount
+Trigger requirements:    
+Parameters:              advice thread, logic token, value
+Sample use:              I_ThreadCount City_Riots_Reduce_Taxes_Thread > 5
+Description:             Has this advice thread been incremented many times?
+Battle or Strat:         Strat
+Class:                   THREAD_COUNT
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_IsTriggerTrue
+Trigger requirements:    
+Parameters:              trigger name
+Sample use:              I_IsTriggerTrue sample_trigger_name
+Description:             Has this trigger been fired?
+Battle or Strat:         Strat
+Class:                   TRIGGER_TRUE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              IncomingMessageType
+Trigger requirements:    event
+Parameters:              message identifier (see Tom)
+Sample use:              IncomingMessageType mission_issued
+Description:             Has this message just been received
+Battle or Strat:         Strat
+Class:                   INCOMING_MESSAGE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_AdvisorVerbosity
+Trigger requirements:    
+Parameters:              logic token, advisor verbosity
+Sample use:              I_AdvisorVerbosity > 2
+Description:             The advisor verbosity
+Battle or Strat:         Either
+Class:                   ADVISOR_VERBOSITY
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_CharacterSelected
+Trigger requirements:    
+Parameters:              character name
+Sample use:              I_CharacterSelected Gaius Julius
+Description:             Detect whether the character is currently selected
+Battle or Strat:         Strat
+Class:                   CHARACTER_SELECTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_AgentSelected
+Trigger requirements:    
+Parameters:              character type (spy, assassin, diplomat, admiral, general, named character, family)
+Sample use:              I_AgentSelected spy
+Description:             Detect whether a character of the specified type is currently selected
+Battle or Strat:         Strat
+Class:                   AGENT_SELECTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_SettlementSelected
+Trigger requirements:    
+Parameters:              settlement name
+Sample use:              I_SettlementSelected Roma
+Description:             Detect whether the settlement is currently selected
+Battle or Strat:         Strat
+Class:                   SETTLEMENT_SELECTED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              ShortcutTriggered
+Trigger requirements:    resource_description
+Parameters:              element id, function id (see data/descr_shortcuts.txt)
+Sample use:              ShortcutTriggered camera step_l 
+Description:             Detect whether a keyboard shortcut has been pressed
+Battle or Strat:         Both
+Class:                   SHORTCUT_TRIGGERED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_AdvancedStatsScrollIsOpen
+Trigger requirements:    
+Parameters:              
+Sample use:              I_AdvancedStatsScrollIsOpen
+Description:             Detect whether the advanced stats scroll is open
+Battle or Strat:         Strat
+Class:                   I_ADVANCED_STATS_SCROLL_IS_OPEN
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_ScrollOpen
+Trigger requirements:    
+Parameters:              scroll_id
+Sample use:              I_ScrollOpen diplomacy_scroll
+Description:             Detect whether the specified scroll is open
+Battle or Strat:         Strat
+Class:                   I_SCROLL_OPEN
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              I_MessageNeedsResolving
+Trigger requirements:    
+Parameters:              
+Sample use:              I_MessageNeedsResolving
+Description:             The player has a message that must be resolved before ending turn
+Battle or Strat:         Strat
+Class:                   I_MESSAGE_NEEDS_RESOLVING
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              ButtonPressed
+Trigger requirements:    resource_description
+Parameters:              button id (see available_ui_elements.txt)
+Sample use:              ButtonPressed character_info_zoom_to_button
+Description:             Detect whether a button has been pressed
+Battle or Strat:         Both
+Class:                   BUTTON_PRESSED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              UIElementVisible
+Trigger requirements:    resource_description
+Parameters:              ui element id (see available_ui_elements.txt)
+Sample use:              UIElementVisible retrain_tab
+Description:             Test for when a named ui element is visible
+Battle or Strat:         Strat
+Class:                   UI_ELEMENT_VISIBLE
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              ScrollOpened
+Trigger requirements:    resource_description
+Parameters:              scroll id (see available_ui_elements.txt)
+Sample use:              ScrollOpened own_character_info_scroll
+Description:             Test for when a named scroll is opened
+Battle or Strat:         Both - Depends on scroll requested
+Class:                   SCROLL_OPENED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              ScrollClosed
+Trigger requirements:    resource_description
+Parameters:              scroll id (see available_ui_elements.txt)
+Sample use:              ScrollClosed own_character_info_scroll
+Description:             Test for when a named scroll is closed
+Battle or Strat:         Both - Depends on scroll requested
+Class:                   SCROLL_CLOSED
+Implemented:             Yes
+---------------------------------------------------
+Identifier:              ScrollAdviceRequested
+Trigger requirements:    resource_description
+Parameters:              scroll id (see available_ui_elements.txt)
+Sample use:              ScrollAdviceRequested own_character_info_scroll
+Description:             Test for which scroll advice was requested on
+Battle or Strat:         Both - Depends on scroll requested
+Class:                   SCROLL_ADVICE_REQUESTED
+Implemented:             Yes

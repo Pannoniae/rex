@@ -1,0 +1,1814 @@
+Commands
+===============================
+
+
+---------------------------------------------------
+Identifier:         ai_gta_plan_set
+Parameters:         alliance plan
+Description:        Sets GTA battle plan
+Sample use:         ai_gta_plan_set 0 DO_NOTHING
+Class:              AI_GTA_PLAN_SET
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         ai_gta_add_objective
+Parameters:         alliance objective priority ...
+Description:        Add GTA objective
+Sample use:         ai_gta_add_objective 1 MOVE_TO_POINT 11 440, -710
+Class:              AI_GTA_ADD_OBJECTIVE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         ai_gta_del_objective
+Parameters:         alliance objective
+Description:        Remove GTA objective
+Sample use:         ai_gta_del_objective 1 0
+Class:              AI_GTA_DEL_OBJECTIVE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         ai_gta_add_unit
+Parameters:         alliance objective army unit
+Description:        Add unit to a GTA objective
+Sample use:         ai_gta_add_unit 1 0 1 0
+Class:              AI_GTA_ADD_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         ai_gta_add_unit_id
+Parameters:         alliance objective unit_id
+Description:        Add unit to a GTA objective by unit id
+Sample use:         ai_gta_add_unit_id 1 0 6
+Class:              AI_GTA_ADD_UNIT_ID
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         ai_gta_add_unit_label
+Parameters:         alliance objective unit_label
+Description:        Add unit to a GTA objective by unit id
+Sample use:         ai_gta_add_unit_label 1 0 6
+Class:              AI_GTA_ADD_UNIT_LABEL
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         ai_active_set
+Parameters:         on/off
+Description:        Turns AI on or off
+Sample use:         ai_active_set off
+Class:              AI_ACTIVE_SET
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         release_unit
+Parameters:         unit_label
+Description:        Unlabels the specified unit and releases it back to player or AI control
+Sample use:         release_unit
+Class:              RELEASE_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         hiding_enabled_set
+Parameters:         true/false
+Description:        Enables or disables unit hiding for all units
+Sample use:         hiding_enabled_set false
+Class:              HIDING_ENABLED_SET
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         swimming_enabled_set
+Parameters:         true/false
+Description:        Enables or disables swimming for all units
+Sample use:         swimming_enabled_set false
+Class:              SWIMMING_ENABLED_SET
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         terminate_battle
+Parameters:         win/lose/draw
+Description:        terminates the battle
+Sample use:         terminate_battle
+Class:              TERMINATE_BATTLE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         pause_battle
+Parameters:         
+Description:        pauses the battle
+Sample use:         pause_battle
+Class:              PAUSE_BATTLE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         battle_set_speed
+Parameters:         speed: 0.0f -> 10.0f
+Description:        sets battle speed
+Sample use:         battle_set_speed 1.0f
+Class:              BATTLE_SET_SPEED
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_immediate_place
+Parameters:         unit_label location angle_in_degrees width(optional)
+Description:        Immediately positions the unit at the given location
+Sample use:         unit_immediate_place archers1 big_hill 0 20
+Class:              UNIT_IMMEDIATE_PLACE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_order_halt
+Parameters:         unit_label
+Description:        orders the specified unit stop it's orders
+Sample use:         unit_order_halt cohort1
+Class:              UNIT_ORDER_HALT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_order_move
+Parameters:         unit_label x y run(optional)
+Description:        orders the specified unit to move to the specified position
+Sample use:         unit_order_move cohort1 100 60 run
+Class:              UNIT_ORDER_MOVE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_order_move_to_orientation
+Parameters:         unit_label x y width_in_men rotation_in_degrees run (optional)
+Description:        orders the specified unit to move to the specified position with a specified rotation and orientation
+Sample use:         unit_order_move_to_orientation cohort1 100 60 20 45 run
+Class:              UNIT_ORDER_MOVE_TO_ORIENTATION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_order_move_relative
+Parameters:         unit_label x y run(optional)
+Description:        orders the specified unit to move to the specified position
+Sample use:         unit_order_move_relative cohort1 0 60 run
+Class:              UNIT_ORDER_MOVE_RELATIVE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_order_attack_unit
+Parameters:         unit_label target_unit_label run(optional)
+Description:        Orders one unit to attack another
+Sample use:         unit_order_attack_unit cavalry1 enemy4 run
+Class:              UNIT_ORDER_ATTACK_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_order_attack_closest_unit
+Parameters:         unit_label search_arc(in degrees) run(optional)
+Description:        Searches an arc in front of the unit, and attacks the closest enemy found
+Sample use:         unit_order_attack_closest_unit 15 run
+Class:              UNIT_ORDER_ATTACK_CLOSEST_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_order_change_formation
+Parameters:         unit_label formation_type (square, horde, testudo, phalanx)
+Description:        changes the specified unit's formation
+Sample use:         unit_order_change_formation legionary_cohort testudo
+Class:              UNIT_ORDER_CHANGE_FORMATION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_order_move_to_missile_range
+Parameters:         attacker_unit_label target_unit_label run(optional)
+Description:        orders the attacker to move into missile range of the target
+Sample use:         unit_order_move_to_missile_range roman_archers barb_swordsmen run
+Class:              UNIT_ORDER_MOVE_TO_MISSILE_RANGE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_order_turn
+Parameters:         unit_label rotation relative/absolute
+Description:        order the unit to turn to an absolute angle or by an angle relative to it's current rotation
+Sample use:         unit_order_turn roman_archers -20 relative (turns left 20 degrees)
+Class:              UNIT_ORDER_TURN
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_set_morale
+Parameters:         unit_label morale_level (beserk/impetuous/high/firm/shaken/wavering/routing)
+Description:        sets and locks the unit's morale level
+Sample use:         unit_set_morale carthaginian_peasants wavering
+Class:              UNIT_SET_MORALE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_unset_morale
+Parameters:         unit_label
+Description:        unlocks the unit's morale, the game will retake control and update the morale normally
+Sample use:         unit_unset_morale peasants4
+Class:              UNIT_UNSET_MORALE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_set_weapon_upgrade
+Parameters:         unit_label new_level
+Description:        sets the unit's weapon upgrade (0-3)
+Sample use:         unit_set_weapon_upgrade spearmen1 3
+Class:              UNIT_SET_WEAPON_UPGRADE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_set_armour_upgrade
+Parameters:         unit_label new_level
+Description:        sets the unit's armour upgrade (0-3)
+Sample use:         unit_set_armour_upgrade spearmen1 3
+Class:              UNIT_SET_ARMOUR_UPGRADE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_set_experience
+Parameters:         unit_label new_experience_level
+Description:        sets the specified unit's experience level (0-9)
+Sample use:         unit_set_experience roman_general 7
+Class:              UNIT_SET_EXPERIENCE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         kill_unit
+Parameters:         unit_label
+Description:        Completely wipes out the specified unit
+Sample use:         kill_unit carthaginians2
+Class:              KILL_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         reduce_unit_strength
+Parameters:         unit_label percentage
+Description:        Kills enough men to reduce a unit to the specifies percentage of it's original strangth
+Sample use:         reduce_unit_strength carthaginians2 50
+Class:              REDUCE_UNIT_STRENGTH
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_set_guard_mode
+Parameters:         unit_label on/off
+Description:        Sets the guard melee state for the specified unit
+Sample use:         unit_set_guard_mode roman_spearmen on
+Class:              UNIT_SET_GUARD_MODE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_set_skirmish_mode
+Parameters:         unit_label on/off
+Description:        Sets the skirmish melee state for the specified unit
+Sample use:         unit_set_skirmish_mode velites1 off
+Class:              UNIT_SET_SKIRMISH_MODE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_toggle_task_interrupt
+Parameters:         unit_label melee/skirmish/fire_at_will/rout/berserk/infighting on/off
+Description:        Enables/disables the specified interrupt for the unit
+Sample use:         unit_toggle_task_interrupt roman_archers skirmish on
+Class:              UNIT_TOGGLE_TASK_INTERRUPT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_set_fire_at_will_mode
+Parameters:         unit_label on/off
+Description:        Sets the fire-at-will melee state for the specified unit
+Sample use:         unit_set_fire_at_will_mode roman_archers on
+Class:              UNIT_SET_FIRE_AT_WILL_MODE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_set_formation_spacing
+Parameters:         unit_label loose/tight
+Description:        Sets the specified unit's formation spacing to loose or tight
+Sample use:         unit_set_formation_spacing roman_archers loose
+Class:              UNIT_SET_FORMATION_SPACING
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_taunt
+Parameters:         unit_label
+Description:        Makes the unit taunt
+Sample use:         unit_taunt barb_archers
+Class:              UNIT_TAUNT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_use_special_ability
+Parameters:         unit_label
+Description:        Makes the unit perform their special ability
+Sample use:         unit_use_special_ability barb_archers
+Class:              UNIT_USE_SPECIAL_ABILITY
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_enable_automation
+Parameters:         group_label true/false
+Description:        Sets or unsets unit group automation
+Sample use:         unit_group_enable_automation
+Class:              UNIT_GROUP_ENABLE_AUTOMATION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_automate_defend_position
+Parameters:         group_label location radius
+Description:        Instructs an automated unit group to defend position
+Sample use:         unit_group_automate_defend_position 106 -56 75
+Class:              UNIT_GROUP_AUTOMATE_DEFEND_POSITION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_automate_attack
+Parameters:         group_label enemy_unit_label
+Description:        Instructs an automated unit group to attack a specified enemy unit
+Sample use:         unit_group_automate_attack enemy_unit
+Class:              UNIT_GROUP_AUTOMATE_ATTACK
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_immediate_place
+Parameters:         group_label location degrees
+Description:        orders the unit group to move to the specified location
+Sample use:         unit_group_immediate_place group6 100 -60 -20
+Class:              UNIT_GROUP_IMMEDIATE_PLACE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_order_halt
+Parameters:         group_label
+Description:        orders the unit group to stop it's orders
+Sample use:         unit_group_order_halt group6
+Class:              UNIT_GROUP_ORDER_HALT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_order_move_formed
+Parameters:         group_label x y run(optional)
+Description:        orders the unit group to move to the specified location
+Sample use:         unit_group_order_move_formed group6 100 -60 run
+Class:              UNIT_GROUP_ORDER_MOVE_FORMED
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_order_move_unformed
+Parameters:         group_label x y run(optional)
+Description:        orders the unit group to move to the specified location
+Sample use:         unit_group_order_move_unformed group6 100 -60 run
+Class:              UNIT_GROUP_ORDER_MOVE_UNFORMED
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_order_relative_move_formed
+Parameters:         group_label x y run(optional)
+Description:        orders the unit group to move to the specified location
+Sample use:         unit_group_order_relative_move_formed group6 100 -60 run
+Class:              UNIT_GROUP_ORDER_RELATIVE_MOVE_FORMED
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_order_relative_move_unformed
+Parameters:         group_label x y run(optional)
+Description:        orders the unit group to move to the specified location
+Sample use:         unit_group_order_relative_move_unformed group6 100 -60 run
+Class:              UNIT_GROUP_ORDER_RELATIVE_MOVE_UNFORMED
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_move_to_missile_range_of_unit
+Parameters:         group_label target_unit_label
+Description:        move the unit group so that at least one unit is in range of the target unit
+Sample use:         unit_group_move_to_missile_range_of_unit archer_group enemy_spearmen3
+Class:              UNIT_GROUP_MOVE_TO_MISSILE_RANGE_OF_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_move_to_missile_range_of_group
+Parameters:         group_label target_group_label run(optional)
+Description:        move the unit group so that at least one unit is in range of at least one unit in the target group
+Sample use:         unit_group_move_to_missile_range_of_group archer_group enemy_group
+Class:              UNIT_GROUP_MOVE_TO_MISSILE_RANGE_OF_GROUP
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_order_attack_unit
+Parameters:         group_label target_unit_label run(optional)
+Description:        order the unit group to attack the target unit
+Sample use:         unit_group_order_attack_unit group1 enemy_unit4
+Class:              UNIT_GROUP_ORDER_ATTACK_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_order_attack_group
+Parameters:         group_label target_group_label run(optional)
+Description:        orders the unit group to attack the target group
+Sample use:         unit_group_order_attack_group cavalry_group1 enemy_archer_group
+Class:              UNIT_GROUP_ORDER_ATTACK_GROUP
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_order_change_group_formation
+Parameters:         group_label formation_name
+Description:        sets a group formation from descr_formations.txt
+Sample use:         unit_group_order_change_group_formation group2 ordered_triple_line_1
+Class:              UNIT_GROUP_ORDER_CHANGE_GROUP_FORMATION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_order_turn
+Parameters:         group_label angle relative(optional)
+Description:        rotates the unit group to an angle or by a number of degrees relative to it's current angle (see unit_order_turn)
+Sample use:         unit_group_order_turn group2 90 (turns the group to 90 degrees)
+Class:              UNIT_GROUP_ORDER_TURN
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_set_morale
+Parameters:         group_label morale_level (beserk/impetuous/high/firm/shaken/wavering/routing)
+Description:        sets and locks the morale level for each unit in the group
+Sample use:         unit_set_morale infantry_group routing
+Class:              UNIT_GROUP_SET_MORALE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_unset_morale
+Parameters:         group_label
+Description:        unlocks the units' morale, the game will retake control and update the morale normally
+Sample use:         unit_group_unset_morale infantry_group
+Class:              UNIT_GROUP_UNSET_MORALE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_change_unit_formation
+Parameters:         group_label formation_type (square, horde, testudo, phalanx)
+Description:        changes the formation of each unit in the specified unit group
+Sample use:         unit_group_change_unit_formation hoplite_group phalanx
+Class:              UNIT_GROUP_CHANGE_UNIT_FORMATION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_set_guard_mode
+Parameters:         group_label on/off
+Description:        Sets the guard melee state for all units in the specified group
+Sample use:         unit_group_set_guard_mode group2 off
+Class:              UNIT_GROUP_SET_GUARD_MODE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_set_skirmish_mode
+Parameters:         group_label on/off
+Description:        Sets the skirmish melee state for all units in the specified group
+Sample use:         unit_group_set_skirmish_mode archer_group on
+Class:              UNIT_GROUP_SET_SKIRMISH_MODE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_set_fire_at_will_mode
+Parameters:         group_label on/off
+Description:        Sets the guard melee state for all units in the specified group
+Sample use:         unit_group_set_fire_at_will_mode group2 off
+Class:              UNIT_GROUP_SET_FIRE_AT_WILL_MODE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_group_set_formation_spacing
+Parameters:         group_label loose/tight
+Description:        Sets the formation spacing, for each unit in the group, to loose or tight
+Sample use:         unit_group_set_formation_spacing group1 loose
+Class:              UNIT_GROUP_SET_FORMATION_SPACING
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unit_deploy_stakes
+Parameters:         unit_label
+Description:        Deploys stakes for the specified unit (ignored if stakes already deployed or the unit doesn't have this ability).
+Sample use:         unit_deploy_stakes roman_archers
+Class:              UNIT_DEPLOY_STAKES
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         battle_restrict_clickable_area
+Parameters:         left, top, right, bottom or no parameters to clear all regions
+Description:        Restricts world region in which player can click
+Sample use:         battle_restrict_clickable_area 1,2,3,4
+Class:              BATTLE_RESTRICT_CLICKABLE_AREA
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         reset_rand
+Parameters:         n/a
+Description:        Resets random number generator
+Sample use:         reset_rand
+Class:              RESET_RAND
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         invulnerable_general
+Parameters:         character_name
+Description:        invulnerable_general <character_name> : makes that named general invulnerable in battle
+Sample use:         invulnerable_general <rufus>
+Class:              BATTLE_INVULNERABLE_GENERAL
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         vulnerable_general
+Parameters:         character_name
+Description:        vulnerable_general <character_name> : makes that named general vulnerable in battle
+Sample use:         vulnerable_general <rufus>
+Class:              BATTLE_VULNERABLE_GENERAL
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         move_strat_camera
+Parameters:         strategy map position
+Description:        Move the camera smoothly to the position
+Sample use:         move_camera 20,35
+Class:              MOVE_STRAT_CAMERA
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         snap_strat_camera
+Parameters:         strategy map position
+Description:        Move the camera immediately to the position
+Sample use:         snap_strat_camera 20,35
+Class:              SNAP_STRAT_CAMERA
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         zoom_strat_camera
+Parameters:         strategy map position
+Description:        Change the zoom of the camera (0 right up close, 1 far out), clamped at a hard-coded lower bound
+Sample use:         zoom_camera 0.4
+Class:              ZOOM_STRAT_CAMERA
+Implemented:        No
+---------------------------------------------------
+Identifier:         camera_restrictions_set
+Parameters:         on/off
+Description:        sets or unsets the restricted camera
+Sample use:         camera_restrictions_set on
+Class:              CAMERA_RESTRICTIONS_SET
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         lock_camera_restrictions_set
+Parameters:         on/off
+Description:        sets or unsets the players ability to change the camera restriction
+Sample use:         lock_camera_restrictions_set on
+Class:              LOCK_CAMERA_RESTRICTIONS_SET
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_event_cuts_active_set
+Parameters:         on/off
+Description:        activates and deactivates the event cut camera
+Sample use:         camera_event_cuts_active_set off
+Class:              CAMERA_EVENT_CUTS_ACTIVE_SET
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_default_mode_set
+Parameters:         tw/rts/general/user_pref
+Description:        Sets the default camera to TotalWar Camera (tw), RTS Camera (rts), General's Camera (general) or whichever mode the player has in his preferences (user_pref)
+Sample use:         camera_default_mode_set tw
+Class:              CAMERA_DEFAULT_MODE_SET
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         battle_default_camera
+Parameters:         n/a
+Description:        Sets the default camera
+Sample use:         battle_default_camera
+Class:              BATTLE_DEFAULT_CAMERA
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         battle_general_camera
+Parameters:         n/a
+Description:        Sets the general's camera
+Sample use:         battle_general_camera
+Class:              BATTLE_GENERAL_CAMERA
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_camera_bookmark
+Parameters:         Bookmark index (0-21), position(x,y,z) target(x,y,z)
+Description:        Sets a camera bookmark to position and target specified, which can later be recalled with UseCameraBookmark
+Sample use:         set_camera_bookmark 1, 100, 0, 100, 100, 0, 0 - Will set the camera bookmark to position (100,0,100), looking straight back along the z axis
+Class:              SET_CAMERA_BOOKMARK
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_position_at_bookmark
+Parameters:         Index (0-21)
+Description:        If the bookmark has been set (either in game, or with Set_Camera_Bookmark), then this will move the camera to the position and target specified by the bookmark
+Sample use:         camera_position_at_bookmark 0
+Class:              CAMERA_POSITION_AT_BOOKMARK
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_zoom_to_bookmark
+Parameters:         Index (0-21) max_speed(optional default=200)
+Description:        If the bookmark has been set (either in game, or with set_camera_bookmark), then this will move the camera to the position and target specified by the bookmark
+Sample use:         camera_zoom_to_bookmark 0 50
+Class:              CAMERA_ZOOM_TO_BOOKMARK
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_position
+Parameters:         position x,y,z target x,y,z
+Description:        Immediately places the camera at the specified position
+Sample use:         camera_position	0 0 0	0 0 -1
+Class:              CAMERA_POSITION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_zoom_to
+Parameters:         position x,y,z target x,y,z speed(optional)
+Description:        Zoom camera	to position, and look at target
+Sample use:         camera_zoom_to	0 0 0	0 0 -1	50
+Class:              CAMERA_ZOOM_TO
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_look_at_position
+Parameters:         x y or location_label
+Description:        camera turns to look at a position on the battlefield, but doesn't move
+Sample use:         camera_look_at_position 123.4 56.7
+Class:              CAMERA_LOOK_AT_POSITION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_look_at_unit
+Parameters:         unit_label
+Description:        turns the camera to look at the unit without moving
+Sample use:         camera_look_at_unit spearmen7
+Class:              CAMERA_LOOK_AT_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_track_unit
+Parameters:         unit_label direction distance height pitch(optional)
+Description:        camera tracks the specified unit, direction can be a number in degrees or an identifier front, back, left or right
+Sample use:         camera_track_unit roman_cavalry1 left 20 10 -15
+Class:              CAMERA_TRACK_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_zoom_to_unit
+Parameters:         unit_label
+Description:        zoom the camera to the soecified unit
+Sample use:         camera_zoom_to_unit spearmen7
+Class:              CAMERA_ZOOM_TO_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         e_camera_zoom_to_unit
+Parameters:         
+Description:        zoom the camera to the unit specified by the event
+Sample use:         e_camera_zoom_to_unit
+Class:              E_CAMERA_ZOOM_TO_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         inhibit_camera_input
+Parameters:         true/false
+Description:        Stop the user affecting the camera position, either through the keyboard or mouse movement
+Sample use:         inhibit_camera_input true
+Class:              INHIBIT_CAMERA_INPUT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         camera_shake
+Parameters:         true/false
+Description:        shake camera?
+Sample use:         CAMERA_SHAKE true
+Class:              CAMERA_SHAKE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         declare_prologue
+Parameters:         none
+Description:        enforce prologue considerations upon the world, e.g. no general death during auto-resolve
+Sample use:         declare_prologue
+Class:              DECLARE_PROLOGUE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         terminate_prologue
+Parameters:         none
+Description:        withdraw prologue considerations upon the world, e.g. no general death during auto-resolve
+Sample use:         terminate_prologue
+Class:              TERMINATE_PROLOGUE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         provoke_rebellion
+Parameters:         settlement name
+Description:        Start a rebellion in the named settlement at the start of the next turn
+Sample use:         provoke_rebellion Segesta
+Class:              PROVOKE_REBELLION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         move
+Parameters:         character name, x, y
+Description:        Move the named character to the location specified
+Sample use:         move Gaius Julius, 20, 44
+Class:              MOVE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         reposition_character
+Parameters:         character, x, y
+Description:        Snap the character to a position
+Sample use:         reposition_character Gaius Maximus, 14, 53
+Class:              REPOSITION_CHARACTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         replenish_action_points
+Parameters:         character name
+Description:        replenish the character's action points
+Sample use:         replenish_action_points Gaius Julius
+Class:              REPLENISH_ACTION_POINTS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         replenish_units
+Parameters:         army identifier (the general's name)
+Description:        replenish all the units to full numbers for the army
+Sample use:         replenish_units Gaius Julius
+Class:              REPLENISH_UNITS
+Implemented:        No
+---------------------------------------------------
+Identifier:         spawn_character
+Parameters:         faction, character as in character description in historical battle
+Description:        create an army at a particular location
+Sample use:         spawn_character Julii Foedus Chaerea, general, command 0, influence 0, management 0, subterfuge 0, age 20, x 54, y 124
+Class:              SPAWN_CHARACTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         kill_character
+Parameters:         death type (optional, natural by default), character
+Description:        Kill the character
+Sample use:         kill_character DET_POISONED Gaius Maximus
+Class:              KILL_CHARACTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         spawn_army ... end
+Parameters:         faction, character and units as in army description in historical battle (character description for general and unit descriptions for remainder of the army)
+Description:        create an army at a particular location
+Sample use:         spawn_army 
+                    faction romans_julii
+                    character	Foedus Chaerea, general, command 0, influence 0, management 0, subterfuge 0, age 20, x 54, y 124, direction NE, family
+                    unit		roman generals guard cavalry				soldiers 20 exp 9 armour 1 weapon_lvl 0
+                    unit		roman legionary first cohort ii				soldiers 40 exp 0 armour 0 weapon_lvl 0
+                    unit		roman legionary cohort ii				soldiers 60 exp 0 armour 0 weapon_lvl 0
+                    unit		roman praetorian cohort i				soldiers 60 exp 0 armour 0 weapon_lvl 0
+                    end
+Class:              SPAWN_ARMY
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         engage_armies
+Parameters:         attacking general, defending general
+Description:        Instruct the attacking general to attack the defending general
+Sample use:         engage_armies Gaius Julius, Epiroderix
+Class:              ENGAGE_ARMIES
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         siege_settlement
+Parameters:         attacking_character, settlement_name [,maintain|attack]
+Description:        Instruct the character to siege the settlement
+Sample use:         siege_settlement Gaius Julius, Rome, attack
+Class:              SIEGE_SETTLEMENT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_faction_banner
+Parameters:         parameter1: faction whose banner is to be changed
+parameter2: new faction banner name
+Description:        Changes a faction's banner at a certain point in the game in both campaign and battle
+Sample use:         set_faction_banner
+	faction	denmark
+	banner	kalmar_union
+end_set_faction_banner
+Class:              SET_FACTION_BANNER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         add_events
+Parameters:         list of event descriptions
+Description:        Adds events to the event manager. Event descriptions should follow from next string until <end_add_events> tag.
+Sample use:         add_events
+  event historic stoic_philosophy
+  date 14 summer
+end_add_events 
+Class:              ADD_EVENTS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         historic_event
+Parameters:         event type, accept/decline scroll, movie_path, factions
+Description:        Triggers historic event.  If accept/decline, increments a [event]_accepted or [event]_declined counter on selection. The factions list accepts 'local' to mean the faction of the triggering event scope.
+Sample use:         historic_event loot_reward factions { local, }
+Class:              HISTORIC_EVENT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_event_counter
+Parameters:         event type, counter value or source event counter
+Description:        Changes the value of an event counter. The value may be a literal number, or the name of another event counter to copy the current value from.
+Sample use:         set_event_counter percent_slaves slave_counter_venice
+Class:              SET_EVENT_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         freeze_faction_ai
+Parameters:         faction
+Description:        Freezes specified faction ai.
+Sample use:         freeze_faction_ai aztecs 
+Class:              FREEZE_FACTION_AI
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         unfreeze_faction_ai
+Parameters:         faction
+Description:        Unfreezes specified faction ai.
+Sample use:         unfreeze_faction_ai aztecs 
+Class:              UNFREEZE_FACTION_AI
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         create_mission
+Parameters:         mission_id faction [additional mission specific parameters]
+Description:        creates a mission with the specified id with the specified parameters
+Sample use:         create_mission papal_build_church england London
+Class:              CREATE_MISSION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         freeze_recruit_pool
+Parameters:         region_name|region_id|all [true|false]
+Description:        Stop/start all unit pools replenish/deplenish in specified region or all regions
+Sample use:         freeze_recruit_pool York_Province true
+Class:              FREEZE_RECRUIT_POOL
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_recruit_pool
+Parameters:         region_name|region_id value unit_name 
+Description:        Set specified amount of units to the unit pool of the specified type of unit in the specified region.
+Sample use:         set_recruit_pool York_Province 5 temp heavy spearmen
+Class:              SET_RECRUIT_POOL
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         inc_recruit_pool
+Parameters:         region_name|region_id value unit_name
+Description:        Add specified amount of units to the unit pool of the specified type of unit in the specified region.
+Sample use:         inc_recruit_pool York_Province -2 temp_heavy_spearmen
+Class:              INC_RECRUIT_POOL
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         inc_recruit_pool_faction
+Parameters:         faction, value, unit_name | all
+Description:        Adds value to the recruitment pool of the named unit (or 'all' units) in every settlement of the faction.
+Sample use:         inc_recruit_pool_faction local 2 temp_heavy_spearmen
+Class:              INC_RECRUIT_POOL_FACTION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         restrict_autoresolve
+Parameters:         [true|false]
+Description:        Enable/disable battle autoresolve restriction
+Sample use:         restrict_autoresolve true
+Class:              RESTRICT_AUTORESOLVE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         restrict_clickable_area
+Parameters:         [allowed regions(by name or id)]
+Description:        Enable/disable(with no parameters) clickable area restriction
+Sample use:         restrict_clickable_area York_Province London_Province
+Class:              RESTRICT_CLICKABLE_AREA
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         restrict_clickable_rect
+Parameters:         [min_x min_y max_x max_y]
+Description:        Adds new rectangle to clickable area restriction, or clears rectangular clickable area restriction if no parameters specified
+Sample use:         restrict_clickable_rect 10 15 80 100
+Class:              RESTRICT_CLICKABLE_RECT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         restrict_strat_camera
+Parameters:         [min_x min_y max_x max_y]
+Description:        Enable/disable(with no parameters) start camera restriction
+Sample use:         restrict_strat_camera 10 15 80 100
+Class:              RESTRICT_STRAT_CAMERA
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         restrict_strat_radar
+Parameters:         [true/false]
+Description:        Enable/disable start radar restriction
+Sample use:         restrict_strat_radar false
+Class:              RESTRICT_STRAT_RADAR
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_faction_undiscovered
+Parameters:         faction [true/false]
+Description:        Set faction undiscovered status
+Sample use:         set_faction_undiscovered aztecs false
+Class:              SET_FACTION_UNDISCOVERED
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         create_unit
+Parameters:         <character/settlement name>, <unit label>[, num <number of units>, exp <experience>, arm <armour level>, wep <weapon level> 
+Description:        creates one or more units of the specified type
+Sample use:         create_unit Foedus Chaerea, English_Knights, num 5, exp 1, arm 1, wep 2
+Class:              CREATE_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         link_faction_ai
+Parameters:         faction, ai_label
+Description:        links specified faction to specified ai label.
+Sample use:         link_faction_ai england catholic
+Class:              LINK_FACTION_AI
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_religion
+Parameters:         faction, religion
+Description:        Changes the religion of a faction.
+Sample use:         set_religion England pagan
+Class:              SET_RELIGION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         change_population_religion
+Parameters:         faction, religion_to, percent, religion_from (religion_from optional, current faction religion by default)
+Description:        Changes the religion of a faction.
+Sample use:         change_population_religion England pagan 50 catholic
+Class:              CHANGE_POPULATION_RELIGION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         add_money
+Parameters:         faction, amount
+Description:        Adds money (negative value subtracts) to a faction's treasury.
+Sample use:         add_money England 2007
+Class:              ADD_MONEY
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         add_random_money
+Parameters:         faction, min_value, max_value
+Description:        Adds a random amount of money in [min, max] (inclusive) to a faction's treasury. Negative values supported.
+Sample use:         add_random_money local 500 1000
+Class:              ADD_RANDOM_MONEY
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         destroy_buildings
+Parameters:         faction, building_chain, refund
+Description:        Destroys all buildings in a chain, can refund money.
+Sample use:         destroy_buildings England pagan true
+Class:              DESTROY_BUILDINGS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         destroy_building
+Parameters:         settlement, building_chain, refund
+Description:        Destroys all buildings in a chain in a specific settlement, can refund money.
+Sample use:         destroy_building London pagan true
+Class:              DESTROY_BUILDING
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         destroy_units
+Parameters:         faction, attribute_or_type
+Description:        Disbands all units in the faction's armies with the specified name or attribute.
+Sample use:         destroy_units England free_upkeep_unit
+Class:              DESTROY_UNITS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         retire_characters
+Parameters:         faction, character_type
+Description:        Retires all characters in the faction's armies of teh specified type.
+Sample use:         retire_characters England priest
+Class:              RETIRE_CHARACTERS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_kings_purse
+Parameters:         faction, amount
+Description:        Changes the money granted by the king's purse.
+Sample use:         set_kings_purse England 40000  (or 'local' for the trigger's faction)
+Class:              SET_KINGS_PURSE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         increment_kings_purse
+Parameters:         faction, amount
+Description:        Increments the amount of money granted by the king's purse.
+Sample use:         increment_kings_purse England 400  (or 'local' for the trigger's faction)
+Class:              INCREMENT_KINGS_PURSE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         add_settlement_turmoil
+Parameters:         settlement_name, num_turns
+Description:        Adds turmoil to the settlement, will decrease per turn.
+Sample use:         add_settlement_turmoil London 5
+Class:              ADD_SETTLEMENT_TURMOIL
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         send_character_off_map
+Parameters:         character_name
+Description:        Removes a character from the campaign map, but leaves them in the family tree.
+Sample use:         send_character_off_map Edward
+Class:              SEND_CHARACTER_OFF_MAP
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         generate_random_counter
+Parameters:         event_counter name, min_value, max_value
+Description:        Sets the specified counter to a random value between min and max inclusive.
+Sample use:         generate_random_counter RandomCounter 10 20
+Class:              GENERATE_RANDOM_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         random_counter_inc
+Parameters:         event_counter name, min_value, max_value
+Description:        Increments the specified counter by a random value between min and max inclusive.
+Sample use:         random_counter_inc RandomCounter 10 20
+Class:              RANDOM_COUNTER_INC
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         change_settlement_name
+Parameters:         settlement_label, new_name_label
+Description:        Changes a settlement's name to a new one from expanded.txt.
+Sample use:         change_settlement_name London Perth
+Class:              CHANGE_SETTLEMENT_NAME
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         inc_event_counter
+Parameters:         event type, value
+Description:        Increments the value of an event counter.
+Sample use:         inc_event_counter holds_cairo -1
+Class:              INC_EVENT_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_faction_standing
+Parameters:         faction, faction, amount
+Description:        Changes first faction's standing towards second faction.
+Sample use:         set_faction_standing England France -0.8
+Class:              SET_FACTION_STANDING
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         faction_emerge
+Parameters:         emerging_faction, target_faction, min_num_remain, max_order_threshold, max_order_threshold_surrounding, max_order_dropoff, min_level_threshold, fire_emerge_message, leader_script_label, leader_name, leader_age
+Description:        Evaluates the target factions settlements with a settlement level >= min_level_threshold and public order <= max_order_threshold.  If the settlement with the lowest order fails, is it turned over to the emerge_faction.  The leader_script_label and leader_name are used if a new leader is required.  min_num_remain specifies the minimum number of settlements for the target faction to keep. Surrounding regions are also evaluated against the surrounding threshold.
+Sample use:         faction_emerge barons_alliance England 1 85.0 100.0 1.2 town false edward1 Edward 30
+Class:              FACTION_EMERGE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         reset_guild_standing
+Parameters:         guild
+Description:        Sets the guild standing for this guild of all factions to 0.
+Sample use:         reset_guild_standing hanseatic_guild
+Class:              RESET_GUILD_STANDING
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         give_everything_to_faction
+Parameters:         source_faction, target_faction, bool
+Description:        Gives all assets of source faction to target faction.  Flag determines if faction defeated message is shown
+Sample use:         give_everything_to_faction norway denmark false
+Class:              GIVE_EVERYTHING_TO_FACTION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_settlement_founding_conversion_rate
+Parameters:         settlement_name, conversion_rate
+Description:        Sets the settlements founding conversion rate.
+Sample use:         set_settlement_founding_conversion_rate London 0.05
+Class:              SET_SETTLEMENT_FOUNDING_CONVERSION_RATE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         change_battle_model
+Parameters:         guild
+Description:        Changes the faction's leader/heir's battle model.
+Sample use:         change_battle_model england leader [model]
+Class:              CHANGE_BATTLE_MODEL
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_owner_founding_conversion_rate
+Parameters:         settlement_name, conversion_rate
+Description:        Sets the settlements owner conversion rate.
+Sample use:         set_owner_founding_conversion_rate London 0.05
+Class:              SET_SETTLEMENT_OWNER_CONVERSION_RATE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         script
+Parameters:         none
+Description:        start a script
+Sample use:         script
+Class:              SCRIPT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         terminate_script
+Parameters:         
+Description:        terminate a script
+Sample use:         terminate_script
+Class:              TERMINATE_SCRIPT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         break
+Parameters:         
+Description:        Exit the innermost while or for_each loop
+Sample use:         break
+Class:              BREAK_CMD
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         return
+Parameters:         
+Description:        Exit the current monitor body or script
+Sample use:         return
+Class:              RETURN_CMD
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_label
+Parameters:         label_name
+Description:        Define a named jump target
+Sample use:         set_label my_label
+Class:              SET_LABEL
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         goto
+Parameters:         label_name
+Description:        Jump to a set_label in the current or parent scope
+Sample use:         goto my_label
+Class:              GOTO_CMD
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         add_hidden_resource
+Parameters:         settlement, resource
+Description:        Add a hidden resource to a region
+Sample use:         add_hidden_resource London gold
+Class:              ADD_HIDDEN_RESOURCE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         remove_hidden_resource
+Parameters:         settlement, resource
+Description:        Remove a hidden resource from a region
+Sample use:         remove_hidden_resource London gold
+Class:              REMOVE_HIDDEN_RESOURCE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         add_religion
+Parameters:         religion, region, amount (raw, divided by 100 internally)
+Description:        add to a region's religious distribution
+Sample use:         add_religion judaism Judaea 10
+Class:              ADD_RELIGION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         release_music_control
+Parameters:         
+Description:        Release script control of music back to the game
+Sample use:         release_music_control
+Class:              RELEASE_MUSIC_CONTROL_CMD
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         close_scroll
+Parameters:         
+Description:        Close all currently open dialog scrolls on the next frame. Use inside a ScrollOpened monitor to suppress unwanted scrolls.
+Sample use:         close_scroll
+Class:              CLOSE_SCROLL_CMD
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         spawn_battle
+Parameters:         folder name
+Description:        Start the battle contained in the named folder, relative to the maps folder.  The next command in the script should be prepare_for_battle.
+Sample use:         spawn_battle custom/punic_1
+Class:              SPAWN_BATTLE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         if
+Parameters:         conditions to satisfy to execute the scope
+Description:        conditional execution
+Sample use:         if TimerElapsed < 1000
+Class:              IF
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         if_not
+Parameters:         conditions that must NOT all be satisfied
+Description:        conditional execution (negated): body runs iff the condition set evaluates to false
+Sample use:         if_not I_CompareCounter x = 0
+Class:              IF_NOT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         while
+Parameters:         conditions to satisfy to execute this while
+Description:        start a while loop
+Sample use:         while TimerElapsed < 1000
+Class:              WHILE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         while_yield
+Parameters:         conditions to satisfy to execute this while
+Description:        alias for while (one iteration per game tick)
+Sample use:         while_yield I_CompareCounter x < 10
+Class:              WHILE_YIELD
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         while_fast
+Parameters:         conditions to satisfy to execute this while
+Description:        start a while loop that executes all iterations immediately (up to 1M cap). Alias: holding_while.
+Sample use:         while_fast I_CompareCounter x < 10
+Class:              WHILE_FAST
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         monitor_conditions
+Parameters:         conditions to monitor to execute this scope
+Description:        start a monitor loop when conditions are of a particular value
+Sample use:         monitor_conditions not I_CharacterIsSelected Gaius Julius
+Class:              MONITOR_STATE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         monitor_event
+Parameters:         event name, conditions to monitor to execute this scope
+Description:        start a monitor loop in response to an event
+Sample use:         monitor_event IncomingMessage IncomingMessageType wonder_captured
+Class:              MONITOR_EVENT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         terminate_monitor
+Parameters:         
+Description:        terminate a monitor loop
+Sample use:         terminate_monitor
+Class:              TERMINATE_MONITOR
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         wait_monitors
+Parameters:         
+Description:        Wait until all monitors terminated in this scope
+Sample use:         wait_monitors 
+Class:              WAIT_MONITORS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         console_command
+Parameters:         
+Description:        execute a command through the console
+Sample use:         console_command kill_character "Gaius Julius"
+Class:              CONSOLE_COMMAND
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         declare_counter
+Parameters:         name of the counter, a single word identifier.
+Description:        declare a counter and give it an initial value of zero
+Sample use:         declare_counter blib
+Class:              DECLARE_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         inc_counter
+Parameters:         name of the counter, quantity to modify it by.
+Description:        change a counter by a particular amount
+Sample use:         inc_counter blib -137
+Class:              MODIFY_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_counter
+Parameters:         name of the counter, quantity to set it to.
+Description:        change a counter to a particular value
+Sample use:         set_counter blib -137
+Class:              SET_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         sub_counter
+Parameters:         name of the counter, value or counter name.
+Description:        subtract a value from a counter
+Sample use:         sub_counter gold cost
+Class:              SUB_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         mul_counter
+Parameters:         name of the counter, value or counter name.
+Description:        multiply a counter by a value
+Sample use:         mul_counter price multiplier
+Class:              MUL_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         div_counter
+Parameters:         name of the counter, value or counter name.
+Description:        divide a counter by a value (integer division)
+Sample use:         div_counter total num_settlements
+Class:              DIV_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         mod_counter
+Parameters:         name of the counter, value or counter name.
+Description:        modulo a counter by a value
+Sample use:         mod_counter index cycle_length
+Class:              MOD_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         min_counter
+Parameters:         name of the counter, value or counter name.
+Description:        set counter to minimum of itself and a value
+Sample use:         min_counter health max_health
+Class:              MIN_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         max_counter
+Parameters:         name of the counter, value or counter name.
+Description:        set counter to maximum of itself and a value
+Sample use:         max_counter morale 0
+Class:              MAX_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set
+Parameters:         counter = A [op B], where A and B are literals or counter names; op is one of + - * / % min max
+Description:        assign A or A op B to counter (binary or ternary expression form)
+Sample use:         set total = supply - demand
+Class:              SET_EXPR
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         clamp_counter
+Parameters:         name of the counter, low bound, high bound.
+Description:        clamp a counter between two values
+Sample use:         clamp_counter value 0 100
+Class:              CLAMP_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         abs_counter
+Parameters:         name of the counter.
+Description:        set counter to its absolute value
+Sample use:         abs_counter delta
+Class:              ABS_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         get_counter
+Parameters:         counter_name, key, [optional_arg]
+Description:        Read a game state value into a counter
+Sample use:         get_counter my_pop population
+Class:              GET_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         prepare_for_battle
+Parameters:         
+Description:        Clear all the unit labels, location labels &c.  This is separate from the spawn_battle command in case you are scripting a historical battle.
+Sample use:         prepare_for_battle
+Class:              PREPARE_FOR_BATTLE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         declare_show_me
+Parameters:         
+Description:        Flag the script as a show me script - required for the AbandonShowMe event
+Sample use:         declare_show_me
+Class:              DECLARE_SHOW_ME
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         label_unit
+Parameters:         alliance, army, unit, label
+Description:        Label a particular unit
+Sample use:         label_unit 0 2 4 julii_hastati_2
+Class:              LABEL_UNIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         label
+Parameters:         label
+Description:        Label
+Sample use:         label crap
+Class:              LABEL
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         label_location
+Parameters:         x, z, label
+Description:        Label a particular location
+Sample use:         label_location 35 58 the_big_hill
+Class:              LABEL_LOCATION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         define_unit_group
+Parameters:         group_label unit1 unit2 unit3 ...
+Description:        creates a unit group containing the specified units
+Sample use:         define_unit_group	group1	archers1 archers2 archers3 spearmen1
+Class:              DEFINE_UNIT_GROUP
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         undefine_unit_group
+Parameters:         group_label
+Description:        removes the specified unit group
+Sample use:         undefine_unit_group archer_group5
+Class:              UNDEFINE_UNIT_GROUP
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         remove_unit_from_group
+Parameters:         group_label unit_label
+Description:        removes the unit from the group, if it is already a member
+Sample use:         remove_unit_from_group group1 archers1
+Class:              REMOVE_UNIT_FROM_GROUP
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         declare_timer
+Parameters:         timer name
+Description:        declare a script timer
+Sample use:         declare_timer rout_timer
+Class:              DECLARE_TIMER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         restart_timer
+Parameters:         none
+Description:        restart the script timer
+Sample use:         restart_timer
+Class:              RESTART_TIMER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         heed_pause
+Parameters:         on/off
+Description:        turn on/off the game pause acknowledgement - off by default
+Sample use:         heed_pause on
+Class:              HEED_PAUSE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         wait
+Parameters:         time in seconds
+Description:        Wait for the specified time before proceeding to the next script command.  The timer is based on the display update, so pausing the game does not pause the timer unless heed_pause is declared.
+Sample use:         wait 1.3
+Class:              DISPLAY_WAIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         campaign_wait
+Parameters:         time in seconds
+Description:        Wait for the specified time before proceeding to the next script command.
+Sample use:         campaign_wait 1.3
+Class:              CAMPAIGN_WAIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         battle_wait
+Parameters:         time in seconds
+Description:        Wait for the specified time before proceeding to the next script command.  The timer is based on the battle update, so pausing and fast forwarding will affect the timer.
+Sample use:         battle_wait 1.3
+Class:              BATTLE_WAIT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         suspend_during_battle
+Parameters:         on/off
+Description:        suspend the script during battles - off by default
+Sample use:         suspend_during_battle on
+Class:              SUSPEND_DURING_BATTLE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         log
+Parameters:         [trace|info|warn|debug|err|fatal|always] message
+Description:        prints message to log output (always is default)
+Sample use:         log warn This is warning!
+Class:              SCRIPT_LOG
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         log_counter
+Parameters:         [trace|info|warn|debug|err|fatal|always] counter_name
+Description:        prints counter name and value into log output (always is default)
+Sample use:         log_counter ScrollOpenedCounter
+Class:              SCRIPT_LOG_COUNTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_music_state
+Parameters:         tension, mobilize, battle or custom
+Description:        Sets the music state in the battle
+Sample use:         set_music_state mobilize
+Class:              SET_MUSIC_STATE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         enable_battle_notifications
+Parameters:         0 or 1
+Description:        Enable audio notifications in the battle
+Sample use:         enable_battle_notifications 0
+Class:              ENABLE_BATTLE_NOTIFICATIONS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         play_sound_event
+Parameters:         <event id> [<index>] [tag = <something>]
+Description:        Plays sound event
+Sample use:         play_sound_event PREBATTLE_TEST
+Class:              PLAY_SOUND_EVENT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         stop_sound_event
+Parameters:         <tag>
+Description:        Stops tagged sound events
+Sample use:         stop_sound_event PREBATTLE_TEST
+Class:              STOP_SOUND_EVENT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         point_at_character
+Parameters:         character name
+Description:        point at the character
+Sample use:         point_at_character Gaius Julius
+Class:              POINT_AT_CHARACTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         point_at_settlement
+Parameters:         settlement name
+Description:        point at the settlement
+Sample use:         point_at_settlement Roma
+Class:              POINT_AT_SETTLEMENT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         e_point_at_settlement
+Parameters:         
+Description:        point at a settlement specified in a piece of advice
+Sample use:         
+Class:              E_POINT_AT_SETTLEMENT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         point_at_strat_position
+Parameters:         strategy map position
+Description:        point at the position
+Sample use:         point_at_strat_position 44, 55
+Class:              POINT_AT_STRAT_POSITION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         point_at_message
+Parameters:         message number/id, [up|down|left|right|top_left|top_right|bot_left|bot_right] - optional, set the direction that the pointer will come from
+Description:        point at the message
+Sample use:         point_at_message 0
+Class:              POINT_AT_MESSAGE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         ui_flash_start
+Parameters:         UI element (see available_ui_element_ids.txt for appropriate identifiers), [up|down|left|right|top_left|top_right|bot_left|bot_right] - optional, set the direction that the pointer will come from
+Description:        move the highlight pointer to the named element
+Sample use:         ui_flash_start finances_button
+Class:              UI_FLASH_START
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         ui_flash_stop
+Parameters:         none
+Description:        clear the tutorial pointer
+Sample use:         ui_flash_stop
+Class:              UI_FLASH_STOP
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         settlement_flash_start
+Parameters:         strategy map position
+Description:        highlight the tile
+Sample use:         settlement_flash_start Tarquinii
+Class:              SETTLEMENT_FLASH_START
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         settlement_flash_stop
+Parameters:         strategy map position
+Description:        stop highlighting the tile
+Sample use:         settlement_flash_stop Tarquinii
+Class:              SETTLEMENT_FLASH_STOP
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         character_flash_start
+Parameters:         character name
+Description:        flash the tile under the character
+Sample use:         character_flash_start Gaius Julius
+Class:              CHARACTER_FLASH_START
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         character_flash_stop
+Parameters:         character name
+Description:        stop flashing the tile under the character
+Sample use:         character_flash_stop Gaius Julius
+Class:              CHARACTER_FLASH_STOP
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         point_at_location
+Parameters:         position (x,y) or location label
+Description:        Indicates a position on the battle map
+Sample use:         point_at_location pos1
+Class:              POINT_AT_LOCATION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         point_at_unit_pos
+Parameters:         unit_label
+Description:        Indicates a unit's position on the battle map
+Sample use:         point_at_unit_pos generals_unit
+Class:              POINT_AT_UNIT_POS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         point_at_unit_group_pos
+Parameters:         group_label
+Description:        Indicates a unit_group's position on the battle map
+Sample use:         point_at_unit_group_pos infantry_group1
+Class:              POINT_AT_UNIT_GROUP_POS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         remove_battle_map_arrow
+Parameters:         
+Description:        removes the arrow created by point_at_location/unit/unit_group
+Sample use:         remove_battle_map_arrow
+Class:              REMOVE_BATTLE_MAP_ARROW
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         point_at_card
+Parameters:         card type (unit | character | building), id, nth instance
+Description:        Points at the card type specified if it can be found
+			  For units and buildings 'id' is their id in the tech-tree
+			  For characters it is their name
+			  Use nth instance to skip over cards with the same type
+Sample use:         point_at_card	 unit hastati 2 - to point at the second hastati card the game can find
+Class:              POINT_AT_CARD
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         point_at_unit_card
+Parameters:         unit label, [up|down|left|right|top_left|top_right|bot_left|bot_right] - optional, set the direction that the pointer will come from
+Description:        Points at the card of the specified unit
+Sample use:         point_at_card roman_archers
+Class:              POINT_AT_UNIT_CARD
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         e_point_at_unit_card
+Parameters:         [up|down|left|right|top_left|top_right|bot_left|bot_right] - optional, set the direction that the pointer will come from
+Description:        Points at the card of the unit referred to in the current event context
+Sample use:         e_point_at_unit_card
+Class:              E_POINT_AT_UNIT_CARD
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         show_mouse_button_animation
+Parameters:         [left | right] true/false
+Description:        Starts/stops the animation showing which mouse button to press (either left or right at the moment)
+Sample use:         show_mouse_button_animation left true - start the animation showing the left mouse button being pressed. show_mouse_button_animation left false - stop the left mouse button animation.  NOTE: Only 1 animation can be shown at a time
+Class:              SHOW_MOUSE_BUTTON_ANIMATION
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         hide_ui
+Parameters:         
+Description:        Hide the entire UI (for cinematic purposes)
+Sample use:         hide_ui
+Class:              HIDE_UI
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         show_ui
+Parameters:         
+Description:        Show the entire UI (after hiding)
+Sample use:         show_ui
+Class:              SHOW_UI
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         disable_movie_view
+Parameters:         
+Description:        disables black movie mode restriction bars
+Sample use:         disable_movie_view
+Class:              DISABLE_MOVIE_VIEW
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         disable_ui
+Parameters:         UI element (see available_ui_element_ids.txt for appropriate identifiers)
+Description:        turn off the named UI element
+Sample use:         disable_ui finances_button
+Class:              DISABLE_UI
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         enable_ui
+Parameters:         UI element (see available_ui_element_ids.txt for appropriate identifiers)
+Description:        turn on the named UI element
+Sample use:         enable_ui finances_button
+Class:              ENABLE_UI
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         disable_entire_ui
+Parameters:         none
+Description:        suspend the entire UI
+Sample use:         disable_entire_ui
+Class:              DISABLE_ENTIRE_UI
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         enable_entire_ui
+Parameters:         none
+Description:        reactivate the entire UI
+Sample use:         enable_entire_ui
+Class:              ENABLE_ENTIRE_UI
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_cards_selectable
+Parameters:         true/false
+Description:        set whether cards are selectble or not
+Sample use:         set_cards_selectable false
+Class:              SET_CARDS_SELECTABLE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         disable_cursor
+Parameters:         none
+Description:        deactivate and hide the cursor
+Sample use:         disable_cursor
+Class:              DISABLE_CURSOR
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         enable_cursor
+Parameters:         none
+Description:        activate and show the cursor
+Sample use:         enable_cursor
+Class:              ENABLE_CURSOR
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         reveal_tile
+Parameters:         strategy map position
+Description:        remove the shroud from the tile
+Sample use:         reveal_tile 25, 43
+Class:              REVEAL_TILE
+Implemented:        No
+---------------------------------------------------
+Identifier:         hide_all_revealed_tiles
+Parameters:         
+Description:        restore all tile shrouds
+Sample use:         hide_all_revealed_tiles
+Class:              HIDE_ALL_REVEALED_TILES
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         play_video
+Parameters:         filename
+Description:        play a piece of video
+Sample use:         play_video fmv/rome_intro.mpg
+Class:              PLAY_VIDEO
+Implemented:        No
+---------------------------------------------------
+Identifier:         advance_advice_thread
+Parameters:         thread name, no_dismiss
+Description:        Increment the score of the advice thread
+Sample use:         advance_advice_thread 0098_prologue_selection no_dismiss
+Class:              ADVANCE_ADVICE_THREAD
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         dismiss_advice
+Parameters:         
+Description:        Dismiss the currently displayed advice
+Sample use:         dismiss_advice
+Class:              DISMISS_ADVICE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         dismiss_advisor
+Parameters:         
+Description:        Dismiss the advisor
+Sample use:         dismiss_advisor
+Class:              DISMISS_ADVISOR
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         suspend_unscripted_advice
+Parameters:         flag
+Description:        Suspend (or restore) all advice not generated by the script
+Sample use:         suspend_unscripted_advice true
+Class:              SUSPEND_UNSCRIPTED_ADVICE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         select_character
+Parameters:         character name
+Description:        selects a character on the campaign map
+Sample use:         select_character Gaius Julius
+Class:              SELECT_CHARACTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         e_select_character
+Parameters:         
+Description:        selects a character referred to in the current event context on the campaign map
+Sample use:         e_select_character
+Class:              E_SELECT_CHARACTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         select_settlement
+Parameters:         settlement name
+Description:        selects a settlement on the campaign map
+Sample use:         select_settlement Roma
+Class:              SELECT_SETTLEMENT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         e_select_settlement
+Parameters:         
+Description:        selects a settlement referred to in the current event context on the campaign map
+Sample use:         e_select_settlement
+Class:              E_SELECT_SETTLEMENT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         call_object_shortcut
+Parameters:         ui object name, shortcut name (see available_ui_element_ids.txt for appropriate element identifiers)
+Description:        calls the keyboard shortcut of a ui element
+			  the shortcut name can left out
+			  Most buttons don't require a shortcut name, instead the 'on_select' method is called
+Sample use:         call_object_shortcut strat_ui speedup_ai - will toggle the fast ai mode
+			  call_object_shortcut diplomacy_overview_button - will select the diplomacy overview button
+Class:              CALL_OBJECT_SHORTCUT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         simulate_mouse_click
+Parameters:         [lclick_down|lclick_up|rclick_down|rclick_up|ldbl_click]
+Description:        Acts as if the given mouse event had happened on the currently 'selected' ui_element (see 'select_element' command)
+Sample use:         select_element hud_show_buildings_tab
+			  simulate_mouse_click lclick_down
+Class:              SIMULATE_MOUSE_CLICK
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         select_ui_element
+Parameters:         element id (see available_ui_element_ids.txt for appropriate identifiers)
+Description:        Use in conjunction with simulate mouse click to store the element that will next recieve the simulated mouse click
+Sample use:         select_element hud_show_buildings_tab
+			  simulate_mouse_click lclick_down
+Class:              SELECT_ELEMENT
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         disable_shortcuts
+Parameters:         {element_id}, {shortcut_function}, true/false
+Description:        This will disable/enable all keyboard shortcuts for a given element (or all elements if element_id is omitted) and function (or all functions for that element if omitted), except the key defined as being the 'quit' key (ESC by default).  See data/descr_shortcuts.txt or the print_shortcuts console command for the element_ids that are useable
+Sample use:         disable_shortcuts true - to disable, disable_shortcuts false - to enable them again
+Class:              DISABLE_SHORTCUTS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         set_shortcut_keyset
+Parameters:         keyset_name
+Description:        This will set the current keyset to the name specified if valid
+Sample use:         set_shortcut_keyset default
+Class:              SET_SHORTCUT_KEYSET
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         filter_unit_commands
+Parameters:         switch, unit name, function
+Description:        Turn off the command shell, or one part of it, for all units or the named unit
+Sample use:         filter_unit_commands on velites_alpha change_formation
+                    filter_unit_commands off velites_alpha
+                    filter_unit_commands off
+Class:              UNIT_UISHELL_FILTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         filter_unit_group_commands
+Parameters:         switch, unit name, function
+Description:        Turn off the command shell, or one part of it, for all units or the named unit
+Sample use:         filter_unit_group_commands on storm_troopers change_formation
+                    filter_unit_group_commands off storm_troopers
+                    filter_unit_group_commands off
+Class:              UNIT_GROUP_UISHELL_FILTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         filter_unit_selection_commands
+Parameters:         switch, function
+Description:        Turn off the command shell, or one part of it, for all units
+Sample use:         filter_unit_selection_commands on change_formation
+                    filter_unit_selection_commands off
+
+Class:              UNIT_SELECTION_UISHELL_FILTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         filter_settlement_commands
+Parameters:         switch, unit name, function
+Description:        Turn off the command shell, or one part of it, for all settlements or the named settlement
+Sample use:         filter_settlement_commands on Arretium change_formation
+                    filter_settlement_commands off Arretium
+                    filter_settlement_commands off
+Class:              SETTLEMENT_UISHELL_FILTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         filter_character_commands
+Parameters:         switch, unit name, function
+Description:        Turn off the command shell, or one part of it, for all characters or the named character
+Sample use:         filter_character_commands on Gaius Julius, change_formation (note comma)
+                    filter_character_commands off Gaius Julius
+                    filter_character_commands off
+Class:              CHARACTER_UISHELL_FILTER
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         filter_all_ui_commands
+Parameters:         switch
+Description:        Turn on or off the command shell
+Sample use:         filter_all_ui_commands on
+Class:              SWITCH_ALL_UISHELL_FILTERS
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         ui_indicator
+Parameters:         <slot number> <animation type> {<x> <y>} or {track <x> <y> <z>} or {track_3d <x> <y> <z> <radius>} or {track_ground <x> <z>} or {track_ground_3d <x> <z> <radius>} or {track_unit <unit_label>} or {track_unit_3d <unit_label> <radius>} [colour <r> <g> <b>] [scale <scale factor>] [period <animation period>] [loop]
+Description:        Display a UI indicator
+Sample use:         ui_indicator 0 circle 500 500 colour 255 255 0 scale 2.0 period 2.0 loop
+Class:              UI_INDICATOR_COMMAND
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         ui_indicator_remove
+Parameters:         <slot number>
+Description:        Remove a UI indicator
+Sample use:         ui_indicator_remove 0
+Class:              UI_INDICATOR_REMOVE_COMMAND
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         steal_esc_key
+Parameters:         on/off
+Description:        Steals keyboard input for the escape key, taking away it's default behaviour.  When the ESC kay is pressed, the trigger ET_ESC_PRESSED will fire, so this should be monitored.  Default functionality of esc will be returned at this point.  Note that if anything else steals the esc key after this command, then that will get priority instead.  The intended use for this command is to allow script writers to create skippable sections that are skipped by pressing ESC
+Sample use:         
+Class:              STEAL_ESC_KEY
+Implemented:        No
+---------------------------------------------------
+Identifier:         highlight_recruitment_item
+Parameters:         unit name to be passed in via event context as refered to unit export_descr_unit.txt
+Description:        will highlight the given unit in the recruitment queue. If the item isn't being shown, then the slider will be set so that the item is visible. Add 'false' to the end to stop the flashing
+Sample use:         highlight_recruitment_item or highlight_recruitment_item false
+Class:              E_HIGHLIGHT_RECRUITMENT_ITEM
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         highlight_construction_item
+Parameters:         [building_name] [true|false]
+Description:        Will highlight the given building in the construction options. If building_name is missing will use advised_build from event context. If the item isn't being shown, then the slider will be set so that the item is visible.
+Sample use:         highlight_construction_item
+Class:              E_HIGHLIGHT_CONSTRUCTION_ITEM
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         highlight_siege_item
+Parameters:         [siege_item_name]
+Description:        Will highlight the given siege item (tower, ladder, ram) in the siege construction options.
+Sample use:         highlight_siege_item ladder
+Class:              E_HIGHLIGHT_SIEGE_ITEM
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         disable_save
+Parameters:         
+Description:        Disable ability to save game
+Sample use:         disable_save
+Class:              DISABLE_SAVE
+Implemented:        Yes
+---------------------------------------------------
+Identifier:         enable_save
+Parameters:         
+Description:        Enable ability to save game
+Sample use:         enable_save
+Class:              ENABLE_SAVE
+Implemented:        Yes
