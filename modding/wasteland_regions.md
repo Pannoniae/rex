@@ -6,9 +6,15 @@ A **wasteland region** does all of this properly. Wastelands have no settlement,
 
 ## Making a region a wasteland
 
-A wasteland is defined in `descr_regions.txt` like any other region, with one change: where you would normally put the settlement name, you put the keyword `wasteland` instead.
+A wasteland is defined in `descr_regions.txt` by writing the keyword `wasteland` where the settlement name would normally go. Because a wasteland has no settlement, owner or economy, the rest of the region body carries no meaning, so the entry can stop right after the map colour:
 
-A normal region block looks like this:
+```
+Sahara_Province
+wasteland
+80 40 20
+```
+
+The first line is the region's name key, which still has to exist in your `<campaign>_regions_and_settlement_names.txt` file. The keyword `wasteland` takes the place of the settlement name. The three numbers are the region's RGB colour in `map_regions.tga`. That is the entire entry.
 
 ```
 Britannia_Province
@@ -21,24 +27,9 @@ gold
 2
 ```
 
-The same block as a wasteland:
-
-```
-Sahara_Province
-wasteland
-romans_julii
-slave_rebels
-80 40 20
-none
-0
-0
-```
-
-The first line is still the region's name key, and it still has to exist in your `<campaign>_regions_and_settlement_names.txt` file. The three numbers are still the region's RGB colour in `map_regions.tga`. The faction, rebel faction, resources, triumph value and farm level lines are still read but they are all ignored for a wasteland, because it has no settlement.
+You can also convert an existing region into a wasteland by swapping its settlement name for `wasteland` and leaving the remaining lines in place. Those lines (faction, rebel, resources, triumph, farm level) are still read but ignored, so the older long form keeps loading.
 
 On the map side, paint the region's colour into `map_regions.tga` exactly as you would for any region. The one difference is that a wasteland does **not** need a settlement-position pixel, because it has no settlement.
-
-That is the whole feature. The region now loads belonging to nobody. You can confirm it has worked by checking that no faction starts owning it and the AI leaves it alone.
 
 ## Terrain
 
