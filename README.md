@@ -20,4 +20,4 @@ Main features:
 
 The downloads and modding documentation live here. Browse the `.md` files in the repo.
 
-Our Discord server if you need help or just want to chat: [https://discord.gg/X4zyNxUUDA]
+Our Discord server if you need help or just want to chat. Includes installation guide, FAQ, suggestions, bug reporting, testing and so on. If you get stuck, we can help: [https://discord.gg/X4zyNxUUDA]
