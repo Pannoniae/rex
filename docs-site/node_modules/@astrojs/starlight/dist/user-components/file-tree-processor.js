@@ -1,0 +1,132 @@
+import { definitions } from "./file-tree-icons.js";
+import { Icons } from "../components-internals/Icons.js";
+import { AstroError } from "astro/errors";
+import { htmlToHast } from "satteri";
+import { CONTINUE, SKIP, visit } from "unist-util-visit";
+import { toString } from "hast-util-to-string";
+import { h, s } from "hastscript";
+import { select } from "hast-util-select";
+import { toHtml } from "hast-util-to-html";
+//#region src/user-components/file-tree-processor.ts
+const folderIcon = makeSVGIcon(Icons["seti:folder"]);
+const defaultFileIcon = makeSVGIcon(Icons["seti:default"]);
+/**
+* Process the HTML for a file tree to create the necessary markup for each file and directory
+* including icons.
+* @param html Inner HTML passed to the `<FileTree>` component.
+* @param directoryLabel The localized label for a directory.
+* @returns The processed HTML for the file tree.
+*/
+function processFileTree(html, directoryLabel) {
+	const tree = htmlToHast(html, { fragment: true });
+	validateFileTree(tree);
+	visit(tree, "element", (node) => {
+		node.children = node.children.filter((child) => child.type === "comment" || child.type !== "text" || !/^\n+$/.test(child.value));
+		if (node.tagName !== "li") return CONTINUE;
+		const [firstChild, ...otherChildren] = node.children;
+		const comment = [];
+		if (firstChild?.type === "text") {
+			const [filename, ...fragments] = firstChild.value.split(" ");
+			firstChild.value = filename || "";
+			if (fragments.join(" ").trim().length > 0) comment.push(fragments.join(" "));
+		}
+		const subTreeIndex = otherChildren.findIndex((child) => child.type === "element" && child.tagName === "ul");
+		const commentNodes = subTreeIndex > -1 ? otherChildren.slice(0, subTreeIndex) : [...otherChildren];
+		otherChildren.splice(0, subTreeIndex > -1 ? subTreeIndex : otherChildren.length);
+		comment.push(...commentNodes);
+		const firstChildTextContent = firstChild ? toString(firstChild) : "";
+		const isDirectory = /\/\s*$/.test(firstChildTextContent) || otherChildren.some((child) => child.type === "element" && child.tagName === "ul");
+		const isPlaceholder = /^\s*(\.{3}|…)\s*$/.test(firstChildTextContent);
+		const isHighlighted = firstChild?.type === "element" && firstChild.tagName === "strong";
+		const icon = h("span", isDirectory ? folderIcon : getFileIcon(firstChildTextContent));
+		if (isDirectory) icon.children.unshift(h("span", { class: "sr-only" }, directoryLabel));
+		node.properties.class = isDirectory ? "directory" : "file";
+		if (isPlaceholder) node.properties.class += " empty";
+		const treeEntryChildren = [h("span", { class: isHighlighted ? "highlight" : "" }, [isPlaceholder ? null : icon, firstChild])];
+		if (comment.length > 0) treeEntryChildren.push(makeText(" "), h("span", { class: "comment" }, ...comment));
+		const treeEntry = h("span", { class: "tree-entry" }, ...treeEntryChildren);
+		if (isDirectory) {
+			const hasContents = otherChildren.length > 0;
+			node.children = [h("details", { open: hasContents }, [h("summary", treeEntry), ...hasContents ? otherChildren : [h("ul", h("li", "…"))]])];
+			return CONTINUE;
+		}
+		node.children = [treeEntry, ...otherChildren];
+		return SKIP;
+	});
+	return toHtml(tree);
+}
+/** Make a text node with the pass string as its contents. */
+function makeText(value = "") {
+	return {
+		type: "text",
+		value
+	};
+}
+/** Make a node containing an SVG icon from the passed HTML string. */
+function makeSVGIcon(svgString) {
+	return s("svg", {
+		width: 16,
+		height: 16,
+		class: "tree-icon",
+		"aria-hidden": "true",
+		viewBox: "0 0 24 24"
+	}, htmlToHast(svgString, {
+		fragment: true,
+		space: "svg"
+	}).children);
+}
+/** Return the icon for a file based on its file name. */
+function getFileIcon(fileName) {
+	const name = getFileIconName(fileName);
+	if (!name) return defaultFileIcon;
+	if (name in Icons) {
+		const path = Icons[name];
+		return makeSVGIcon(path);
+	}
+	return defaultFileIcon;
+}
+/** Return the icon name for a file based on its file name. */
+function getFileIconName(fileName) {
+	let icon = definitions.files[fileName];
+	if (icon) return icon;
+	icon = getFileIconTypeFromExtension(fileName);
+	if (icon) return icon;
+	for (const [partial, partialIcon] of Object.entries(definitions.partials)) if (fileName.includes(partial)) return partialIcon;
+	return icon;
+}
+/**
+* Get an icon from a file name based on its extension.
+* Note that an extension in Seti is everything after a dot, so `README.md` would be `.md` and
+* `name.with.dots` will try to look for an icon for `.with.dots` and then `.dots` if the first one
+* is not found.
+*/
+function getFileIconTypeFromExtension(fileName) {
+	const firstDotIndex = fileName.indexOf(".");
+	if (firstDotIndex === -1) return;
+	let extension = fileName.slice(firstDotIndex);
+	while (extension !== "") {
+		const icon = definitions.extensions[extension];
+		if (icon) return icon;
+		const nextDotIndex = extension.indexOf(".", 1);
+		if (nextDotIndex === -1) return;
+		extension = extension.slice(nextDotIndex);
+	}
+}
+/** Validate that the user provided HTML for a file tree is valid. */
+function validateFileTree(tree) {
+	const rootElements = tree.children.filter(isElementNode);
+	const [rootElement] = rootElements;
+	if (rootElements.length === 0) throwFileTreeValidationError("The `<FileTree>` component expects its content to be a single unordered list but found no child elements.");
+	if (rootElements.length !== 1) throwFileTreeValidationError(`The \`<FileTree>\` component expects its content to be a single unordered list but found multiple child elements: ${rootElements.map((element) => `\`<${element.tagName}>\``).join(" - ")}.`);
+	if (!rootElement || rootElement.tagName !== "ul") throwFileTreeValidationError(`The \`<FileTree>\` component expects its content to be an unordered list but found the following element: \`<${rootElement?.tagName}>\`.`);
+	if (!select("li", rootElement)) throwFileTreeValidationError("The `<FileTree>` component expects its content to be an unordered list with at least one list item.");
+}
+function isElementNode(node) {
+	return node.type === "element";
+}
+/** Throw a validation error for a file tree linking to the documentation. */
+function throwFileTreeValidationError(message) {
+	throw new AstroError(message, "To learn more about the `<FileTree>` component, see https://starlight.astro.build/components/file-tree/");
+}
+//#endregion
+export { processFileTree };

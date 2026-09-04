@@ -1,0 +1,43 @@
+---
+title: REX & M2EX Documentation
+description: Installation, setup, troubleshooting, and modding guidance for REX and M2EX.
+tableOfContents: false
+hero:
+  tagline: Installation, setup, troubleshooting, and modding guidance for REX and M2EX.
+  actions:
+    - text: Start Here
+      link: ./gettingstarted/installation/
+      icon: right-arrow
+    - text: Troubleshooting
+      link: ./gettingstarted/troubleshooting/
+      icon: document
+      variant: minimal
+    - text: Join the Discord
+      link: https://discord.gg/X4zyNxUUDA
+      icon: discord
+      variant: minimal
+    - text: View on GitHub
+      link: https://github.com/Pannoniae/rex
+      icon: github
+      variant: minimal
+---
+
+import { Image } from 'astro:assets';
+import homeBanner from '../../assets/REX_M2EX_Logo3.webp';
+
+<Image class="home-banner" src={homeBanner} alt="REX and M2EX banner" width={1280} quality={82} loading="eager" />
+
+<section class="home-paths" aria-label="Explore the documentation">
+  <a href="./gettingstarted/faqs/">
+    <strong>FAQs</strong>
+    <span>Find answers to common questions.</span>
+  </a>
+  <a href="./gettingstarted/running-mods/">
+    <strong>Running a mod</strong>
+    <span>Learn the recommended way to launch mods.</span>
+  </a>
+  <a href="./modders/mount_variation/">
+    <strong>For modders</strong>
+    <span>Explore guides on REX/M2EX's new capabilities for modders.</span>
+  </a>
+</section>

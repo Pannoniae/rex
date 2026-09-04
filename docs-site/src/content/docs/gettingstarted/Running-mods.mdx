@@ -1,0 +1,95 @@
+---
+title: Running Mods
+description: A guide to running mods.
+---
+
+import { Tabs, TabItem, Aside, FileTree } from '@astrojs/starlight/components';
+
+### Mod Compatibility
+**All mods should be compatible with REX & M2EX.**
+
+There may be minor glitches with certain mods, so check the [mod patches](https://discord.com/channels/1456826444360581235/1501929819204616363) channel on the Discord Server for any recommended fixes.
+
+<Aside type="caution">Do not try running mods without following this guide. The default launchers that many mods come with **will not work**, and should only be used for changing mod configuration options.</Aside>
+
+### Installing Mods
+You can install mods as per the mod's instructions, either by dropping the files into the folder or using an installer (for mods which provide one). 
+
+
+### Running Mods
+<Tabs syncKey="game">
+  <TabItem label="Medieval 2">
+    Check the mod is located like below:
+
+    <FileTree>
+
+    - `Medieval II Total War` Your Medieval 2 folder that contains M2EX.exe
+      - mods
+        - modfoldername For example "Tsardoms-3.0". Make sure this doesn't contain any spaces!
+          - ... 
+
+    </FileTree>
+
+    <Aside>There are two main methods detailed below. The first one is recommended, because it ensures any options in the mod's config file are used.</Aside>
+
+    #### Batch File method
+        1. Download [the pre-made .bat files](../../downloads/REX_M2EX_mod_batches.zip).
+        2. Extract `M2EX mod launcher.bat` to your M2EX installation directory (You can rename this .bat file if you like).
+        3. Open the file with a text editor (e.g. Notepad). You should see:
+          ```
+          start M2EX.exe @mods\MODFOLDER\MOD.cfg
+          ```
+        4. Replace `MODFOLDER` with the exact name of your mod folder.
+        5. Inside the mod folder, locate the mod config file, for example `Tsardoms-3.0.cfg`. In the .bat file, you need to replace `MOD.cfg` with the name of the mod config file.
+        6. Save the .bat file
+
+    #### Shortcut method
+      1. Make a shortcut to `M2EX.exe`
+          - On Windows 11, right-click `M2EX.exe`, then select **Show more options** and **Create shortcut**. You can place the shortcut wherever you want.
+      2. Go to Properties on the shortcut, and set Target to: `"C:\Program Files (x86)\Steam\steamapps\common\Medieval II Total War\M2EX.exe" --features.mod=mods/modfoldername`
+           - Ensure the first part of the above path reflects where you have M2EX installed.
+           - Set `modfoldername` to the name of the mod folder
+           - Remember - if the mod folder of the mod you want to play has a path like here (main Mods folder->your mod folder->your mod folder) ⁠newcomers-help⁠ then you need to target the last one
+  - You may also use Launch Options in Steam to run mods (e.g. `--features.mod=mods/modfoldername`). You can add M2EX as a non-Steam game as many times you want and rename it, adding different launch arguments for different mods.
+
+    You can also launch mods in the terminal with `./M2EX.exe --features.mod=mods/modfoldername`
+  </TabItem>
+
+  <TabItem label="Rome">
+    Check the mod is located like below:
+
+    <FileTree>
+
+    - `Rome Total War Gold` Your Rome folder that contains REX.exe
+      - mods
+        {/* TODO: Confirm and document correct mod locations. */}
+        - modfoldername For example "**fatw**". Make sure this doesn't contain any spaces!
+          - ... 
+
+    </FileTree>
+
+    <Aside>There are two main methods detailed below. You can use either.</Aside>
+
+    #### Batch File method
+        1. Download [the pre-made .bat files](../../downloads/REX_M2EX_mod_batches.zip).
+        2. There are three batches depending on which version of Rome your mod runs on:
+           - `REX mod launcher.bat` is for mods running on vanilla Rome.
+           - `REX-BI mod launcher.bat` is for mods running on Barbarian Invasion.
+           - `REX-ALX mod launcher.bat` is for mods running on Alexander.
+        3. Extract the appropriate .bat to your REX installation directory (You can rename this .bat file if you like).
+        4. Open the file with a text editor (e.g. Notepad). You should see a bit that says `-mod:MODFOLDER`.
+        5. Replace `MODFOLDER` with the exact name of your mod folder.
+        6. Save the .bat file
+
+    #### Shortcut method
+        7. Make a shortcut to `REX.exe` 
+           - On Windows 11, right-click `REX.exe`, then select **Show more options** and **Create shortcut**. You can place the shortcut wherever you want.
+        8.  Go to Properties on the shortcut, and set Target to: `"C:\Program Files (x86)\Steam\steamapps\common\Rome Total War Gold\REX.exe" -bi -mod:bi/modfoldername -show_err`
+            - Ensure the first part of the above path reflects where you have REX installed.
+            - If it's an Alexander mod you'd swap the `-bi` to `-alex`, and if it's a vanilla RTW mod you'd delete it entirely.
+            - Set `bi/modfoldername` to the name of the mod folder
+            - You may also use Launch Options in Steam to run mods (e.g. `-mod:bi/modfoldername`). You can add REX as a non-Steam game as many times you want and rename it, adding different launch arguments for different mods.
+    
+    You can also launch mods in the terminal with `./REX.exe -mod:modfoldername`
+  </TabItem>
+</Tabs>

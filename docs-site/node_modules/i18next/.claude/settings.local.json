@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh pr *)",
+      "Read(//Users/adrai/Projects/i18next/react-i18next/**)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Read(//Users/adrai/Projects/i18next/**)",
+      "Bash(gh issue *)",
+      "Read(//tmp/**)",
+      "WebFetch(domain:github.com)",
+      "Bash(grep -n '$PreservedValue\\\\b' /Users/adrai/Projects/i18next/i18next/typescript/helpers.d.ts)",
+      "Bash(npm run *)",
+      "Bash(cat > *)",
+      "Bash(python3 -c \"import json,sys; print\\(json.load\\(sys.stdin\\)['version']\\)\")",
+      "Bash(npm test *)",
+      "Bash(git pull *)",
+      "Bash(git push *)",
+      "Bash(gh api *)",
+      "Bash(curl -s \"https://raw.githubusercontent.com/GabenGar/todos/d6d77cef716fcdc5a3991f84605176f85a69cdc8/apps/frontend/src/lib/internationalization/augs.d.ts\")"
+    ],
+    "additionalDirectories": [
+      "/Users/adrai/Projects/i18next/react-i18next",
+      "/tmp",
+      "/Users/adrai/Projects/i18next/i18next-gitbook/overview",
+      "/Users/adrai/Projects/i18next/i18next-icu"
+    ]
+  }
+}

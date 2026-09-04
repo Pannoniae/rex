@@ -1,0 +1,54 @@
+{
+	"name": "url-extras",
+	"version": "0.1.0",
+	"description": "Browser-compatible implementations of some of Node.js' URL utilities",
+	"license": "MIT",
+	"repository": "sindresorhus/url-extras",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"type": "module",
+	"exports": {
+		"types": "./index.d.ts",
+		"default": "./index.js"
+	},
+	"sideEffects": false,
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"test": "xo && node --test tests/*.js && tsc index.d.ts"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"url",
+		"file",
+		"path",
+		"file-url",
+		"path-url",
+		"fileurltopath",
+		"pathtofileurl",
+		"browser",
+		"compatible",
+		"polyfill",
+		"cross-platform",
+		"windows",
+		"unc"
+	],
+	"devDependencies": {
+		"typescript": "^5.3.3",
+		"xo": "^0.56.0"
+	},
+	"xo": {
+		"rules": {
+			"@typescript-eslint/naming-convention": "off",
+			"n/prefer-global/process": "off"
+		}
+	}
+}

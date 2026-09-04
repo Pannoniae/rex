@@ -1,0 +1,156 @@
+---
+title: Frequently Asked Questions
+description: Frequently Asked Questions
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+#### What exactly is REX/M2EX?
+This project aims to patch Rome and Medieval 2, with the intent of modernising the game by making it 64-bit with DirectX 11 (instant alt tabbing ftw), fixing performance/stability issues, bugs & crashes, patching the hardcoded limitations out, adding features and giving modders the ability to modify the games further. 
+
+It's not a mod, but a community patch that seeks to polish and improve without straying too far from the original vision of the developers. Think of it as if Rome and Medieval 2 had received another few years of development and patching by Creative Assembly, or as playing these games the way your nostalgia recalls them.
+
+#### Main features
+- A fully 64-bit engine, no 4GB limit (LAA no longer needed) and a new rendering backend
+- Instant alt-tabbing and tons of small QoL additions
+- Tons of crash fixes and bug fixes (way better stability)
+- Improved the campaign AI a lot
+- Massively increased performance (~5x more FPS is not uncommon) supporting huge armies without stutters and "extreme" graphics options for experimentation
+- Lightning-speed end turn times and loading times (for AI spectator mode - 100 turns in 30 seconds)
+- A fully modern, better RTS camera with fixed zooming, middle-mouse rotation and edge panning, zoom-in and zoom-out uncapped by a lot, and many other possible functionalities
+- A fully rotatable campaign map camera
+- Fully working alt-drag (also with ctrl pan drag) and unit card re-ordering (with units showing live kill count and prisoners captured during a battle)
+- Fully working pikemen without sketchy fixes/removing their secondaries; fixed muskets/arquebusiers; fixed two-handers
+- Improved multiplayer-like shared deployment, same factions on both teams
+- STEAM DECK, LINUX and MAC support
+- Improvements to the UI, such as range indicators for ranged units
+- Removed every single major engine limit like factions, regions, religions, cultures, etc.
+- Major expansion of modding tools
+- Not one but *two* custom scripting APIs for new modding possibilities
+- **Compatible with all OG mods**
+
+But there are countless more, which you can find in the full changelog.
+
+#### Are the roadmap and the features above a definitive limit on what can be achieved?
+The sky is the limit! For the most part the true limit lies only in the number of people commiting to this project.
+
+#### Who's in charge here? Who are the creators?
+Aster and Pannoniæ founded the project, but the team has only grown since then. If you can commit to the project (anyone is welcome), you will be there too among the stars.
+
+#### Why would I use REX instead of Rome: Remastered?
+REX has already fixed more of the original game's bugs than the remaster, while avoiding some of the more controversial changes (such as to the UI, cutscenes, main menu and textures/lighting) which the remaster made and generally sticking closer to the original game in these respects. Unlike Rome: Remastered, REX is still in active development and has greater capabilities for modders too.
+
+#### Are my old save games compatible with REX/M2EX?
+Old vanilla save games will work on REX/M2EX.
+
+However, saves made under REX/M2EX will not work on the original, unpatched games.
+
+## I want to get involved
+
+#### Is there a way to contribute to this project?
+If you wish to contribute, you can contact either @Aster or @Pannoniæ or just hit up the [⁠applications channel](https://discord.com/channels/1456826444360581235/1489284562306596874) on Discord.
+
+People with programming skills are very welcome, especially if you have experience with C++, but we don't just need developers. 2D/3D artists and other skill sets are also in high demand.
+
+#### What can the non-contributors do?
+Any support helps! Even if it's giving suggestions in the [⁠suggestions-rtw](https://discord.com/channels/1456826444360581235/1471288410332201011) and [⁠suggestions-med2](https://discord.com/channels/1456826444360581235/1471934523183861780) channels or reporting issues/bugs/crashes in ⁠issues, they're all appreciated! Also, feedback in [⁠feedback](https://discord.com/channels/1456826444360581235/1470746530683293726) matters, as do many other things like spreading the word or bringing more people into this project.
+
+Separately, testing the test versions and providing feedback for them matters too - for test releases, check for the latest release described as a test release in [⁠releases](https://discord.com/channels/1456826444360581235/1471940087192227861) and then give some very appreciated input here [⁠feedback](https://discord.com/channels/1456826444360581235/1470746530683293726).
+
+If you want to be pinged each time something good is up like a new test version - get the ping role here in [⁠faq](https://discord.com/channels/1456826444360581235/1471228372414631966/1518002786611101857)⁠. 
+
+#### How do I suggest something and what is allowed?
+Any suggestions are fine and I would strongly advise people reading the suggestions to not attack and massively vote down someone's suggestions, but at least try to have a conversation about why you'd think it's a good or a bad idea. As you are posting a suggestion remember to think about the amount of work your proposition may involve and the how much work is still to be done within this project. Also consider what is within the scope of this project and what is for e.g. for mods to do.
+
+For example (not the complete list) it can be: an exploit to be removed, a vanilla bug to be fixed (a bug appearing without use of REX/M2EX), a gameplay change or there is something to be added or altered to make the game better.
+
+You can submit your suggestions for Rome 1/REX in [⁠suggestions-rtw](https://discord.com/channels/1456826444360581235/1471288410332201011) and Medieval 2/M2EX in [⁠suggestions-med2](https://discord.com/channels/1456826444360581235/1471934523183861780). Remember that this is for suggestions, not bug reports. For that, head to this section of troubleshooting. 
+
+## Safety and Legality
+
+#### Is this malware?
+No. We don't do anything like DLL injection (like EOP) , packing, obfuscation or other techniques you'd most commonly find in game cracks, this is just a bog standard .exe replacement. If your antivirus flags the .exe though, please let us know - that would be unusual and we'd definitely want to look into it.
+
+#### Is this legal?/Is this safe?
+You are fine. This is a community patch - we modify game files, not anything shady. Modding has been around forever and there's nothing unusual or risky about what we do. The EULA for both Rome 1 and Medieval 2 essentially prohibits 99% of modding, including simple texture swaps. We are on the same legal grounds and within the same established market practice as many mods (including those that have been around for over a decade).
+
+If you've seen people claiming otherwise, it's most likely the same crowd that has spent years arguing about whether the 4GB/LAA patch is legal, and has been happy after receiving a non-binding company response that does not change the EULA situation and could be reversed at any time. But they are happy to discourage people by any means necessary, including lies, and avoid any discussion when met with counterpoints, just to see progress sink.
+
+Outside the CA environment, people are doing far more extreme things with their games without issue, not to mention the most severe examples, such as the Far Cry 1 source code being on GitHub for years (Ubisoft is the IP holder). Also you can notice that Rome 1/Medieval 2 source code is available on the internet and nobody takes it down, just type on YT: "The 'Rome Total War' LEAKS" or "Solve ANY Rome Total War mystery with this video". Not to mention that many popular Rome/Medieval 2 mods use IP from Lord of the Rings, Warhammer fantasy etc and have done so for years now.
+
+#### Should I be worried about all the "bug fix" entries in the changelog?
+Nope. The majority of entries are just fixes for the original game, not a straight up sign of project instability. Most of these fixes (like the pikemen fix) were not doable up until REX/M2EX saved the day, and the longer this project goes on the more we find that needs fixing. 
+
+Sometimes minor hiccups occur and it's 99% of the time dealt with quickly in a hotfix. Obviously it's a fan made project made in people's free time, after all.
+
+## Modding
+
+#### What is EOP? Which mod uses it?
+EOP stands for Engine Overhaul Project. It is sort of a script extender that the newest Medieval 2 mods and their updates use. It's far less potent than M2EX, which can touch any aspect of the game directly, not just scripting and workarounds for the original game's quirks.
+
+If you wonder which mods use EOP then simply Google it for the mod of your choosing, ask people playing it, its devs, or consult forums/Discord servers/mod pages. Be mindful that different versions of the same mod might or might not use EOP.
+
+#### What is the difference between M2EX and EOP?
+Basically, M2EX takes the engine code and upgrades it, porting it to 64-bit, adding a whole a lot of QoL features and so on as briefly listed above.
+
+EOP instead takes the original 32-bit retail exe, starts it, pauses it then injects a bunch of code into it to extend the scripting features of the game with lua. This has its advantages/disadvantages but basically, it's a much more "roundabout" way of doing things with all the implications, including being much less potent that M2EX.
+
+#### Is this compatible with EOP?
+The newest releases include an implementation of EOP's API, and EOP mods are now compatible.
+
+#### What is your stance on EOP?
+We value how much EOP achieved while dealing everyday with painful workarounds and with much more restricted means compared to this project. We value the work done on EOP basis even if it had to deal with the problems mentioned above. We strongly welcome any cooperation with it if there are means to do it both on technical and personal level. However we acknowledge the fact that REX/M2EX simply gives much more in way convenient way to the players and the modders on almost every level - so we would like to move at steady pace in this direction while avoiding being held hostage to personal hiccups/drama if possible and responding to it when neccesary.
+
+#### Why do so many mods use EOP?
+Because it appeared way earlier than REX/M2EX.
+
+#### What modding capabilities does this have?
+Limitations on what can be modded are heavily lifted and still are being expanded such as with scripting, limits on factions/units/regions/etc are gone and in general there will be more options for modding/modding tools etc.
+
+There are already mods which have been created expressly to work on REX/M2EX and take advantages of its new capabilities.
+
+#### I am a modder and I want to use this gem of a project, what should I do?
+Read the FAQ, consult the mods channel category, and if needed reach out for help in there or contact the project devs. Remember that this project changes many things, for example from a convoluted, buggy state to properly working so you may need to adjust certain things in your mod.
+
+## Other
+
+#### I am a content creator, can I count on any help?
+Sure. Reach out to the community or the project creators. Just try being specific in your requests, be genuine and produce genuine content. Don't just be nagging for views. Reading the FAQ thoroughly, checking out what was added, fixed etc. in the ⁠changelog or looking at the bright future in ⁠roadmap will help you in knowing what to ask for and to produce good content in the end.
+
+#### Why has this feature or that feature not been added yet?
+The project is moving very quickly, but the amount of work involved in untangling and improving two games of this age is significant. There are a lot of ambitious feature requests, this is a project being done in people's free time, and the developers have to focus on stability and bug fixes as well as fancy new features. 
+
+The fastest way to speed up progress is to [help out](#i-want-to-get-involved)!
+
+#### How do I run AI only campaigns?
+For REX add this into the target line in .exe properties `./REX.exe -ai -strat:imperial_campaign`
+
+For M2EX the same but `./M2EX.exe --ai.debug=1 --misc.bypass_to_strategy=imperial_campaign`
+
+#### How do I use CinEd for battle replays?
+You put `[cine] show =1` your cfg or launch the game from a shortcut with `./M2EX.exe --cine.show=1`
+
+#### How can I disable camera zooming in on gate breach/killed general, etc?
+Go to the folder where you installed Medieval 2 and look for a file called `medieval2.preference.cfg`. 
+
+Open it and in the [game] section, change 1 to 0 in the following line:
+`event_cutscenes = 1`
+
+#### Unit balance aka - You said pikemen, two handers and gunpowder units are fixed properly but they are now either way too OP or they are still useless. Why?
+If they are too OP - mods or base game gave them way too good stats to boost them so the bugs won't bog their performance.
+
+If they are useless or they underperform - simply some stats should get boosted.
+
+In other words - stats were constructed around very different environment including bugs that even EOP could not fix but now REX/M2EX did. So it's rebalancing time!
+
+If you think that the stats are fine and you still see any bug related to this matter like unit behaviour/mechanic/stats not working/whatever else - report it. Same goes for any suggestions for animations or something else getting adjusted to work properly. Just mind that if playing mods - some of them make deep changes into the animations or unit behaviour etc. and the mod devs should take note.
+
+Mind that pikes specifically have to be handed well in battle, especially sieges affect their performance for good reason. Crowding mechanic, dispersion of the formation etc. might rightfully cause them to drop pikes. Also pathfinding is yet to be reworked and it is a factor.
+
+#### I saw a feature in the ⁠changelog but it's not in the latest release. What gives?
+To ensure stable builds, some changes might be pulled out for further refinement.
+
+#### I am still confused, help!
+If you are still confused about anything, have issues with the patch, or if you want to ask about whether anything is possible, try reading these guides again and using the Discord search bar, as many questions will have already been answered. You can refer to the [general](https://discord.com/channels/1456826444360581235/1469432655560048782) channel or relay any questions to the community or the original creators of this project.
+
+If you are a new user, ask in [⁠newcomers-help](https://discord.com/channels/1456826444360581235/1511084305269653616) first for some help.

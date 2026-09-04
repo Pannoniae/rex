@@ -1,0 +1,105 @@
+---
+title: Installation
+description: A guide to installing REX & M2EX.
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+### Prerequisites
+
+- You **must** own the Steam version of Rome (original, **not** Remastered) or Medieval 2. If you have a CD/DVD copy, you can redeem a Steam copy using the CD key.
+- Download and install from this link (the official Microsoft server) the latest [Visual C++ Redistributable](https://aka.ms/vc14/vc_redist.x64.exe) - the one coming with the games will not work.
+- You do **not** need the 4GB/LAA patcher with REX and M2EX.
+<Aside type="note">
+  If you would like to keep a copy of the games without REX/M2EX, you can make a copy of the game folder somewhere and install REX/M2EX either in the original folder or in the copy.
+</Aside>
+
+### Installing
+
+1. Find the latest "Stable Release" marked with a date in [Releases](https://discord.com/channels/1456826444360581235/1471940087192227861) on the Discord server. Don't download a "Test Release" unless you're ready for bugs! You can also download the latest GitHub version, but this may not always be as recent.
+2. For Rome 1, download `REX.7z`. For Medieval 2, download `M2EX.7z`.
+
+The following steps depend on your Operating System:
+
+<Tabs syncKey="operating-system">
+  <TabItem label="Windows">
+
+    1. Extract all files to the game's root directory (**not** the `\mods` subfolder). This can usually be found in:
+       - `C:\Program Files (x86)\Steam\steamapps\common\Rome Total War Gold`
+       - `C:\Program Files (x86)\Steam\steamapps\common\Medieval II Total War`
+    2. Replace any existing files when prompted.
+    3. Run `REX.exe` for Rome 1 or `M2EX.exe` for Medieval 2. Don't run the games using Steam, as this will launch them without the patch!
+  #### Notes
+    - If you'd like to use the Steam overlay, you can add REX or M2EX to Steam as a Non-Steam Game
+    - To launch the expansion packs for both games, use the below batch files in the REX/M2EX folder:
+
+       | DLC | Batch file |
+       | --- | --- |
+       | Rome Total War: Barbarian Invasion | `Barbarian Invasion.bat` |
+       | Rome Total War: Alexander | `Alexander.bat` |
+       | Medieval II Total War: Kingdoms (Americas Campaign) | `Americas.bat` |
+       | Medieval II Total War: Kingdoms (Britannia Campaign) | `Britannia.bat` |
+       | Medieval II Total War: Kingdoms (Crusades Campaign) | `Crusades.bat` |
+       | Medieval II Total War: Kingdoms (Teutonic Campaign) | `Teutonic.bat` |
+
+    <Aside type="note" title="Alexander">
+
+    Alexander is a seperate game on Steam. Copy the `alexander` directory from the Alexander installation folder into your REX/Rome installation folder. `Alexander.bat` won't launch Alexander if you don't do this first!
+
+    </Aside>
+
+  </TabItem>
+
+  <TabItem label="Linux">
+
+    1. Make sure to download the Steam **Windows** version. 
+         - You can force this by going to Rome/Medieval 2's properties in your Steam library, selecting **force the use of a specific compatibility tool** -> **Proton 10.4** (needs to be a fairly new Proton version). If you have the Feral Linux port of Medieval 2 already installed, this will force a reinstall!
+    2. Run the game once to make sure Proton works correctly.
+    3. Extract all files to the root directory for the game (**not** the `/mods` subfolder).
+    4. Replace any existing files when prompted.
+    5. Add REX / M2EX as Non-Steam Games in Steam. Tell them to use Proton too (version 10 or later) with **properties** -> **force the use of a specific compatibility tool**.
+    6. Launch REX / M2EX from your Steam library - it will crash but that's supposed to happen! (Steam will generate a new wineprefix, which you'll need for the next step).
+    7. Launch ProtonTricks and select the REX / M2EX prefix. Choose the default prefix, then select **Install a Windows DLL or component**. Scroll down to `vcrun2022` and select its checkbox.
+
+    <Aside type="note" title="Using ProtonTricks">
+
+      If you have never used ProtonTricks, first make sure it is installed. When you launch it, ProtonTricks displays the Proton prefixes that Steam has created. Steam usually names each prefix after the corresponding game in your library.
+
+      1. Select the prefix for REX / M2EX.
+      2. Select **Select the default wineprefix**, then choose **OK**.
+      3. Select **Install a Windows DLL or component**, then choose **OK**.
+      4. Find and select `vcrun2022`.
+      5. Choose **OK**, then close the remaining dialogs.
+
+    </Aside>
+
+    <Aside type="note" title="Steam Deck">
+
+    All the steps are the same as above for Linux. The Steam Deck can run ProtonTricks in desktop mode to install `vcrun2022`. If you are not familiar with installing ProtonTricks for `vcrun2022` on SteamDeck check this guidehttps://pimylifeup.com/steam-deck-protontricks/.
+
+    If you wonder how to apply a community-made control scheme for REX/M2EX - this is most efficiently done by just using an existing RTW or M2TW one.
+
+    If you didn't like the UI and text scaling for Rome Remastered on this platform or you are simply afraid of it before trying - don't worry. The resolution on the original RTW and M2TW is great on the device. As a newcomer,  you will find that Total War games are fine to handle on the deck, broadly, due to the trackpads.
+
+    </Aside>
+  </TabItem>
+
+  <TabItem label="macOS">
+
+    You will need virtualisation software like Parallels
+    You can install and run the game by following the Windows instructions on this page for the system within the virtualisation. 
+    Other virtualisation software needs testing (we would appreciate any feedback on them), but CrossOver doesn't work.
+
+    A to Z video about Parallels [here](https://www.youtube.com/watch?v=n8pT_FwCmVA).
+
+  </TabItem>
+</Tabs>
+
+### Uninstalling
+
+If you'd ever like to remove REX/M2EX:
+1. Find the game in Steam > right-click > **Properties...**
+2. Go to the **Installed Files** tab
+3. Select **Verify integrity of game files**
+
+This will re-download and revert any files that REX/M2EX changed back to the original versions.

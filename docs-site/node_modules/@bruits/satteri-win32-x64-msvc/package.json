@@ -1,0 +1,20 @@
+{
+  "name": "@bruits/satteri-win32-x64-msvc",
+  "version": "0.10.5",
+  "cpu": [
+    "x64"
+  ],
+  "main": "satteri_napi.win32-x64-msvc.node",
+  "files": [
+    "satteri_napi.win32-x64-msvc.node"
+  ],
+  "description": "High-performance Markdown and MDX processing",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bruits/satteri.git"
+  },
+  "os": [
+    "win32"
+  ]
+}

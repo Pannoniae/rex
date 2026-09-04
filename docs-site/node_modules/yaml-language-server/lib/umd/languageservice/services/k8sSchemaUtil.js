@@ -1,0 +1,119 @@
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "../parser/yamlParser07", "../utils/schemaUrls"], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.getGroupVersionKindFromDocument = exports.autoDetectCustomResource = exports.autoDetectKubernetesSchema = void 0;
+    const yamlParser07_1 = require("../parser/yamlParser07");
+    const schemaUrls_1 = require("../utils/schemaUrls");
+    /**
+     * Attempt to retrieve the schema for a given YAML document based on the Kubernetes GroupVersionKind (GVK).
+     *
+     * First, checks for a schema for a matching builtin resource, then it checks for a schema for a CRD.
+     *
+     * @param doc the yaml document being validated
+     * @param kubernetesSchema the resolved copy of the Kubernetes builtin
+     * @param crdCatalogURI the catalog uri to use to find schemas for custom resource definitions
+     * @returns a schema uri, or undefined if no specific schema can be identified
+     */
+    function autoDetectKubernetesSchema(doc, kubernetesSchema, crdCatalogURI) {
+        const gvk = getGroupVersionKindFromDocument(doc);
+        if (!gvk || !gvk.group || !gvk.version || !gvk.kind) {
+            return undefined;
+        }
+        const builtinResource = autoDetectBuiltinResource(gvk, kubernetesSchema);
+        if (builtinResource) {
+            return builtinResource;
+        }
+        const customResource = autoDetectCustomResource(gvk, crdCatalogURI);
+        if (customResource) {
+            return customResource;
+        }
+        return undefined;
+    }
+    exports.autoDetectKubernetesSchema = autoDetectKubernetesSchema;
+    function autoDetectBuiltinResource(gvk, kubernetesSchema) {
+        const { group, version, kind } = gvk;
+        const groupWithoutK8sIO = group.replace('.k8s.io', '').replace('rbac.authorization', 'rbac');
+        const k8sTypeName = `io.k8s.api.${groupWithoutK8sIO.toLowerCase()}.${version.toLowerCase()}.${kind.toLowerCase()}`;
+        const k8sSchema = kubernetesSchema.schema;
+        const matchingBuiltin = (k8sSchema.oneOf || [])
+            .map((s) => {
+            if (typeof s === 'boolean') {
+                return undefined;
+            }
+            return s._$ref || s.$ref;
+        })
+            .find((ref) => {
+            if (!ref) {
+                return false;
+            }
+            const lowercaseRef = ref.replace('_definitions.json#/definitions/', '').toLowerCase();
+            return lowercaseRef === k8sTypeName;
+        });
+        if (matchingBuiltin) {
+            return schemaUrls_1.BASE_KUBERNETES_SCHEMA_URL + matchingBuiltin;
+        }
+        return undefined;
+    }
+    /**
+     * Retrieve schema by auto-detecting the Kubernetes GroupVersionKind (GVK) from the document.
+     * If there is no definition for the GVK in the main kubernetes schema,
+     * the schema is then retrieved from the CRD catalog.
+     * Public for testing purpose, not part of the API.
+     * @param doc
+     * @param crdCatalogURI The URL of the CRD catalog to retrieve the schema from
+     */
+    function autoDetectCustomResource(gvk, crdCatalogURI) {
+        const { group, version, kind } = gvk;
+        const groupWithoutK8sIO = group.replace('.k8s.io', '').replace('rbac.authorization', 'rbac');
+        const k8sTypeName = `io.k8s.api.${groupWithoutK8sIO.toLowerCase()}.${version.toLowerCase()}.${kind.toLowerCase()}`;
+        if (k8sTypeName.includes('openshift.io')) {
+            return `${crdCatalogURI}/openshift/v4.15-strict/${kind.toLowerCase()}_${group.toLowerCase()}_${version.toLowerCase()}.json`;
+        }
+        const schemaURL = `${crdCatalogURI}/${group.toLowerCase()}/${kind.toLowerCase()}_${version.toLowerCase()}.json`;
+        return schemaURL;
+    }
+    exports.autoDetectCustomResource = autoDetectCustomResource;
+    /**
+     * Retrieve the group, version and kind from the document.
+     * Public for testing purpose, not part of the API.
+     * @param doc
+     */
+    function getGroupVersionKindFromDocument(doc) {
+        if (doc instanceof yamlParser07_1.SingleYAMLDocument) {
+            try {
+                const rootJSON = doc.root.internalNode.toJSON();
+                if (!rootJSON) {
+                    return undefined;
+                }
+                const groupVersion = rootJSON['apiVersion'];
+                if (!groupVersion) {
+                    return undefined;
+                }
+                const [group, version] = groupVersion.split('/');
+                if (!group || !version) {
+                    return undefined;
+                }
+                const kind = rootJSON['kind'];
+                if (!kind) {
+                    return undefined;
+                }
+                return { group, version, kind };
+            }
+            catch (error) {
+                console.error('Error parsing YAML document:', error);
+                return undefined;
+            }
+        }
+        return undefined;
+    }
+    exports.getGroupVersionKindFromDocument = getGroupVersionKindFromDocument;
+});
+//# sourceMappingURL=k8sSchemaUtil.js.map
