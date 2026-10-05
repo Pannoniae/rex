@@ -72,3 +72,27 @@ general_offset      0.0, 1.335, 2.25    <- must come before riders
 - **Howdah commanders:** put the general on a raised seat or at the front of the howdah without losing a crewman.
 - **Big war elephants and towers:** together with the higher rider limit you can build towers full of archers with a commander on top.
 - **Spotting the general:** he always sits in the same, distinct spot, so he's easy to find in battle.
+
+## reloading without restart
+
+`descr_mount.txt` is re-read every time a battle loads, so you can edit it while the game is running and see the changes in the next battle (or by restarting the current one). Mod files are respected, like on normal startup. This works in both REX and M2EX.
+
+### what is reloaded
+
+- `radius`, `x_radius`, `y_radius`, `height`, `mass`, `banner_height`, `bouyancy_offset`, water trail effect
+- `y_offset` (M2EX only)
+- all horse settings
+- all elephant settings, including `riders`, `rider_offset` and `general_offset`
+- all chariot and scorpion cart settings, including LOD models and ranges
+
+### what still needs a restart
+
+Like `descr_model_battle.txt`, existing entries keep their place, so a few changes can't be picked up:
+
+- **new mounts:** a new `type` entry is skipped and an error is written to `system.log.txt`.
+- **changed `class`:** the entry is skipped and an error is written to `system.log.txt`.
+- **changed `model`** of a horse, camel or elephant: the old model stays in use.
+
+Renaming a `type` counts as a new mount.
+
+If the file has a parse error, reloading stops at that entry. Entries before it are already updated, entries after it keep their old values. Fix the error and load a battle again.
