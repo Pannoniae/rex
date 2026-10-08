@@ -48,6 +48,8 @@ export default defineConfig({
 						{ label: 'Mount and animal variation', slug: 'modders/mount_variation' },
 						{ label: 'Soldier variation', slug: 'modders/soldier_variation' },
 						{ label: 'Wasteland regions', slug: 'modders/wasteland_regions' },
+						{ label: 'Mounts', slug: 'modders/descr_mount' },
+						{ label: 'Custom Battle Categories', slug: 'modders/custom_battle_categories' },
 						{
 							label: 'Scripting',
 							items: [{ label: 'Local and target', slug: 'modders/scripting/local_and_target' }],
