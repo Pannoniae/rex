@@ -4,6 +4,14 @@ REX/M2EX are fan-made patches for Rome: Total War and Medieval II: Total War.
 
 They aim to bring both games into the modern era so they no longer feel dated and clunky.
 
+<a href="https://pannoniae.github.io/rex/">
+  <img
+    src="docs-site/src/assets/REX_M2EX_Logo3.webp"
+    alt="Open the REX and M2EX documentation"
+    width="760"
+  >
+</a>
+
 ## Documentation
 
 **[Read the REX & M2EX documentation →](https://pannoniae.github.io/rex/)**
