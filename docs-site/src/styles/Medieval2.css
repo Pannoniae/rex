@@ -1075,6 +1075,146 @@ html[data-style='red-gold'][data-theme='light'] .starlight-aside {
   box-shadow: inset 0 0 0 1px rgba(255, 249, 232, 0.5);
 }
 
+/* Keep mobile menus consistent with their desktop sidebars. */
+@media (max-width: 49.999rem) {
+  .header > .header {
+    gap: 0.5rem;
+  }
+
+  html[data-style='medieval2'] .header .site-title,
+  html[data-style='red-gold'] .header .site-title {
+    padding-inline: 0;
+    letter-spacing: 0;
+  }
+
+  html[data-style='medieval2'] .header .site-title {
+    font-size: clamp(0.9rem, 4.6vw, 1.18rem);
+  }
+
+  html[data-style='red-gold'] .header .site-title {
+    font-size: clamp(0.85rem, 4.4vw, 1.15rem);
+  }
+
+  .sidebar-pane .mobile-preferences {
+    align-items: center;
+  }
+
+  html[data-style='medieval2'][data-theme='light'] mobile-starlight-toc summary {
+    color: #edf2f7;
+  }
+
+  html[data-style='medieval2'][data-theme='light'] mobile-starlight-toc .toggle {
+    color: #edf2f7;
+    background: rgba(6, 15, 34, 0.46);
+    border-color: rgba(190, 208, 226, 0.62);
+  }
+
+  html[data-style='medieval2'][data-theme='light'] mobile-starlight-toc .display-current {
+    color: #edf2f7;
+  }
+
+  html[data-style='red-gold'][data-theme='light'] mobile-starlight-toc summary {
+    color: #f8e4b3;
+  }
+
+  html[data-style='red-gold'][data-theme='light'] mobile-starlight-toc .toggle {
+    color: #f8e4b3;
+    background: rgba(55, 13, 15, 0.64);
+    border-color: rgba(224, 173, 88, 0.55);
+  }
+
+  html[data-style='red-gold'][data-theme='light'] mobile-starlight-toc .display-current {
+    color: #f8e4b3;
+  }
+
+  html[data-style='medieval2'][data-theme='dark'] mobile-starlight-toc .toggle {
+    color: #dce9f7;
+    background: #101e40;
+    border-color: rgba(182, 203, 226, 0.5);
+  }
+
+  html[data-style='medieval2'][data-theme='dark'] mobile-starlight-toc .dropdown {
+    background: linear-gradient(180deg, #111f46, #0b132b);
+    border-color: rgba(182, 203, 226, 0.34);
+  }
+
+  html[data-style='red-gold'][data-theme='dark'] mobile-starlight-toc .toggle {
+    color: #f3e8d0;
+    background: #260406;
+    border-color: rgba(224, 173, 88, 0.48);
+  }
+
+  html[data-style='red-gold'][data-theme='dark'] mobile-starlight-toc .dropdown {
+    background: linear-gradient(180deg, #260608, #0a0203);
+    border-color: rgba(227, 196, 111, 0.3);
+  }
+
+  html[data-style='medieval2'][data-theme='light'] .sidebar-pane {
+    color: #e7edf5;
+    background:
+      linear-gradient(45deg, rgba(191, 211, 232, 0.025) 25%, transparent 25%, transparent 75%, rgba(191, 211, 232, 0.025) 75%),
+      linear-gradient(180deg, #223b65, #142541);
+    background-size: 14px 14px, auto;
+  }
+
+  html[data-style='red-gold'][data-theme='light'] .sidebar-pane {
+    color: #f4e4bd;
+    background: linear-gradient(180deg, #541015, #260608);
+  }
+
+  html[data-style='medieval2'][data-theme='dark'] .sidebar-pane {
+    color: var(--rtw-text);
+    background: linear-gradient(180deg, #111f46, #0b132b);
+  }
+
+  html[data-style='red-gold'][data-theme='dark'] .sidebar-pane {
+    color: var(--rtw-text);
+    background: linear-gradient(180deg, #260608, #0a0203);
+  }
+
+  html[data-theme='light'] .sidebar-pane .mobile-preferences {
+    border-top-color: rgba(255, 255, 255, 0.18);
+  }
+
+  html[data-theme='light'] .sidebar-pane starlight-theme-select label {
+    box-sizing: border-box;
+    height: 2.4rem;
+    min-height: 2.4rem;
+    padding: 0;
+    border-radius: 0.15rem;
+  }
+
+  html[data-theme='light'] .sidebar-pane starlight-theme-select select {
+    height: 100%;
+    min-height: 0;
+    margin-inline: 0;
+    padding: 0.35rem 1.35rem 0.35rem
+      calc(var(--sl-label-icon-size) + var(--sl-inline-padding) + 0.25rem);
+  }
+
+  html[data-style='medieval2'][data-theme='light'] .sidebar-pane starlight-theme-select label {
+    color: #e7edf5;
+    background: rgba(6, 15, 34, 0.46);
+    border: 1px solid rgba(190, 208, 226, 0.62);
+  }
+
+  html[data-style='medieval2'][data-theme='light'] .sidebar-pane starlight-theme-select option {
+    color: #edf4fc;
+    background: #101e40;
+  }
+
+  html[data-style='red-gold'][data-theme='light'] .sidebar-pane starlight-theme-select label {
+    color: #f8e4b3;
+    background: rgba(55, 13, 15, 0.64);
+    border: 1px solid rgba(224, 173, 88, 0.55);
+  }
+
+  html[data-style='red-gold'][data-theme='light'] .sidebar-pane starlight-theme-select option {
+    color: #f8e4b3;
+    background: #752326;
+  }
+}
+
 @media (max-width: 48rem) {
   .home-banner {
     max-height: 14rem;
@@ -1096,6 +1236,14 @@ html[data-style='red-gold'][data-theme='light'] .starlight-aside {
     max-width: 100%;
     font-size: clamp(2rem, 11vw, 2.65rem);
     overflow-wrap: anywhere;
+  }
+
+  html[data-style='red-gold'] .hero h1 {
+    font-size: clamp(1.65rem, 8vw, 2.1rem);
+    letter-spacing: 0.03em;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
   }
 
   .hero .actions {
