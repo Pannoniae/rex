@@ -76,13 +76,41 @@ general_offset      0.0, 1.335, 2.25    <- must come before riders
 - **Big war elephants and towers:** together with the higher rider limit you can build towers full of archers with a commander on top.
 - **Spotting the general:** he always sits in the same, distinct spot, so he's easy to find in battle.
 
+## riders
+
+### clamp_riders
+
+In vanilla, riders stay upright when their mount tilts, for example when it walks up or down a slope. The optional `clamp_riders` line makes the riders tilt together with the mount. They still sit at their usual position on it.
+
+```
+clamp_riders
+```
+
+- It must be placed **directly after the `water_trail_effect` line**. If the mount has no `water_trail_effect`, put it directly after `bouyancy_offset`.
+- `clamp_riders` on its own (or `clamp_riders true`) turns it on. `clamp_riders false` or `clamp_riders 0` turns it off.
+- If you leave the line out, nothing changes. Existing mods don't need to touch anything.
+- It works in REX. M2EX accepts the line, but it has no effect there, because M2EX riders already tilt with their mount.
+
+#### example
+
+<pre>
+type                war elephant
+class               elephant
+model               elephant
+...
+bouyancy_offset     2.0
+water_trail_effect  &lt;effect name&gt;
+<b><i>clamp_riders</i></b>
+...
+</pre>
+
 ## reloading without restart
 
 `descr_mount.txt` is re-read every time a battle loads, so you can edit it while the game is running and see the changes in the next battle (or by restarting the current one). Mod files are respected, like on normal startup. This works in both REX and M2EX.
 
 ### what is reloaded
 
-- `radius`, `x_radius`, `y_radius`, `height`, `mass`, `banner_height`, `bouyancy_offset`, water trail effect
+- `radius`, `x_radius`, `y_radius`, `height`, `mass`, `banner_height`, `bouyancy_offset`, water trail effect, `clamp_riders`
 - `y_offset` (M2EX only)
 - all horse settings
 - all elephant settings, including `riders`, `rider_offset` and `general_offset`
