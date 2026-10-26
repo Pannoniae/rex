@@ -92,6 +92,43 @@ range_indicator_fuzz 0.008
 
 `show_unit_card_always` allows you to set [unit cards and icons](#unit-cards-and-icons-on-highlight) to appear at all times (and there are other options next to it allowing further customisation).
 
+#### Bodies in the water
+These `descr_ex` settings control what happens to men and mounts that die in the water, for example soldiers who drown or fall overboard:
+
+| Setting | Values | Default | What it does |
+|---|---|---|---|
+| `water_corpses` | `spin`, `float`, `sink` | `sink` | `spin`: the body turns round and round on the surface (the original behaviour). `float`: it lies on the surface in its last pose, gently rocking. `sink`: it floats for a while, then slowly sinks to the bed. |
+| `water_corpse_sink_delay` | 0-600 | 8 | Seconds a body floats before it starts to sink. |
+| `water_corpse_sink_speed` | 0.01-10 | 0.25 | Metres per second it sinks at. |
+| `water_corpse_drift` | 0-4 | 0.5 | Share of the water's speed a body drifts at. 1 = it drifts along with the waves and down rivers, 0 = it stays where it died. Bodies that drift close to a shore wash up on it. |
+| `water_death_anim_swell` | `true`, `false` | `true` | `true`: the dying body rides the waves like the living swimmers. `false`: the death animation plays held at the spot on the waves where the swimmer died, then the body eases onto the moving waves. |
+
+With the modern battle water (`water_ex true`), floating bodies move with the waves just like living swimmers. The death animation always plays out in full before the body starts spinning, floating or sinking.
+
+For example, to keep bodies on the surface for the whole battle:
+```
+water_corpses float
+```
+
+In multiplayer, all players must use the same `water_corpses`, `water_corpse_sink_delay`, `water_corpse_sink_speed` and `water_corpse_drift` values. In M2EX
+
+#### descr_water_ex
+`descr_water_ex.txt` configures the modern battle water (`water_ex true` in `descr_ex.txt`). Every setting is explained at the top of the file. Two of them are especially useful for weather:
+
+`weather_transition` (0-3600, default 0 = at once) sets how many seconds of battle time the water takes to fade into the new weather's look when the weather changes during a battle. Colours, waves and foam blend smoothly, and the fade pauses when the battle is paused. A `weather` block can set its own value. The shipped files use 30 seconds.
+
+`tint_brightness` and `tint_saturation` (0-4, default 1) scale the brightness and saturation of the water colours (`shallow_color`, `deep_color` and `scatter_color`). A saturation of 0 makes the water grey. They are meant for `weather` blocks: the tint goes on top of whatever colours the climate and ground type set, and fades with `weather_transition`.
+
+The shipped files make the water darker and greyer as the wind picks up:
+
+| Weather (REX) | Weather (M2EX) | `tint_brightness` | `tint_saturation` |
+|---|---|---|---|
+| `rain_summer_shower`, `rain_drizzle` | `cloudy`, `cloudy_arid`, `cloudy_winter` | 0.9 | 0.85 |
+| `rain_storm`, `hail_shower`, `snow_falling`, `dust_storm` | `rain`, `snow`, `dusty` | 0.8 | 0.7 |
+| `blizzard`, `jeffs_brain` | `storm`, `blizzard` | 0.7 | 0.6 |
+
+To keep the water the same colour in every weather, set both values to 1 (or remove the lines).
+
 #### descr_caps_ex
 `fog_of_war_shroud` - Allows you to change whether fog of war for unexplored areas in REX is `black` or `vanilla` (grey, as in the original game).
 
