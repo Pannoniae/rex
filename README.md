@@ -1,4 +1,4 @@
-# About
+# REX & M2EX
 
 REX/M2EX are fan-made patches for Rome: Total War and Medieval II: Total War.
 
