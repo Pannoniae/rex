@@ -92,6 +92,8 @@ range_indicator_fuzz 0.008
 
 `show_unit_card_always` allows you to set [unit cards and icons](#unit-cards-and-icons-on-highlight) to appear at all times (and there are other options next to it allowing further customisation).
 
+The `hd_terrain` settings (REX) control the high-detail battle terrain: how often the ground textures repeat up close and far away, how ground types blend, and how strong their normal maps are. See [HD terrain](../../modders/hd_terrain/).
+
 #### Bodies in the water
 These `descr_ex` settings control what happens to men and mounts that die in the water, for example soldiers who drown or fall overboard:
 
@@ -128,6 +130,20 @@ The shipped files make the water darker and greyer as the wind picks up:
 | `blizzard`, `jeffs_brain` | `storm`, `blizzard` | 0.7 | 0.6 |
 
 To keep the water the same colour in every weather, set both values to 1 (or remove the lines).
+
+#### descr_water_effects_ex
+`descr_water_effects_ex.txt` controls how the modern battle water reacts to what happens in it: ripples and foam trails behind soldiers, horses, elephants and swimmers, ripples from bodies and missiles, and rain splashing on the water with a small ripple per drop. It's reloaded as soon as you save it. See [descr_water_effects_ex.txt](../../modders/water_effects/) for every setting.
+
+For example, to turn the foam trails off but keep the ripples, set this in its `settings` block:
+```
+definition foam_trails
+{
+    default
+    {
+        enabled     false
+    }
+}
+```
 
 #### descr_caps_ex
 `fog_of_war_shroud` - Allows you to change whether fog of war for unexplored areas in REX is `black` or `vanilla` (grey, as in the original game).
