@@ -115,7 +115,7 @@ water_corpses float
 In multiplayer, all players must use the same `water_corpses`, `water_corpse_sink_delay`, `water_corpse_sink_speed` and `water_corpse_drift` values. In M2EX
 
 #### descr_water_ex
-`descr_water_ex.txt` configures the modern battle water (`water_ex true` in `descr_ex.txt`). Every setting is explained at the top of the file. Two of them are especially useful for weather:
+`descr_water_ex.txt` configures the modern battle water. To use it, set `water_ex true` in `descr_ex.txt` (the default) and restart the game; `water_ex false` brings back the original water. Every setting is explained at the top of the file and in the [descr_water_ex.txt](../../modders/descr_water_ex/) guide. Two of them are especially useful for weather:
 
 `weather_transition` (0-3600, default 0 = at once) sets how many seconds of battle time the water takes to fade into the new weather's look when the weather changes during a battle. Colours, waves and foam blend smoothly, and the fade pauses when the battle is paused. A `weather` block can set its own value. The shipped files use 30 seconds.
 

@@ -13,7 +13,7 @@ It works the same in REX and M2EX.
 
 ## requirements
 
-- The modern battle water must be on: `water_ex true` in `descr_ex.txt`. With `water_ex false`, or without this file, the original water effects show as before.
+- The modern battle water must be on: `water_ex true` in `descr_ex.txt` (see [descr_water_ex.txt](../descr_water_ex/)). With `water_ex false`, or without this file, the original water effects show as before.
 - Rain splashes need rain in the battle, and rain splashes switched on in the options.
 
 ## reloading without restart

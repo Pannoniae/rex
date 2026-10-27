@@ -49,6 +49,7 @@ export default defineConfig({
 						{ label: 'Soldier variation', slug: 'modders/soldier_variation' },
 						{ label: 'Wasteland regions', slug: 'modders/wasteland_regions' },
 						{ label: 'Mounts', slug: 'modders/descr_mount' },
+						{ label: 'Battle water', slug: 'modders/descr_water_ex' },
 						{ label: 'Water effects', slug: 'modders/water_effects' },
 						{ label: 'HD terrain', slug: 'modders/hd_terrain' },
 						{ label: 'Custom Battle Categories', slug: 'modders/custom_battle_categories' },
