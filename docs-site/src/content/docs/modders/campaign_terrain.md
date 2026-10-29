@@ -1,6 +1,6 @@
 ---
 title: Campaign terrain
-description: Switchable campaign map terrain sets (descr_toggles_ex.txt), PBR ground and tile models, and data-driven coastlines.
+description: The Campaign Terrain option, PBR ground and tile models, and data-driven coastlines.
 ---
 
 The campaign map's ground art and tile models can come in several interchangeable sets, and players pick one with the **Campaign Terrain** video option. REX ships two sets, **Classic** (the original look) and **Enhanced** (new ground art, tile model textures and PBR maps). M2EX ships Classic only for now, ready for someone to add an Enhanced set.
@@ -12,52 +12,43 @@ The campaign map's ground art and tile models can come in several interchangeabl
 | REX | **Options** > **Video**, with advanced options shown. Also **Options** > **Video Options** inside a campaign. | Straight away. Changing it in a campaign reloads the terrain on the spot. If the new set fails to load, the old one is kept and an error is shown. |
 | M2EX | **Options** > **Video**, left column, under Campaign Map Detail. | The next time a campaign map loads. |
 
-The choice is saved with the other video settings. It lists one entry per configuration in `descr_toggles_ex.txt`, and is hidden when the mod has no such file (or no `AERIAL_MAP` section in it).
+The choice is saved with the other video settings. The dropdown lists the configurations of the `AERIAL_MAP` section of `descr_toggles_ex.txt`, and is hidden when the mod has no such file or section.
 
-## descr_toggles_ex.txt
+## the AERIAL_MAP section
 
-`data/descr_toggles_ex.txt` lists the sets. Each `section` is a game feature, and each `configuration` in it is one entry in the dropdown. Campaign terrain is the `AERIAL_MAP` section.
+The terrain sets are configurations in the `AERIAL_MAP` section of [descr_toggles_ex.txt](../descr_toggles_ex/). That page explains the file format, `enabled`, `default` and the general fallbacks. The REX file:
 
 ```
 section AERIAL_MAP
 {
-  enabled true
-  default enhanced
+	enabled true
+	default enhanced
 
-  configuration classic
-  {
-    ground_types	descr_aerial_map_ground_types.txt
-    tile_models		descr_aerial_map_tile_models.txt
-    text			UI_VIDEO_CAMPAIGN_GROUND_STYLE_CLASSIC
-  }
+	configuration classic
+	{
+		ground_types	descr_aerial_map_ground_types.txt
+		tile_models		descr_aerial_map_tile_models.txt
+		text			UI_VIDEO_CAMPAIGN_GROUND_STYLE_CLASSIC
+	}
 
-  configuration enhanced
-  {
-    ground_types	descr_aerial_map_ground_types_ex.txt
-    tile_models		descr_aerial_map_tile_models_ex.txt
-    text			UI_VIDEO_CAMPAIGN_GROUND_STYLE_ENHANCED
-  }
+	configuration enhanced
+	{
+		ground_types	descr_aerial_map_ground_types_ex.txt
+		tile_models		descr_aerial_map_tile_models_ex.txt
+		text			UI_VIDEO_CAMPAIGN_GROUND_STYLE_ENHANCED
+	}
 }
 ```
 
-| Line | What it does |
-|---|---|
-| `enabled true` / `false` | `true`: players choose any configuration. `false`: the dropdown shows the default greyed out, and the default is always used. Handy for a mod that wants to force its own terrain. |
-| `default <name>` | The configuration used until a player picks another one. An unknown name uses the first configuration. |
-| `configuration <name>` | A unique name (not case sensitive). The player's choice is saved by this name, so renaming a configuration resets players to the default. |
-| `ground_types <file>` | The `descr_aerial_map_ground_types`-style file for this set. |
-| `tile_models <file>` | The `descr_aerial_map_tile_models`-style file for this set. |
-| `text <KEY>` | The `menu_english.txt` key shown in the dropdown. The configuration's name is shown when it's missing. |
+| Role | File | Built-in |
+|---|---|---|
+| `ground_types` | A `descr_aerial_map_ground_types`-style file: the ground art. | `descr_aerial_map_ground_types.txt` |
+| `tile_models` | A `descr_aerial_map_tile_models`-style file: mountains, cliffs, rivers and other tile models, plus the coastline textures. | `descr_aerial_map_tile_models.txt` |
 
-File paths are relative to the `data` folder, and a mod's `data` folder is checked first.
+On top of the general fallbacks:
 
-### fallbacks
-
-- A configuration doesn't have to name every file. A missing `ground_types` or `tile_models` line uses the default configuration's file, and failing that the built-in one (`descr_aerial_map_ground_types.txt`, `descr_aerial_map_tile_models.txt`).
 - Any configuration other than the default borrows the default's ground art for every texture missing on disk, and for every climate its file doesn't describe. So an Enhanced set can replace just a few climates.
 - A tile models file must keep the `tile_set` and link names of the original, because the game looks models up by those names. If it can't be used, the default's file is used instead.
-with a note in the log. Unknown roles are ignored.
-- Without the file or the section, the game behaves exactly as before and the option is hidden.
 
 ### adding an Enhanced set to M2EX
 
@@ -66,9 +57,9 @@ The M2EX file has only `classic`, and its header shows the block to add:
 ```
 configuration enhanced
 {
-  ground_types	descr_aerial_map_ground_types_ex.txt
-  tile_models		descr_aerial_map_tile_models_ex.txt
-  text			UI_VIDEO_CAMPAIGN_GROUND_STYLE_ENHANCED
+	ground_types	descr_aerial_map_ground_types_ex.txt
+	tile_models		descr_aerial_map_tile_models_ex.txt
+	text			UI_VIDEO_CAMPAIGN_GROUND_STYLE_ENHANCED
 }
 ```
 
