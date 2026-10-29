@@ -52,6 +52,7 @@ export default defineConfig({
 						{ label: 'Battle water', slug: 'modders/descr_water_ex' },
 						{ label: 'Water effects', slug: 'modders/water_effects' },
 						{ label: 'HD terrain', slug: 'modders/hd_terrain' },
+						{ label: 'Campaign terrain', slug: 'modders/campaign_terrain' },
 						{ label: 'Custom Battle Categories', slug: 'modders/custom_battle_categories' },
 						{
 							label: 'Scripting',
