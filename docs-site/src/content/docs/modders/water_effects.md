@@ -1,13 +1,14 @@
 ---
 title: descr_water_effects_ex.txt
-description: Interactive battle water effects in REX and M2EX, ripples, foam trails and rain splashes.
+description: Interactive battle water effects in REX and M2EX, ripples, foam trails, rain splashes and elephant water spouts.
 ---
 
 `data/descr_water_effects_ex.txt` controls how the modern battle water reacts to what happens in it:
 
 - **Ripples**: waves pushed into the water by soldiers, horses, elephants, swimmers, bodies and missiles. They bend the light and reflections on the water, leave a little foam and gently move the surface.
-- **Foam trails**: ribbons of foam behind anything that wades or swims. They fade out over time and drift downwind.
+They fade out over time and drift downwind. A unit placed somewhere else, for example during deployment, starts a new trail instead of drawing one across the gap.
 - **Rain on the water**: while it rains, every raindrop that lands on the water splashes there and leaves a small ripple.
+- **Sprays**: an elephant swimming in the water blows a stream of water from its trunk, shaded like the water itself, that splashes and ripples where it lands.
 
 It works the same in REX and M2EX.
 
@@ -36,6 +37,7 @@ effect <name>
 {
     type ripple       { parameters }
     type foam_trail   { parameters }
+    type spray        { parameters }
 }
 
 effect_set <name>
@@ -46,7 +48,7 @@ effect_set <name>
 ```
 
 - `settings` holds the settings of each effect type, grouped in **classes**.
-- An `effect` is one ripple or foam trail emitter with its own parameters. One effect can have a `type ripple` block, a `type foam_trail` block, or both.
+- An `effect` is one ripple, foam trail or spray emitter with its own parameters. One effect can have a `type ripple` block, a `type foam_trail` block, a `type spray` block, or any mix of them.
 - An `effect_set` lists the effects that play for one game event. Its name decides **when** it plays.
 - Ranges are written `[ min max ]`, with a space after `[` and before `]`.
 - Comments start with `;`.
@@ -64,6 +66,7 @@ The name of an `effect_set` is the name of the original effect set it replaces. 
 | `swim_splash` | once: a swimming stroke, or an attack while swimming, hitting the water | the splash rings and drops |
 | `body_splash` | once: a body falling into the water (REX) | the splash rings and drops |
 | `default_water_set` | once: a missile hitting the water | M2TW `default_water_set`, RTW the splash rings and drops |
+| `trunk_spout` | once: an elephant swimming blows water from its trunk. Its spray effects throw the jet from the trunk's tip, its ripple effects make a wave below it | the spout's drops |
 | any other name | a mount's `water_trail_effect` from `descr_mount.txt` | that mount's original trail |
 
 The trails are continuous: the effect keeps going while the source is in the water. The others play once per event.
@@ -252,6 +255,48 @@ These settings are **shared** by every level, only `default`'s are used: `distan
 | `sprite_splash_channels` | `auto`, `alpha`, `rgba` | `alpha` | How the sprite is read. `auto`: coverage is alpha times brightness, so white drops on black need no alpha. `alpha`: the alpha only, coloured like the foam (for textures whose rgb holds other data). `rgba`: its own colour and alpha. |
 | `sprite_splash_foot` | 0-1 | 0.87 | `quad`: the height of the splash's foot in the texture (or each frame), 0 = top, 1 = bottom. That point is held `sprite_y_pos` above the water. |
 
+## sprays
+
+`type spray` is a jet of water thrown into the air, used by the `trunk_spout` set. For `duration` seconds a stream of water leaves the source:
+
+- The stream is a continuous tube of water. It arcs through the air, wavers and pulses as it's blown, thins as it flies and breaks up into small drops near its end. When the jet stops, its tail leaves the source and falls.
+- A spray of loose drops and a little mist flies around it.
+- The stream and the drops are drawn as water, in the water's own colours (`shallow_color` toward `deep_color` and `scatter_color` from `descr_water_ex.txt`). They reflect the sky, glint in the sun and show the scene behind them, bent as through a lens. Fast drops blur into faint streaks. The mist is soft puffs of the water's `foam_color`.
+- Where the stream comes down the water churns, with a larger ripple a few times a second, and throws up droplets. Every landing drop leaves a small ripple and may make a drop splash.
+
+Sprays have no `definition` or classes. With the old water, the elephant keeps its original spout.
+
+### type spray
+
+| Parameter | Values | Default | What it does |
+|---|---|---|---|
+| `duration` | 0.01-10 | 0.8 | Seconds the jet runs. |
+| `stream_speed` | 0-100 | 9 | m/s of the stream leaving the source. |
+| `stream_radius` | 0.005-2 | 0.07 | Metres, the stream's radius at the source. It thins as it flies. |
+| `breakup` | `[ min max ]` | `[ 0.35 0.7 ]` | Seconds after leaving the source the stream breaks up into drops (0.01-5). |
+| `wobble` | 0-10 | 0.5 | m/s of the stream's sideways wavering. |
+| `pulse` | 0-1 | 0.12 | The blow's pulsing, of the stream's speed. |
+| `tint` | 0-1 | 0.6 | How much of the water's own colour the stream shows. The rest is the scene seen through it. |
+| `aeration` | 0-1 | 0.35 | White water in the stream, growing toward its breakup. |
+| `rate` | 0-4000 | 70 | Loose drops and puffs of mist a second at the jet's strongest. |
+| `speed` | `[ min max ]` | `[ 5 9 ]` | m/s of the loose drops leaving the source. |
+| `spread` | 0-90 | 9 | Degrees, the half angle of their cone, twice that at the jet's end. |
+| `size` | `[ min max ]` | `[ 0.006 0.02 ]` | Metres, the radius of the loose drops, more small ones than large. The drops the stream breaks into are at most the largest. |
+| `mist` | 0-1 | 0.2 | Share of the loose drops that is mist. |
+| `mist_size` | metres | 0.12 | Radius of a puff of mist as it leaves. It grows. |
+| `drag` | 0-10 | 0.3 | How much the air slows the stream and the drops, a second. The mist ten times as much. |
+| `stretch` | 0-0.5 | 0.03 | Seconds: a drop is drawn as long as it moves in this time, fading as it stretches. 0 = round drops. |
+| `opacity` | 0-1 | 1 | Opacity of the stream, the drops and the mist. |
+| `bounce` | 0-1 | 0.3 | Share of the landing drops throwing up a few droplets. The stream throws twice as many. |
+| `splashes` | 0-1 | 0.5 | Share of the landing drops making a drop splash. Only with the drop splashes on and `splash_source rain`. |
+| `ripple_strength` | number | 0.05 | The small ripple a landing drop makes, for its largest drops. |
+| `ripple_radius` | 0.3-100 | 0.4 | Metres, the radius of that ripple. |
+| `ripple_distortion` | number | 1 | The foam of that ripple, times its strength. |
+| `ripple_share` | 0-1 | 0.35 | Share of the landing drops making a ripple. |
+| `impact_strength` | number | 0.45 | The larger ripple where the stream comes down, a few times a second, scaled by how much water lands. 0 = none. |
+| `impact_radius` | 0.3-100 | 1 | Metres, the radius of that ripple. |
+| `impact_distortion` | number | 1.5 | The foam of that ripple, times its strength. |
+
 ## textures
 
 Textures are data paths written without `.dds`, like the other water textures, so `terrain/water_ex/foam.tga` loads `data/terrain/water_ex/foam.tga.dds`.
@@ -294,6 +339,23 @@ definition foam_trails
     {
         enabled     false
     }
+}
+```
+
+### a stronger elephant spout
+
+In the `elephant_spout` effect, blow longer and harder with a thicker stream:
+
+```
+effect elephant_spout
+{
+        type spray
+        {
+                duration        1.2
+                stream_speed    12
+                stream_radius   0.1
+                ...
+        }
 }
 ```
 

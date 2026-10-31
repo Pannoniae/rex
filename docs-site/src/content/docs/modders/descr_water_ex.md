@@ -293,9 +293,17 @@ ambient
 | `fade_in_depth` | Metres below the surface over which the whole underwater effect fades in. |
 | `surface_tint` | r, g, b, a (0-255) just below the surface. |
 | `tint` | r, g, b, a (0-255) at `fade_depth` and deeper. |
-| `surface_offset` | Top level only, metres. Moves the height treated as the water surface: positive starts the effect higher, negative lower. |
+| `shadow_height` | Metres, default 15. A figure over the water whose feet are more than this above the ground below casts no sun shadow under the water, so a swimmer over deep water doesn't throw a shadow straight down to the sea floor. A negative value removes the limit. Figures on dry land are not affected. |
+| `surface_offset` | Top level only, metres. Moves the height treated as the water surface: positive starts the effect higher, negative lower. Old water only: with the modern water the waterline is the drawn water surface itself. |
 
 The rgb is also the underwater fog colour. Alpha is a flat overlay on top, so keep it moderate.
+
+With the modern water on, the underwater view is a volumetric fog that starts exactly at the water surface, so there's no gap or tint above the waterline as the camera dips in and out:
+
+- The rgb is the water colour, lit by the sky and the sun, shadowed and getting darker the deeper the camera goes. Deep water stays dark all the way down to the floor.
+- `visibility` is the distance at which the water fully hides what's behind it.
+- The fog ends at the water surface, so the world above stays visible through it.
+- `alpha` and `fade_in_depth` only apply to the old water. An alpha of 0 still turns the effect off.
 
 To let the camera go under the water at all, set these in `descr_ex.txt`:
 
