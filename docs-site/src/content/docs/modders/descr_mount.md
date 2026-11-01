@@ -24,9 +24,9 @@ general_offset      <x>, <y>, <z>
 ```
 
 - It only works for `class elephant`.
-- It must be placed **directly before the `riders` line**. Anywhere else is a parse error.
+- It must be placed **directly before the `riders` line**. Anywhere else is a parse error. The only exception is a [`driver_offset`](#driver_offset) line, which may sit between `general_offset` and `riders`.
 - The coordinates work the same as `rider_offset`: x is sideways, y is height and z is forwards/backwards.
-- `riders` still only counts the regular crew. The general is an extra rider on top of that.
+- `riders` still only counts the regular crew.
 - If you leave the line out, nothing changes and the general takes slot 2 like in vanilla. Existing mods don't need to touch anything.
 
 #### example
@@ -50,7 +50,7 @@ The first elephant of a general's or captain's unit now carries the driver, both
 
 #### how the general is placed
 
-- Slot 1 (the first `rider_offset`) is always the driver.
+- Slot 1 is always the driver. He sits at the first `rider_offset`, or at [`driver_offset`](#driver_offset) if the mount has one. With `driver_offset ..., model undefined` there is no driver, and slot 1 is an ordinary crewman.
 - The general goes on the **first elephant** of the unit, at `general_offset`.
 - Any other officers in the unit are placed the vanilla way, in the rider slots from slot 2 onwards.
 
@@ -75,6 +75,66 @@ general_offset      0.0, 1.335, 2.25    <- must come before riders
 - **Howdah commanders:** put the general on a raised seat or at the front of the howdah without losing a crewman.
 - **Big war elephants and towers:** together with the higher rider limit you can build towers full of archers with a commander on top.
 - **Spotting the general:** he always sits in the same, distinct spot, so he's easy to find in battle.
+
+## driver_offset
+
+The driver of a chariot or elephant is normally the man in the first `rider_offset` slot. The optional `driver_offset` line gives the driver his own seat and, if you like, his own model:
+
+```
+driver_offset       <x>, <y>, <z>[, model <descr_model_battle entry>]
+```
+
+- It works for `class elephant` and `class chariot` (including scorpion carts).
+- **Elephants:** place it directly before `general_offset`. Without a `general_offset` it goes directly before `riders`. It is also accepted between `general_offset` and `riders`.
+- **Chariots:** place it directly before the `riders` line.
+- The coordinates work the same as `rider_offset`: x is sideways, y is height and z is forwards/backwards.
+- The driver is an **extra man on top of `riders`**, just like the general at `general_offset`. `riders` and the `rider_offset` lines only count the other crew, so `riders 3` with a `driver_offset` means a driver plus 3 riders, with 3 `rider_offset` lines.
+- Units using the mount get one more man per mount to fill the driver's seat. An elephant unit with 12 soldiers and 4 elephants in `export_descr_unit.txt` becomes 16 men in game. Keep the soldier count in `export_descr_unit.txt` as the crew only.
+- Because of the driver's seat, `riders` for `class elephant` accepts 1 to 126 with a `driver_offset`.
+- If you leave the line out, nothing changes. Existing mods don't need to touch anything.
+
+### model
+
+The `model` part is optional:
+
+| line | driver looks like |
+|---|---|
+| `driver_offset 0.0, 0.0, 0.75` | the unit's normal soldier model |
+| `driver_offset 0.0, 0.0, 0.75, model barb_peasant` | the `barb_peasant` entry of `descr_model_battle.txt` |
+| `driver_offset 0.0, 0.0, 0.75, model undefined` | there is no driver at all (see below) |
+
+- `model null` works the same as `model undefined`.
+- An unknown model name is a load error.
+- In REX the driver is animated with the skeleton of his own model. If its `descr_model_battle.txt` entry has rider skeletons (`skeleton_chariot`, `skeleton_elephant` and so on, as general models do), the one for the mount is used. Otherwise its main `skeleton` is used, and the driver plays its idle, walk and run animations as the mount stands, walks and runs.
+- In M2EX the driver keeps the unit's animations: the model is fitted onto the unit's skeleton by bone name.
+- If the driver dies, the next rider takes his seat as the new driver with his own, normal model.
+
+### no driver
+
+With `model undefined` (or `model null`) the mount has **no driver**. It is not an invisible man: there is simply nobody in the driver's seat.
+
+- The x, y and z of the line are ignored.
+- `riders` and the `rider_offset` lines work as in vanilla, and every rider is ordinary crew. Nobody plays the driving or mahout animation.
+- The rider at the first `rider_offset` behaves like the others too: he turns to face his target and sits at the same height. In vanilla that seat belongs to the driver, who doesn't turn; the mount turns instead.
+- Units don't get the extra man per mount, so the soldier count in `export_descr_unit.txt` is used as is.
+
+#### example
+
+<pre>
+type                war elephant
+class               elephant
+model               elephant
+...
+tusk_radius         0.75
+<b><i>driver_offset       0.0, 1.635, 1.45, model barb_peasant</i></b>
+general_offset      0.0, 1.335, 2.25
+riders              3
+rider_offset        0.0, 1.635, 0.75
+rider_offset        0.0, 1.45, 0.5
+rider_offset        0, 1.45, -.25
+</pre>
+
+The elephant now has a mahout drawn with the `barb_peasant` model in his own seat, plus three crewmen with the unit's normal model.
 
 ## riders
 
@@ -123,8 +183,8 @@ See [descr_water_effects_ex.txt](../water_effects/#mount-trail-sets).
 `bouyancy_offset`, water trail effect, `clamp_riders`
 - `y_offset` (M2EX only)
 - all horse settings
-- all elephant settings, including `riders`, `rider_offset` and `general_offset`
-- all chariot and scorpion cart settings, including LOD models and ranges
+- all elephant settings, including `riders`, `rider_offset`, `general_offset` and `driver_offset`
+- all chariot and scorpion cart settings, including `driver_offset`, LOD models and ranges
 
 ### what still needs a restart
 
@@ -133,6 +193,7 @@ Like `descr_model_battle.txt`, existing entries keep their place, so a few chang
 - **new mounts:** a new `type` entry is skipped and an error is written to `system.log.txt`.
 - **changed `class`:** the entry is skipped and an error is written to `system.log.txt`.
 - **changed `model`** of a horse, camel or elephant: the old model stays in use.
+- **added or removed `driver_offset`:** the unit sizes (one extra man per mount) only change after a restart.
 
 Renaming a `type` counts as a new mount.
 
