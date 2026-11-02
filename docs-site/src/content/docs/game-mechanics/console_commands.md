@@ -3,6 +3,8 @@ title: Console commands
 description: Console commands added by REX and M2EX.
 ---
 
+This page only lists the console commands that REX and M2EX add. All the original game's console commands still work, but they aren't listed here.
+
 The console opens with the `` ` `` key (left of `1` on most keyboards). Type a command and press Enter. Arguments are separated by spaces. Put an argument in quotes if it contains spaces, such as a unit name.
 
 Some commands only work in a battle, others only on the campaign map. Each command below says where it works and which game has it.
