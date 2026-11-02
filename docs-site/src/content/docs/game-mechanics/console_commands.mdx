@@ -3,13 +3,19 @@ title: Console commands
 description: Console commands added by REX and M2EX.
 ---
 
+import GameFilter from "../../../components/GameFilter.astro";
+
 This page only lists the console commands that REX and M2EX add. All the original game's console commands still work, but they aren't listed here.
 
 The console opens with the `` ` `` key (left of `1` on most keyboards). Type a command and press Enter. Arguments are separated by spaces. Put an argument in quotes if it contains spaces, such as a unit name.
 
-Some commands only work in a battle, others only on the campaign map. Each command below says which game has it and where it works. In the syntax, `<value>` is required and `[value]` is optional.
+In the syntax, `<value>` is required and `[value]` is optional. Use the dropdown to show only the commands for one game.
+
+<GameFilter />
 
 ## Campaign commands
+
+<div data-games="rex m2ex">
 
 ### add_soldiers
 
@@ -21,6 +27,10 @@ add_soldiers <character | settlement> <unit type> <amount>
 
 Adds soldiers to an existing unit of that type in the character's army or the settlement's garrison.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### adjust_treasury
 
 **REX/M2EX** · campaign
@@ -30,6 +40,10 @@ adjust_treasury [faction] <multiplier>
 ```
 
 Multiplies a faction's treasury, so `1.05` gives 105% of the current amount. Without a faction it uses your own.
+
+</div>
+
+<div data-games="rex">
 
 ### ally_desire
 
@@ -41,6 +55,10 @@ ally_desire <faction> <target faction>
 
 Shows the seven terms of the betrayal score for the alliance between two factions: land desire, strength, common enemy, human difficulty, core attitude, current wars and turns at peace.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### change_character_faction
 
 **REX/M2EX** · campaign
@@ -50,6 +68,10 @@ change_character_faction <character> <faction>
 ```
 
 Moves a character to another faction.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### create_assassin
 
@@ -61,6 +83,10 @@ create_assassin <settlement>
 
 Spawns an assassin at the settlement, owned by the settlement's faction.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### create_diplomat
 
 **REX/M2EX** · campaign
@@ -70,6 +96,10 @@ create_diplomat <settlement>
 ```
 
 Spawns a diplomat at the settlement, owned by the settlement's faction.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### create_fort
 
@@ -85,6 +115,10 @@ Creates a fort for the faction at strat map tile (x, y).
 - `permanent` makes a permanent fort.
 - `name <name>` names the fort. A bare name is a localisation key from `expanded.txt`; a "quoted" name is used as literal text.
 
+</div>
+
+<div data-games="m2ex">
+
 ### create_merchant
 
 **M2EX** · campaign
@@ -94,6 +128,10 @@ create_merchant <settlement>
 ```
 
 Spawns a merchant at the settlement, owned by the settlement's faction.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### create_resource
 
@@ -105,6 +143,10 @@ create_resource <x> <y> <resource>
 
 Adds a trade resource to strat map tile (x, y).
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### create_spy
 
 **REX/M2EX** · campaign
@@ -114,6 +156,10 @@ create_spy <settlement>
 ```
 
 Spawns a spy at the settlement, owned by the settlement's faction.
+
+</div>
+
+<div data-games="m2ex">
 
 ### cull_faction
 
@@ -125,6 +171,10 @@ cull_faction <faction>
 
 Disbands every named general of the faction, and the field army each one leads. The leader, the heir and their direct paternal line are kept. Governors' garrisons are left intact.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### decimation_army
 
 **REX/M2EX** · campaign
@@ -134,6 +184,10 @@ decimation_army <character> <percent>
 ```
 
 Reduces every unit in the character's army by the given percent (1 to 100).
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### destroy_building
 
@@ -145,6 +199,10 @@ destroy_building <settlement> <building level>
 
 Destroys a building in the settlement. Building level names come from `export_descr_buildings.txt`.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### destroy_fort
 
 **REX/M2EX** · campaign
@@ -154,6 +212,10 @@ destroy_fort <x> <y>
 ```
 
 Removes the fort at strat map tile (x, y). It fails if the fort has a garrison.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### destroy_selected_fort
 
@@ -165,6 +227,10 @@ destroy_selected_fort
 
 Removes the fort selected in the UI. It fails if no fort is selected or the fort has a garrison.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### display_message
 
 **REX/M2EX** · campaign
@@ -174,6 +240,10 @@ display_message <message id>
 ```
 
 Shows a custom event message from `custom_messages.txt`.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### downgrade_building
 
@@ -185,6 +255,10 @@ downgrade_building <settlement> <building level>
 
 Downgrades a building by one level. A building that is already at its lowest level is destroyed.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### dump_region_names
 
 **REX/M2EX** · campaign
@@ -194,6 +268,10 @@ dump_region_names
 ```
 
 Writes the current region and settlement names, including in-game renames, to `<mod>/data/text/<language>/<campaign>_regions_and_settlement_names.dump.txt`. The file is ready to drop back into the mod.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### give_settlement
 
@@ -205,6 +283,10 @@ give_settlement <faction> <settlement>
 
 Gives the settlement to the faction. This doesn't count as a diplomatic transgression.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### go_to_capital
 
 **REX/M2EX** · campaign
@@ -214,6 +296,10 @@ go_to_capital <faction>
 ```
 
 Moves the camera to the faction's capital.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### go_to_char
 
@@ -225,6 +311,10 @@ go_to_char <character>
 
 Moves the camera to the character.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### go_to_pos
 
 **REX/M2EX** · campaign
@@ -234,6 +324,10 @@ go_to_pos <x> <y>
 ```
 
 Moves the camera to strat map tile (x, y).
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### go_to_sett
 
@@ -245,6 +339,10 @@ go_to_sett <settlement>
 
 Moves the camera to the settlement.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### kill_army
 
 **REX/M2EX** · campaign
@@ -254,6 +352,10 @@ kill_army <character>
 ```
 
 Kills the army led by the character. If the character has no army, only the character dies.
+
+</div>
+
+<div data-games="rex">
 
 ### remove_ancillary
 
@@ -265,6 +367,10 @@ remove_ancillary <character> <ancillary>
 
 Removes an ancillary from the character. The original M2TW already has this command.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### remove_resource
 
 **REX/M2EX** · campaign
@@ -274,6 +380,10 @@ remove_resource <x> <y>
 ```
 
 Removes the trade resource at strat map tile (x, y).
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### rename_faction, rename_fort, rename_region, rename_settlement
 
@@ -288,6 +398,10 @@ rename_fort <x> <y> <name>
 
 Renames a faction, region, settlement or the fort at strat map tile (x, y). Regions use their `descr_regions.txt` name. A bare name is a localisation key from `expanded.txt`; a "quoted" name is used as literal text.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### replen_all_forts
 
 **REX/M2EX** · campaign
@@ -301,6 +415,10 @@ Replenishes the units garrisoned in the faction's forts by the given percent of 
 - `owner` only replenishes forts in regions the faction owns.
 - `not_siege` skips forts that are under siege.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### replen_soldiers
 
 **REX/M2EX** · campaign
@@ -310,6 +428,10 @@ replen_soldiers <character | settlement> <percent>
 ```
 
 Replenishes the units in the character's army or the settlement's garrison by the given percent of their full size (1 to 100). Generals' bodyguards are skipped.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### set
 
@@ -321,6 +443,10 @@ set <unit_cost_multiplier | unit_upkeep_multiplier | building_cost_multiplier> [
 
 Changes one of the `descr_strat.txt` cost multipliers during the campaign. Without a value it shows the current one. The value is saved with the campaign.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### set_heir
 
 **REX/M2EX** · campaign
@@ -330,6 +456,10 @@ set_heir <character>
 ```
 
 Makes the character the faction heir.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### set_leader
 
@@ -341,6 +471,10 @@ set_leader <character>
 
 Makes the character the faction leader.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### set_population
 
 **REX/M2EX** · campaign
@@ -350,6 +484,10 @@ set_population <settlement> <amount>
 ```
 
 Sets the population of the settlement.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### show_counter
 
@@ -361,6 +499,10 @@ show_counter <name>
 
 Shows the current value of a script counter.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### show_counters
 
 **REX/M2EX** · campaign
@@ -371,7 +513,11 @@ show_counters
 
 Lists all active script counters and their values.
 
+</div>
+
 ## Battle commands
+
+<div data-games="rex m2ex">
 
 ### battle_time_multiplier
 
@@ -383,6 +529,10 @@ battle_time_multiplier [multiplier]
 
 Changes how fast time of day and weather move during the battle. `1` is the normal speed and `0` freezes it. Without a value it shows the current multiplier.
 
+</div>
+
+<div data-games="rex">
+
 ### cloud_drift
 
 **REX** · battle, battle editor
@@ -392,6 +542,10 @@ cloud_drift [0..360]
 ```
 
 Sets how fast the clouds drift, in degrees per minute at normal battle speed and 10 m/s wind. `0` keeps them still.
+
+</div>
+
+<div data-games="rex">
 
 ### cloud_sunset_rim
 
@@ -403,6 +557,10 @@ cloud_sunset_rim [0..2]
 
 Sets how strongly sunset light shines on the edges of the clouds. `0` turns it off.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### freecam
 
 **REX/M2EX** · battle (M2EX also in the battle editor), also in multiplayer
@@ -412,6 +570,10 @@ freecam [on | off]
 ```
 
 Toggles the free-fly camera. It can turn 360 degrees on the spot and move up and down with Q and E. Your normal battle camera setting is kept.
+
+</div>
+
+<div data-games="rex">
 
 ### lbc_carry_tune
 
@@ -423,6 +585,10 @@ lbc_carry_tune <list | select N | next | show | print | done | offset X Y Z | ro
 
 A modding tool for live-tuning the props that city civilians carry, such as amphorae and stones.
 
+</div>
+
+<div data-games="rex">
+
 ### lens_flare
 
 **REX** · battle, battle editor
@@ -432,6 +598,10 @@ lens_flare [on | off]
 ```
 
 Toggles the original game's lens flare.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### set_time
 
@@ -443,6 +613,10 @@ set_time <hour | HH:MM>
 
 Jumps to a time of day, such as `18.5` or `18:30`.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### set_weather
 
 **REX/M2EX** · battle, battle editor
@@ -452,6 +626,10 @@ set_weather <weather | random> [seconds]
 ```
 
 Switches to a weather type and holds it. With `[seconds]` it changes gradually over that many battle seconds. `random` returns to the normal weather cycle.
+
+</div>
+
+<div data-games="rex">
 
 ### show_lbw_debug
 
@@ -463,6 +641,10 @@ show_lbw_debug
 
 Toggles a debug view of the city population: the routes, destinations and attraction areas.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### showtime
 
 **REX/M2EX** · battle, battle editor
@@ -473,6 +655,10 @@ showtime [on | off]
 
 Toggles the battle time display.
 
+</div>
+
+<div data-games="rex">
+
 ### solar_lighting
 
 **REX** · battle, battle editor
@@ -482,6 +668,10 @@ solar_lighting [0 | 1]
 ```
 
 `1` makes the lighting follow the real position of the sun. `0` uses the old fixed-clock lighting.
+
+</div>
+
+<div data-games="rex">
 
 ### spawn_projectile
 
@@ -507,6 +697,10 @@ spawn_projectile big_fiery_boulder 5
 spawn_projectile "roman archer"
 ```
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### vulnerable_general
 
 **REX/M2EX** · battle
@@ -517,7 +711,11 @@ vulnerable_general <character>
 
 Makes the named general vulnerable in battle again.
 
+</div>
+
 ## Campaign and battle commands
+
+<div data-games="rex m2ex">
 
 ### hide_ui
 
@@ -529,6 +727,10 @@ hide_ui
 
 Hides the UI, like the `hide_ui` script command.
 
+</div>
+
+<div data-games="rex">
+
 ### show_ui
 
 **REX** · campaign, battle
@@ -538,6 +740,10 @@ show_ui [true | false]
 ```
 
 Shows the UI again. `show_ui false` hides it. The original M2TW already has this command.
+
+</div>
+
+<div data-games="rex">
 
 ### snd_reload
 
@@ -549,6 +755,10 @@ snd_reload
 
 Reloads the sound events. The original M2TW already has this command.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### toggle_cursor
 
 **REX/M2EX** · campaign, battle (M2EX also in the battle editor)
@@ -558,6 +768,10 @@ toggle_cursor
 ```
 
 Shows or hides the mouse cursor. Input keeps working while it's hidden.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### vram
 
@@ -569,9 +783,13 @@ vram
 
 Shows how much video memory each part of the game uses, plus the total for the process.
 
+</div>
+
 ## Scripting and debugging
 
 These commands work everywhere, including the editors.
+
+<div data-games="rex m2ex">
 
 ### dump_docudemon
 
@@ -583,6 +801,10 @@ dump_docudemon
 
 Writes documentation for the script commands, conditions, events and console commands to the `documentation/` folder.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### imgui_demo
 
 **REX/M2EX**
@@ -592,6 +814,10 @@ imgui_demo
 ```
 
 Toggles the Dear ImGui demo window.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### lua, sq
 
@@ -604,6 +830,10 @@ sq <line>
 
 Runs one line of Lua (`lua`) or Squirrel (`sq`) code. It runs in the active script runtime, or in a scratch VM when no runtime is running. The reply says which one was used.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### script_reload
 
 **REX/M2EX**
@@ -613,6 +843,10 @@ script_reload
 ```
 
 Reloads the scripts from disk. If any entry script fails to load, the running scripts are kept.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### script_run
 
@@ -624,6 +858,10 @@ script_run <file.lua | file.nut>
 
 Runs a script file from disk in the live VM. The extension picks Lua or Squirrel. You can run the same file again.
 
+</div>
+
+<div data-games="rex m2ex">
+
 ### script_selftest
 
 **REX/M2EX**
@@ -633,6 +871,10 @@ script_selftest [events | persist | refs]
 ```
 
 Runs the scripting self-tests, or all of them when no suite is named. The results go to `system.log.txt`.
+
+</div>
+
+<div data-games="rex m2ex">
 
 ### script_status
 
@@ -644,6 +886,10 @@ script_status
 
 Shows which script VMs are running, what they loaded and what is registered on them.
 
+</div>
+
+<div data-games="rex">
+
 ### snd_debug
 
 **REX**
@@ -653,3 +899,5 @@ snd_debug
 ```
 
 Toggles a live sound diagnostics window.
+
+</div>

@@ -1,0 +1,70 @@
+---
+// Dropdown that filters page content by game. Wrap filterable blocks in an
+// element with data-games="rex", "m2ex" or "rex m2ex".
+---
+
+<div class="game-filter not-content">
+  <label for="game-filter-select">Show commands for</label>
+  <select id="game-filter-select">
+    <option value="all">REX and M2EX</option>
+    <option value="rex">REX</option>
+    <option value="m2ex">M2EX</option>
+  </select>
+</div>
+
+<script>
+  const STORAGE_KEY = "game-filter";
+
+  function applyFilter(game: string) {
+    document.querySelectorAll<HTMLElement>("[data-games]").forEach((block) => {
+      const games = (block.dataset.games ?? "").split(" ");
+      const visible = game === "all" || games.includes(game);
+      block.hidden = !visible;
+
+      block.querySelectorAll("h2[id], h3[id]").forEach((heading) => {
+        const selector = `starlight-toc a[href="#${heading.id}"], mobile-starlight-toc a[href="#${heading.id}"]`;
+        document.querySelectorAll<HTMLElement>(selector).forEach((link) => {
+          const item = link.closest("li") ?? link;
+          item.hidden = !visible;
+        });
+      });
+    });
+  }
+
+  const select = document.getElementById("game-filter-select") as HTMLSelectElement | null;
+  if (select) {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved && [...select.options].some((option) => option.value === saved)) {
+      select.value = saved;
+    }
+    applyFilter(select.value);
+    select.addEventListener("change", () => {
+      localStorage.setItem(STORAGE_KEY, select.value);
+      applyFilter(select.value);
+    });
+  }
+</script>
+
+<style>
+  .game-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-block: 1.5rem;
+  }
+
+  .game-filter select {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.25rem;
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+    font: inherit;
+  }
+
+  :global([data-games][hidden]),
+  :global(starlight-toc li[hidden]),
+  :global(mobile-starlight-toc li[hidden]) {
+    display: none !important;
+  }
+</style>
