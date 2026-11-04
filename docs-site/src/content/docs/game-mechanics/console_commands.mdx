@@ -701,6 +701,32 @@ spawn_projectile "roman archer"
 
 <div data-games="rex m2ex">
 
+### toggle_collisions
+
+**REX/M2EX** · battle
+
+```
+toggle_collisions [mount | ship | projectile]
+```
+
+Shows or hides collision volumes as see-through 3D shapes, so you can check the collision values in your data files.
+
+- With no parameter, it shows every type at once. If every type is already shown, it hides them all instead. You can still turn single types on or off afterwards.
+- `mount` shows each mount's collision shape from `descr_mount.txt`, coloured per alliance. The footprint comes from `radius`, `x_radius` (REX) or `y_offset` (M2EX), and it reaches up to the mount's `height`. `radius` and `x_radius` are measured from the mount's centre to the edge, so the shape is twice as long and wide as those values.
+- `projectile` shows each projectile in flight as a white sphere the size of its `radius` from `descr_projectile_new.txt` (REX) or `descr_projectile.txt` (M2EX). Projectiles with `radius 0`, such as pila and javelins, hit as a single point and get a small marker instead. When a projectile with an `area` lands, the area it damages shows as a white disc that fades out over two seconds. In REX, underwater depth charge and torpedo blasts show as a sphere.
+- `ship` toggles ship volumes, which aren't drawn yet.
+
+Examples:
+
+```
+toggle_collisions
+toggle_collisions mount
+```
+
+</div>
+
+<div data-games="rex m2ex">
+
 ### vulnerable_general
 
 **REX/M2EX** · battle
