@@ -158,6 +158,10 @@ Advanced simulation constants, 4 values each and **shared**. Change them with ca
 | `emit_distance` | metres | 0.5 | Trails: a new wave each time the source moved this far. |
 | `emit_period` | seconds | -1 | Trails: a weak wave (strength min) this often while the source stands still. Below 0 = none. |
 | `min_spacing` | metres [seconds] | 0 (0.5 s) | At most one wave of this effect per square of this size, that often. 0 = off. Keeps packed units from piling waves on top of each other. |
+| `foam_ring` | number | 0 | One-shot effects (sets, splashes): foam on the wave's front. A ring grows out from `radius` and adds this much foam each frame, fading out. 0 = none. Pair it with a low `distortion` to get foamy rings instead of one patch of foam. |
+| `foam_ring_speed` | m/s | 0 | How fast the ring grows. 0 = the speed of the simulation's waves. |
+| `foam_ring_width` | 0.3-50 | 1 | Metres, the half width of the band of foam. |
+| `foam_ring_time` | seconds | 3 | How long the ring lasts; its foam fades over this time. |
 
 ## foam trails
 
@@ -272,7 +276,7 @@ Sprays have no `definition` or classes. With the old water, the elephant keeps i
 |---|---|---|---|
 | `duration` | 0.01-10 | 0.8 | Seconds the jet runs. |
 | `stream_speed` | 0-100 | 9 | m/s of the stream leaving the source. |
-| `stream_radius` | 0.005-2 | 0.07 | Metres, the stream's radius at the source. It thins as it flies. |
+| `stream_radius` | 0, 0.005-2 | 0.07 | Metres, the stream's radius at the source. It thins as it flies. 0 = no stream, only the drops and mist. |
 | `breakup` | `[ min max ]` | `[ 0.35 0.7 ]` | Seconds after leaving the source the stream breaks up into drops (0.01-5). |
 | `wobble` | 0-10 | 0.5 | m/s of the stream's sideways wavering. |
 | `pulse` | 0-1 | 0.12 | The blow's pulsing, of the stream's speed. |
