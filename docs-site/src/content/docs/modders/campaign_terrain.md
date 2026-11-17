@@ -3,16 +3,16 @@ title: Campaign terrain
 description: The Campaign Terrain option, PBR ground and tile models, and data-driven coastlines.
 ---
 
-The campaign map's ground art and tile models can come in several interchangeable sets, and players pick one with the **Campaign Terrain** video option. REX ships two sets, **Classic** (the original look) and **Enhanced** (new ground art, tile model textures and PBR maps). M2EX ships Classic only for now, ready for someone to add an Enhanced set.
+The campaign map's ground art and tile models can come in several interchangeable sets, and players pick one with the **Campaign Terrain** option in **Extended Settings**. REX ships two sets, **Classic** (the original look) and **Enhanced** (new ground art, tile model textures and PBR maps). M2EX ships Classic only for now, ready for someone to add an Enhanced set.
 
 ## the Campaign Terrain option
 
-| | Where | When it applies |
-|---|---|---|
-| REX | **Options** > **Video**, with advanced options shown. Also **Options** > **Video Options** inside a campaign. | Straight away. Changing it in a campaign reloads the terrain on the spot. If the new set fails to load, the old one is kept and an error is shown. |
-| M2EX | **Options** > **Video**, left column, under Campaign Map Detail. | The next time a campaign map loads. |
+| Where | When it applies |
+|---|---|
+| **Options** > **Extended Settings** on the main menu. | The next time a campaign map loads. |
+| **Extended Settings** in the in-game options menu, on the campaign map. | Straight away: the terrain reloads on the spot. If the new set fails to load, the old one is kept and an error is shown. |
 
-The choice is saved with the other video settings. The dropdown lists the configurations of the `AERIAL_MAP` section of `descr_toggles_ex.txt`, and is hidden when the mod has no such file or section.
+The option works the same in REX and M2EX, isn't shown in multiplayer, and the choice is saved with the other video settings. The dropdown lists the configurations of the `AERIAL_MAP` section of `descr_toggles_ex.txt`, and is hidden when the mod has no such file or section. It's greyed out unless `descr_caps_ex.txt` sets `enable_file_toggles true`.
 
 ## the AERIAL_MAP section
 
@@ -28,14 +28,14 @@ section AERIAL_MAP
 	{
 		ground_types	descr_aerial_map_ground_types.txt
 		tile_models		descr_aerial_map_tile_models.txt
-		text			UI_VIDEO_CAMPAIGN_GROUND_STYLE_CLASSIC
+		text			UI_TOGGLE_CLASSIC
 	}
 
 	configuration enhanced
 	{
 		ground_types	descr_aerial_map_ground_types_ex.txt
 		tile_models		descr_aerial_map_tile_models_ex.txt
-		text			UI_VIDEO_CAMPAIGN_GROUND_STYLE_ENHANCED
+		text			UI_TOGGLE_ENHANCED
 	}
 }
 ```
@@ -59,11 +59,11 @@ configuration enhanced
 {
 	ground_types	descr_aerial_map_ground_types_ex.txt
 	tile_models		descr_aerial_map_tile_models_ex.txt
-	text			UI_VIDEO_CAMPAIGN_GROUND_STYLE_ENHANCED
+	text			UI_TOGGLE_ENHANCED
 }
 ```
 
-The `UI_VIDEO_CAMPAIGN_GROUND_STYLE_ENHANCED` text already exists in every M2EX language. Set `default enhanced` to make it the default.
+The `UI_TOGGLE_ENHANCED` text already exists in every M2EX language. Set `default enhanced` to make it the default.
 
 ## ground types settings
 
