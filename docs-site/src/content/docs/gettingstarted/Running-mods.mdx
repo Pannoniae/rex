@@ -47,16 +47,17 @@ You can install mods as per the mod's instructions, either by dropping the files
     #### Shortcut method
       1. Make a shortcut to `M2EX.exe`
           - On Windows 11, right-click `M2EX.exe`, then select **Show more options** and **Create shortcut**. You can place the shortcut wherever you want.
-      2. Go to **Properties** on the shortcut, and set **Target** to: `"C:\Program Files (x86)\Steam\steamapps\common\Medieval II Total War\M2EX.exe" @mods\MODFOLDER\MOD.cfg`
+      2. Go to **Properties** on the shortcut, and set **Target** to: `"C:\Program Files (x86)\Steam\steamapps\common\Medieval II Total War\M2EX.exe" "@mods\MODFOLDER\MOD.cfg"`
            - Ensure the first part of the above path reflects where you have M2EX installed.
-           - Replace `MODFOLDER` with the name of the mod folder and `MOD.cfg` with the mod config file inside it, for example `@mods\Tsardoms-3.0\Tsardoms-3.0.cfg`.
+           - Replace `MODFOLDER` with the name of the mod folder and `MOD.cfg` with the mod config file inside it, for example `"@mods\Tsardoms-3.0\Tsardoms-3.0.cfg"`.
+           - Keep the quotes around the `@` part: without them Windows hides it in the shortcut properties.
            - Leave **Start in** as your Medieval 2 folder: the path after `@` is read from there.
            - Only if the mod has no `.cfg` file, use `--features.mod=mods/modfoldername` instead.
            - Remember - if the mod folder of the mod you want to play has a path like `mods/your mod folder/your mod folder`, then you need to target the last one
        3. You can now launch the mod using the shortcut.
-  - You may also use Launch Options in Steam to run mods (e.g. `@mods\MODFOLDER\MOD.cfg`). You can add M2EX as a non-Steam game as many times you want and rename it, adding different launch arguments for different mods.
+  - You may also use Launch Options in Steam to run mods (e.g. `"@mods\MODFOLDER\MOD.cfg"`). You can add M2EX as a non-Steam game as many times you want and rename it, adding different launch arguments for different mods.
 
-  - You can also launch mods in the terminal, from the Medieval 2 folder, with `./M2EX.exe '@mods\MODFOLDER\MOD.cfg'` (the quotes stop PowerShell reading `@` as its own syntax)
+  - You can also launch mods in the terminal, from the Medieval 2 folder, with `./M2EX.exe "@mods\MODFOLDER\MOD.cfg"` (in PowerShell the quotes are required)
   </TabItem>
 
   <TabItem label="Rome">
