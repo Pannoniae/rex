@@ -110,6 +110,27 @@ range_indicator_fuzz 0.008
 
 The `hd_terrain` settings (REX) control the high-detail battle terrain: how often the ground textures repeat up close and far away, how ground types blend, and how strong their normal maps are. See [HD terrain](../../modders/hd_terrain/).
 
+#### Settlement panel layout
+In 20-unit games, these `descr_ex` settings control the classic campaign settlement panel: the building grid on the construction tab, the unit grid on the recruitment tab, and their queues. 40-unit games keep their own fixed layout.
+
+| Setting | Values | Default | What it does |
+|---|---|---|---|
+| `settlement_buildings_per_row` | 1-16 | 6 | Building cards per row on the construction tab. |
+| `settlement_units_per_row` | 1-16 | 9 | Unit cards per row on the recruitment tab. |
+| `settlement_card_rows` | 1-6 | 2 | Rows of cards both tabs show before you need to scroll. |
+
+The game sizes the cards so the rows fill the panel: more cards per row or more rows make them smaller. The same card sizes are used in other campaign panels showing these cards. The defaults are the original game's layout.
+
+- **REX:** cards never grow past their original size. `9`, `10` and `3` match the 40-unit layout.
+- **M2EX:** the queues hold one row's worth of cards, at least the original 6 buildings and 9 units and at most 9 and 11. `9`, `11` and `3` match the 40-unit layout.
+
+For example, to see more buildings and units at once in a 20-unit game:
+```
+settlement_buildings_per_row 9
+settlement_units_per_row 11
+settlement_card_rows 3
+```
+
 #### Bodies in the water
 These `descr_ex` settings control what happens to men and mounts that die in the water, for example soldiers who drown or fall overboard:
 
